@@ -3,8 +3,12 @@ compiler: gcc
 sudo: require
 dist: trusty
 
+before_install:
+
 install:
-  - sudo apt-get -y install coreutils busybox appstreamcli
+  - sudo apt-get -y install coreutils busybox appstream
+
+before_script:
 
 script:
     # Create an empty AppDir structure:
@@ -146,7 +150,23 @@ script:
     #- bash ./upload.sh ./foo-made-by-appimagetool-continuous-git.$VERSION-x86_64.AppImage
     #- bash ./upload.sh ./Minimal-foo-AppDir.tar.gz
 
+after_script:
+  - TRAVIS_TEST_RESULT=$TRAVIS_TEST_RESULT
+  - touch "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
+  - ls -l "$TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
+
+before_cache:
+
+after_failure:
+
 after_success:
+
+before_deploy:
+
+deploy:
+
+after_deploy:
+
 
 branches:
   only:
