@@ -128,10 +128,22 @@ script:
     # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-offset
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
     # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
+
+    # Run a few sanity tests (to be seen in Travis' build log):
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
     # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --help
     # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --help
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --listexe
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --listexe
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --listepub
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --listepub
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --listhtml
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --listhtml
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --listpdf
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --listpdf
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --listreadme
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --listreadme
 
     # Check how many AppImages we have (if named with suffix .AppImage):
   - find . -name "*.AppImage" -ls
