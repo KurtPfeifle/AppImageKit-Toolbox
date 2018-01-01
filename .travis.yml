@@ -4,7 +4,7 @@ sudo: require
 dist: trusty
 
 install:
-  - sudo apt-get -y install coreutils busybox
+  - sudo apt-get -y install coreutils busybox appstreamcli
 
 script:
     # Create an empty AppDir structure:
