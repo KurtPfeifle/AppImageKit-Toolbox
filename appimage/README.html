@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Kurt Pfeifle &lt;kurt.pfeifle@gmail.com&gt;" />
+  <meta name="date" content="2018-01-01" />
+  <title>AppImageKit-Toolbox README</title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">AppImageKit-Toolbox README</h1>
+<h2 class="author">Kurt Pfeifle &lt;<a href="mailto:kurt.pfeifle@gmail.com">kurt.pfeifle@gmail.com</a>&gt;</h2>
+<h3 class="date">2018-01-01</h3>
+</div>
+<div id="TOC">
+<ul>
+<li><a href="#appimagekit-toolbox">AppImageKit-Toolbox</a><ul>
+<li><a href="#make-executable">Make Executable</a></li>
+<li><a href="#renaming-the-appimage">Renaming the AppImage</a></li>
+<li><a href="#usage">Usage</a><ul>
+<li><a href="#sub-commands">Sub-Commands</a></li>
+<li><a href="#general-help">General Help</a></li>
+<li><a href="#other-options">Other Options</a></li>
+<li><a href="#options-common-to-all-recent-appimages">Options Common to All (Recent) AppImages</a></li>
+<li><a href="#unpack-this-appimage">Unpack this AppImage</a></li>
+<li><a href="#extract-individual-tools-or-other-files-from-appimage">Extract Individual Tools (or other files) from AppImage</a></li>
+</ul></li>
+<li><a href="#invoking-built-in-help">Invoking Built-in Help</a></li>
+<li><a href="#screenshots">Screenshots</a></li>
+</ul></li>
+</ul>
+</div>
+<h1 id="appimagekit-toolbox">AppImageKit-Toolbox</h1>
+<p>The Complete Suite of Tools Provided by the AppImage Project to Build AppImages -- Shipping as a Single AppImage!</p>
+<p>The AppImageKit Toolbox ships as an AppImage containing all tools provided by the AppImage project and its contributors. The individual tools are provided as AppImages too (even though you may not recognize them as such at first).</p>
+<p>To the outside world it appears as a &quot;multicall binary&quot;, similar to the <em>busybox</em> suite of tools.</p>
+<p>When called without an argument (or with the <em><code>--help</code></em> parameter), it simply prints a help overview page.</p>
+<p>At this time it is only built for the x86_64 CPU architecture.</p>
+<h2 id="make-executable">Make Executable</h2>
+<p>For security reasons, after downloading an file, it is not by default executable. To make use of this AppImage, you have to set the 'executable' bit first, just as is common to all AppImages:</p>
+<pre><code> $&gt;  chmod a+x ./appimagekit-toolbox*-x86_64.AppImage</code></pre>
+<h2 id="renaming-the-appimage">Renaming the AppImage</h2>
+<p>You may find the original name not so comfortable to use. Feel free to rename this AppImage (you do not even need to keep the .AppImage suffix) any way you like, and it should keep working the same way.</p>
+<p>For example:</p>
+<pre><code>  # Copy the file to one with a shorter name, putting it into your $PATH...
+  $&gt; cp -a  ./appimagekit-toolbox*-x86_64.AppImage  $HOME/bin/aiktb
+
+  # ...or creating a symlink...
+  $&gt; ln -s  $(pwd)/appimagekit-toolbox*-x86_64.AppImage  $HOME/aiktb
+
+  # ...or renaming the AppImage:
+  $&gt; mv  appimagekit-toolbox*-x86_64.AppImage  aiktb</code></pre>
+<h2 id="usage">Usage</h2>
+<p>You can use all the tools included in this &quot;Meta&quot;-AppImage without unpacking it. In this case you need to invoke the functionality of the embedded tool through the respective sub-command.</p>
+<h3 id="sub-commands">Sub-Commands</h3>
+<p>To list all available sub-commands, run the AppImage with the <code>--listexe</code> flag:</p>
+<pre><code> $&gt;  ./appimagekit-toolbox*-x86_64.AppImage --listexe
+
+    AppImageUpdate (GUI)  # GUI utility to check for and apply available updates of AppImage
+    appimaged             # Daemon to auto-integrate stored AppImages into desktop environment
+    appimagetool          # Utility to generate AppImages from AppDirs and to inspect them
+    appimageupdatetool    # CLI tool to check for and apply available updates of AppImage
+    linuxdeployqt         # Utility to prepare an AppDir, its contained executables and
+                            libraries for AppImage creation; can also create the AppImage
+    zsync2                # Utility to efficiently update + syncronize changed files remotely
+                            by applying binary delta patches to existing file
+    zsyncmake2            # Utility to create a .zsync file for an existing file so it can be
+                            later updated via `zsync2`
+    AppRun                # Not meant to be executed by users -- provided for debugging only
+                            (Not an AppImage)
+    runtime               # Not meant to be executed by users -- provided for debugging only
+                            (Not an AppImage)</code></pre>
+<h3 id="general-help">General Help</h3>
+<p>To list all available ways how to invoke this AppImage, run:</p>
+<pre><code> $&gt;  ./appimagekit-toolbox*-x86_64.AppImage --help</code></pre>
+<h3 id="other-options">Other Options</h3>
+<p>By running the AppImage with <em><code>--help</code></em>, you should easily be able to discover the other available options:</p>
+<pre><code> --listexe                    # Enumerate all executables embedded in AppImage
+ --listfile                   # Enumerate all files embedded in AppImage
+
+ --listman                    # List all embedded manual pages
+ --man &lt;name-of-manpage&gt;      # Show the embedded man page specified
+                                (keeps AppImage mounted)
+ --listhtml                   # List all embedded HTML pages
+ --html &lt;path/to/htmlfile&gt;    # Open (in default browser) the embedded HTML page specified
+                                (keeps AppImage mounted)
+ --listpdf                    # List all embedded PDF documents
+ --pdf &lt;path/to/pdffile&gt;      # Open (in default browser) the embedded PDF doc specified
+                                (keeps AppImage mounted)
+ --listepub                   # List all embedded HTML pages
+ --epub &lt;path/to/epubfile&gt;    # Open (in default app) the embedded EPUB doc specified
+                                (keeps AppImage mounted)
+ --listreadme                 # Enumerate all READMEs embedded in AppImage
+ --readme &lt;path/to/readme&gt;    # Show embedded README specified
+                                (keeps AppImage mounted)
+ --listdir                    # List all directory paths embedded in AppImage
+ --dir &lt;path/to/dir&gt;          # Open specified directory path
+                                (keeps AppImage mounted)</code></pre>
+<h3 id="options-common-to-all-recent-appimages">Options Common to All (Recent) AppImages</h3>
+<p>You can run this AppImage (as all other AppImages which are built according to our recommended best practices) with the <em><code>--appimage-help</code></em> parameter. This enumerates options which are common to all AppImages:</p>
+<h3 id="unpack-this-appimage">Unpack this AppImage</h3>
+<p>You can unpack this AppImage into a local sub-directory (currently named <em>squashfs-root</em>) by running this command:</p>
+<pre><code>./appimagekit-toolbox*-x86_64.AppImage --appimage-extract</code></pre>
+<p>Now you can find the binaries then in <em>./squashfs-root/usr/bin/</em>. These are mostly AppImages themselves, even if they here carry names which do not make use of the .AppImage suffix. This can be useful if you want to run one or all of the tools directly (not as a sub-command from the &quot;mother&quot; AppImage).</p>
+<pre><code> $&gt;  ls -l ./squashfs-root/usr/bin
+
+    -rwxrwxr-x 1 kp kp   271792 Jan  1 00:00 appimaged
+    -rwxrwxr-x 1 kp kp   468400 Jan  1 00:00 appimagetool
+    -rwxrwxr-x 1 kp kp 10253744 Jan  1 00:00 AppImageUpdate
+    -rwxrwxr-x 1 kp kp  8754608 Jan  1 00:00 appimageupdatetool
+    -rwxrwxr-x 1 kp kp    10872 Jan  1 00:00 AppRun
+    -rwxrwxr-x 1 kp kp 14546352 Jan  1 00:00 linuxdeployqt
+    -rwxrwxr-x 1 kp kp   116144 Jan  1 00:00 runtime
+    -rwxrwxr-x 1 kp kp  2381496 Jan  1 00:00 zsync2
+    -rwxrwxr-x 1 kp kp  2389688 Jan  1 00:00 zsyncmake2</code></pre>
+<h3 id="extract-individual-tools-or-other-files-from-appimage">Extract Individual Tools (or other files) from AppImage</h3>
+<p>If you only want to extract individual tools or other files from this AppImage, you do not need to use <em><code>--appimage-extract</code></em>. You can run it with <em><code>--appimage-mount</code></em>. This will mount the AppImage and print the mount point, keeping it mounted. Now you can use any utility you want (either a graphical file manager or a different terminal/console instance) to go into the mounted file hierarchy, look around and copy files to any location outside of that file tree.</p>
+<p>To umount again, simply go to the first terminal and hit <em><code>&quot;ctrl+c&quot;</code></em>.</p>
+<h2 id="invoking-built-in-help">Invoking Built-in Help</h2>
+<p>For a general overview simply run</p>
+<pre><code>./appimagekit-toolbox*-x86_64.AppImage --help</code></pre>
+<p>You can also access the embedded AppImageKit manual pages. For example, to view the man page for AppImage(7) invoke</p>
+<pre><code>./appimagekit-toolbox*-x86_64.AppImage --man 7 AppImage</code></pre>
+<p>TODO: complete this README with a view more topics</p>
+<h2 id="screenshots">Screenshots</h2>
+<div class="figure">
+<img src="https://i.stack.imgur.com/B8XoV.jpg" title="appimagekit-toolbox: available sub-commands" alt="appimagekit-toolbox: available sub-commands" />
+<p class="caption">appimagekit-toolbox: available sub-commands</p>
+</div>
+<div class="figure">
+<img src="https://i.stack.imgur.com/sPIBL.jpg" title="appimagekit-toolbox: help screen" alt="appimagekit-toolbox: help screen" />
+<p class="caption">appimagekit-toolbox: help screen</p>
+</div>
+</body>
+</html>
