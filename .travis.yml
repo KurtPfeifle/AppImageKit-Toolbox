@@ -73,29 +73,43 @@ script:
   - ./appdir/usr/bin/linuxdeployqt ./appdir/usr/bin/env                      -bundle-non-qt-libs -verbose=2
 
     # Let `linuxdeployqt` create the first AppImage:
-  - ./appdir/usr/bin/linuxdeployqt ./appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -verbose=2 -appimage
+    #- ./appdir/usr/bin/linuxdeployqt ./appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -verbose=2 -appimage    # Creation of AppImage does not work
+  - ./appdir/usr/bin/linuxdeployqt ./appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -verbose=2
+  - ./appdir/usr/bin/linuxdeployqt ./appdir/usr/bin/appimagekit-toolbox                          -verbose=2 -appimage       # Does creation of AppImage work this way?
 
     # Set up a VERSION string to be used for the toolbox AppImage name:
   - VERSION=$(git rev-parse --short HEAD)
 
     # Rename the generated AppImage with the VERSION string included:
-  - mv appimagekit-toolbox*.AppImage                                                       ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
+    #- mv appimagekit-toolbox*.AppImage                                                       ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage  # Renaming will not work if AppImage creation failed
 
-    # Let `appimagetool` create the second AppImage:
-  - PATH=./squashfs-root/usr/bin:$PATH ./squashfs-root/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
+    # Extract the AppImage that is in ./appdir/usr/bin/linuxdeployqt:
+  - ./appdir/usr/bin/linuxdeployqt --appimage-extract
+
+    # Check for consistency/inconsistency in appimagetool(s)
+  - ls -l ./squashfs-root/usr/bin/appimagetool  ./appdir/usr/bin/appimagetool
+  - md5sum ./squashfs-root/usr/bin/appimagetool ./appdir/usr/bin/appimagetool
+  - ./squashfs-root/usr/bin/appimagetool --version
+  - ./appdir/usr/bin/appimagetool        --version
+
+    # Let `appimagetool` from extracted linuxdeployqt create the second AppImage:
+    #- PATH=./squashfs-root/usr/bin:$PATH           ./squashfs-root/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
+
+    # Let `appimagetool` downloaded into ./appdir/usr/bin  create the second AppImage:
+  - PATH=./appdir/usr/bin:./squashfs-root/usr/bin:$PATH ./appdir/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
 
     # See what we got (just for Travis' build log):
   - find . -name "*.AppImage" -ls
 
     # Check a few things (to be seen in Travis' build log):
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-version
-  - ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-version
+    #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-version
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-offset
-  - ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-offset
+    #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-offset
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
-  - ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
+    #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
-  - ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
+    #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
 
     # Check how many AppImages we have (if named with suffix .AppImage):
   - find . -name "*.AppImage" -ls
