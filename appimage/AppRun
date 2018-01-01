@@ -53,6 +53,18 @@ if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
     echo "   $ARGV0  --html appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun"
     echo "                 # Use browser to display embedded manual page(s)"
     echo ""
+    echo "   $ARGV0  --listpdf"
+    echo "                 # List as PDF embedded manual page(s)"
+    echo ""
+    echo "   $ARGV0  --pdf appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun"
+    echo "                 # Use browser to display embedded manual page(s)"
+    echo ""
+    echo "   $ARGV0  --listepub"
+    echo "                 # List as EPUB embedded manual page(s)"
+    echo ""
+    echo "   $ARGV0  --epub appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun"
+    echo "                 # Use browser to display embedded manual page(s)"
+    echo ""
     echo "   $ARGV0  --listfile"
     echo "                 # List all files embedded in AppImage"
     echo ""
@@ -119,7 +131,7 @@ if [ x"$1" == "xdir" -o x"$1" == "x--dir" ] ; then
     echo ""
     if [ x"$1" == "x" ] ; then
         echo " You must give a path to the directory you want to open."
-        echo "   For available directories run \"$ARGV0 listdir\"."
+        echo "   For available directories run \"$ARGV0 --listdir\"."
     else
         xdg-open $HERE/$1
         sleep 3
@@ -171,7 +183,7 @@ if [ x"$1" == "xreadme" -o x"$1" == "x--readme" ] ; then
     echo ""
     if [ x"$1" == "x" ] ; then
         echo " You must give a path to the README you want to open."
-        echo "   For available READMEs run \"$ARGV0 listreadme\"."
+        echo "   For available READMEs run \"$ARGV0 --listreadme\"."
     else
         readmefile=$( find . -type f -name "*README*" -o -name "*readme*" -o -name "*.txt" -o -name "*.md" | grep "${1}" | sort -rV | head -n 1 )
         cat $readmefile
@@ -197,10 +209,62 @@ if [ x"$1" == "xhtml" -o x"$1" == "x--html" ] ; then
     echo ""
     if [ x"$1" == "x" ] ; then
         echo " You must give a path to the HTML file you want to open."
-        echo "   For available HTML documents run \"$ARGV0 listhtml\"."
+        echo "   For available HTML documents run \"$ARGV0 --listhtml\"."
     else
         htmlfile=$( find . -type f -name "*.html" | grep ${1/.html/}.html | sort -rV | head -n 1 )
         xdg-open $htmlfile
+        sleep 5
+    fi
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xlistpdf" -o x"$1" == "x--listpdf" ] ; then
+    cd "$HERE"
+    echo ""
+    find . -type f -name "*.pdf" | sed 's#^./#  pdf #'
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xpdf" -o x"$1" == "x--pdf" ] ; then
+    cd "$HERE"
+    shift
+    echo ""
+    if [ x"$1" == "x" ] ; then
+        echo " You must give a path to the PDF file you want to open."
+        echo "   For available PDF documents run \"$ARGV0 --listpdf\"."
+    else
+        pdffile=$( find . -type f -name "*.pdf" | grep ${1/.pdf/}.pdf | sort -rV | head -n 1 )
+        xdg-open $pdffile
+        sleep 5
+    fi
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xlistepub" -o x"$1" == "x--listepub" ] ; then
+    cd "$HERE"
+    echo ""
+    find . -type f -name "*.epub" | sed 's#^./#  epub #'
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xepub" -o x"$1" == "x--epub" ] ; then
+    cd "$HERE"
+    shift
+    echo ""
+    if [ x"$1" == "x" ] ; then
+        echo " You must give a path to the EPUB file you want to open."
+        echo "   For available EPUB documents run \"$ARGV0 --listepub\"."
+    else
+        epubfile=$( find . -type f -name "*.epub" | grep ${1/.epub/}.epub | sort -rV | head -n 1 )
+        xdg-open $epubfile
         sleep 5
     fi
     echo ""
