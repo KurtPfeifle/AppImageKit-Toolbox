@@ -20,12 +20,12 @@ script:
   - cp -a ./appimage/AppRun                              ./appdir/AppRun
   - cp -a ./appimage/appimagekit-toolbox.png             ./appdir/usr/share/icons/hicolor/512x512/apps/ # linuxdeployqt wants it here...
   - cp -a ./appimage/appimagekit-toolbox.png             ./appdir/                                      # appimagetool wants it here!
-  - cp -a ./appimage/org.toolbox.appimag-usage.sshop     ./appdir/usr/share/applications/               # linuxdeployqt wants it here...
+  - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/usr/share/applications/               # linuxdeployqt wants it here...
   - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/                                      # appimagetool wants it here!
   - cp -a ./appimage/org.toolbox.appimagekit.appdata.xml ./appdir/usr/share/metainfo/
 
     # Copy the (stub) `appimagekit-toolbox` script to its location:
-  - cp -a ./appimage/appimagekit-toolbox                 ./appdir/usr/bin/
+  - cp -a ./appimage/appimagekit-toolbox-usage.sh        ./appdir/usr/bin/
 
     # Add debugging tools to toolbox:
   - cp -a /usr/bin/env                                   ./appdir/usr/bin/
