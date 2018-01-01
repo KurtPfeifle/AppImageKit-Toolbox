@@ -103,13 +103,15 @@ script:
 
     # Check a few things (to be seen in Travis' build log):
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-version
-    #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-version
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-version
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-offset
-    #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-offset
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-offset
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
-    #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
-    #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --help
+    # ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --help
 
     # Check how many AppImages we have (if named with suffix .AppImage):
   - find . -name "*.AppImage" -ls
@@ -117,7 +119,7 @@ script:
     # Debugging: find all files recursively from where we are:
   - find . -ls
 
-after_success:
+    #after_success:
     # Check if we have binaries which link to libraries outside of the AppImage:
   - find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
 
@@ -138,6 +140,8 @@ after_success:
     #- bash ./upload.sh ./foo-made-by-linuxdeployqt-continuous-git.$VERSION-x86_64.AppImage
     #- bash ./upload.sh ./foo-made-by-appimagetool-continuous-git.$VERSION-x86_64.AppImage
     #- bash ./upload.sh ./Minimal-foo-AppDir.tar.gz
+
+after_success:
 
 branches:
   only:
