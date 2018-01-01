@@ -10,7 +10,8 @@ script:
     # Create an empty AppDir structure:
   - mkdir -p ./appdir/usr/{bin,share/{applications,metainfo,man/man1,icons/hicolor/512x512/apps}}
 
-    # Populate the AppDir with icon, .desktop file and AppStream metadata:
+    # Populate the AppDir with custom AppRun, icon, .desktop file and AppStream metadata:
+  - cp -a ./appimage/AppRun                              ./appdir/AppRun
   - cp -a ./appimage/appimagekit-toolbox.png             ./appdir/usr/share/icons/hicolor/512x512/apps/
   - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/usr/share/applications/
   - cp -a ./appimage/org.toolbox.appimagekit.appdata.xml ./appdir/usr/share/metainfo/
