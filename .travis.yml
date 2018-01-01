@@ -8,7 +8,7 @@ before_install:
   - sudo apt-get -y update
 
 install:
-  - sudo apt-get -y install coreutils busybox appstream
+  - sudo apt-get -y install coreutils busybox-static appstream
 
 before_script:
 
