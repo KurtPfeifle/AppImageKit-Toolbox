@@ -104,6 +104,13 @@ script:
     # Let `appimagetool` from extracted linuxdeployqt create the second AppImage:
     #- PATH=./squashfs-root/usr/bin:$PATH           ./squashfs-root/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
 
+    # Check what we have:
+  - ls -l ./appdir/AppRun ./squashfs-root/AppRun
+
+    # Remove the symlinked AppRun and copy custom AppRun in place (dunno why line 20 didn't prevail):
+  - rm -rf ./appdir/AppRun
+  - cp -a ./appimage/AppRun ./appdir/
+
     # Let `appimagetool` downloaded into ./appdir/usr/bin  create the second AppImage:
   - PATH=./appdir/usr/bin:./squashfs-root/usr/bin:$PATH ./appdir/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
 
@@ -129,11 +136,8 @@ script:
   - find . -ls
   - file ./appdir/AppRun ./appimage/AppRun
 
-    # Remove the symlinked AppRun and copy custom AppRun in place (dunno why line 20 didn't prevail):
-  - rm -rf ./appdir/AppRun
-  - cp -a ./appimage/AppRun ./appdir/
+#after_success:
 
-    #after_success:
     # Check if we have binaries which link to libraries outside of the AppImage:
   - find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
 
@@ -161,7 +165,7 @@ script:
 after_script:
   - TRAVIS_TEST_RESULT=$TRAVIS_TEST_RESULT
   - touch "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
-  - ls -l "$TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
+  - ls -l "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
 
 before_cache:
 
