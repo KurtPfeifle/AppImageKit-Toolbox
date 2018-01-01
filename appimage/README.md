@@ -81,7 +81,7 @@ available options:
      --listfile                   # Enumerate all files embedded in AppImage
 
      --listman                    # List all embedded manual pages
-     --man <path/to/manpage>      # Show the embedded man page specified
+     --man <name-of-manpage>      # Show the embedded man page specified
                                     (keeps AppImage mounted)
      --listhtml                   # List all embedded HTML pages
      --html <path/to/htmlfile>    # Open (in default browser) the embedded HTML page specified

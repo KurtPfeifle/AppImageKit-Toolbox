@@ -14,7 +14,7 @@ before_script:
 
 script:
     # Create an empty AppDir structure:
-  - mkdir -p ./appdir/usr/{bin,share/{applications,metainfo,man/man1,icons/hicolor/512x512/apps}}
+  - mkdir -p ./appdir/usr/{bin,share/{applications,metainfo,man/man{1,7},icons/hicolor/512x512/apps}}
 
     # Populate the AppDir with custom AppRun, icon, .desktop file and AppStream metadata:
   - cp -a ./appimage/AppRun                              ./appdir/AppRun
@@ -32,10 +32,16 @@ script:
   - cp -a /bin/busybox                                   ./appdir/usr/bin/
 
     # Add man pages to toolbox:
+  - find ./usr/share/man -type f
+  - find ./usr/share/doc -type f
+  - cp -a ./usr/share/man/*                              ./appdir/usr/share/man/
+  - cp -a ./usr/share/doc/*                              ./appdir/usr/share/doc/
+    # TODO: Write and add the other AppImageKit manpages and HTML/PDF/EPUB docs too
   - cp -a /usr/share/man/man1/busybox.1*                 ./appdir/usr/share/man/man1/
   - cp -a /usr/share/man/man1/env.1*                     ./appdir/usr/share/man/man1/
+  - find ./appdir/usr/share/man -type f
+  - find ./appdir/usr/share/doc -type f
 
-    # TODO: Add the AppImageKit manpages too
 
     # Add README.md to the toolbox
   - cp -a ./appimage/README.md ./appdir/
@@ -113,6 +119,7 @@ script:
 
     # Let `appimagetool` downloaded into ./appdir/usr/bin  create the second AppImage:
   - PATH=./appdir/usr/bin:./squashfs-root/usr/bin:$PATH ./appdir/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
+  - touch -t "201801010000.01" ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
 
     # See what we got (just for Travis' build log):
   - find . -name "*.AppImage" -ls
