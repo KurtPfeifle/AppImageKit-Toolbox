@@ -11,20 +11,20 @@ script:
   - mkdir -p ./appdir/usr/{bin,share/{applications,metainfo,man/man1,icons/hicolor/512x512/apps}}
 
     # Populate the AppDir with icon, .desktop file and AppStream metadata:
-  - cp -a ./appimage/appimagekit-toolbox.png            ./appdir/usr/share/icons/hicolor/512x512/apps/
-  - cp -a ./appimage/org.oneapplication.foo.desktop     ./appdir/usr/share/applications/
-  - cp -a ./appimage/org.oneapplication.foo.appdata.xml ./appdir/usr/share/metainfo/
+  - cp -a ./appimage/appimagekit-toolbox.png             ./appdir/usr/share/icons/hicolor/512x512/apps/
+  - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/usr/share/applications/
+  - cp -a ./appimage/org.toolbox.appimagekit.appdata.xml ./appdir/usr/share/metainfo/
 
     # Copy the (stub) `appimagekit-toolbox` script to its location:
-  - cp -a ./appimage/appimagekit-toolbox                ./appdir/usr/bin/
+  - cp -a ./appimage/appimagekit-toolbox                 ./appdir/usr/bin/
 
     # Add debugging tools to toolbox:
-  - cp -a /usr/bin/env                                  ./appdir/usr/bin/
-  - cp -a /bin/busybox                                  ./appdir/usr/bin/
+  - cp -a /usr/bin/env                                   ./appdir/usr/bin/
+  - cp -a /bin/busybox                                   ./appdir/usr/bin/
 
     # Add man pages to toolbox:
-  - cp /usr/share/man/man1/busybox.1*                ./appdir/usr/share/man/man1/
-  - cp /usr/share/man/man1/env.1*                    ./appdir/usr/share/man/man1/
+  - cp -a /usr/share/man/man1/busybox.1*                 ./appdir/usr/share/man/man1/
+  - cp -a /usr/share/man/man1/env.1*                     ./appdir/usr/share/man/man1/
 
     # TODO: Add the AppImageKit manpages too
 
