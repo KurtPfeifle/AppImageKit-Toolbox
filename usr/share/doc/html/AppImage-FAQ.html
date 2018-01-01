@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="" />
+  <meta name="date" content="2017-11-21" />
+  <title>APPIMAGEFAQ(1) | AppImage FAQs for Version 2017/11</title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">APPIMAGEFAQ(1) | AppImage FAQs for Version 2017/11</h1>
+<h2 class="author"></h2>
+<h3 class="date">2017-11-21</h3>
+</div>
+<!-- Generate man, HTML or PDF output like so:
+
+    pandoc AppImage-FAQs-manpage.md -o AppImage-FAQs-manpage.man  -s -f markdown -t man   -V footer:"Manual Page Version 0.0.1"
+    pandoc AppImage-FAQs-manpage.md -o AppImage-FAQs-manpage.html -s -f markdown -t html
+    pandoc AppImage-FAQs-manpage.md -o AppImage-FAQs-manpage.pdf  -s -f markdown -t latex -V footer:"Manual Page Version 0.0.1" -V geometry:"margin=1.5cm, paperwidth=595pt, paperheight=297mm"
+
+-->
+<h1 id="name">Name</h1>
+<p>Frequently Asked Questions regarding AppImages, AppImageKit and their Design &amp; Development</p>
+<h1 id="synopsis">Synopsis</h1>
+<p>Many questions -- short answers.</p>
+<h1 id="go-on">Go on!</h1>
+<p><strong>What is the most important feature of the stuff you guys do?</strong></p>
+<p><strong>So what exactly is an application that is at the same time one file only?</strong></p>
+<p><strong>And that's all? Even when I want to test hundreds of AppImages and their versions I do not need to have a package manager working for me?</strong></p>
+<p><strong>What is the special thing about AppImages then?</strong></p>
+<p><strong>How do you boot all these ISO Live systems from a single medium? Is there any trick we need to know about and you are willing to share with us?</strong></p>
+<p><strong>Is this why I've heard people saying about AppImages: <em>&quot;Build Once, Run Anywhere&quot;</em>?</strong></p>
+<p><strong>Do AppImages ship with a secure sandbox or firewall? You know, in order to isolate their apps from the system and from other applications?</strong></p>
+<p><strong>Isn't this &quot;isolation&quot;, &quot;sandboxing&quot; and &quot;firewalling&quot; thing pretty important nowadays? At least it is all the buzz I keep hearing about Snap and Flatpak, which seem to be doing pretty well in this area and seem to be projects competing with you...</strong></p>
+<p><strong>You think package managing systems are not a nice thing to have per se, but only a 'dirty' tool?</strong></p>
+<p><strong>You seem to think a deeper change to the software building process is called for than what it looks at first when you encounter a working AppImage?</strong></p>
+<p><strong>How does AppImage fit into the picture with Snapcraft and Flatpak then?</strong></p>
+<p><strong>Uff... this is pretty heavy stuff! And this was your answer about the &quot;isolation&quot; and &quot;firewalling&quot; I asked?</strong></p>
+<p><strong>Ok, let me try again. Which external tools can I use for sandboxing / firewalling with AppImages then?</strong></p>
+<p><strong>Is there a HowTo of running an AppImage inside a sandbox?</strong></p>
+<p><strong>They say that your method to achieve your goal <em>&quot;1 app = 1 file&quot;</em> is leading to bloat. They say, I end up with dozens of versions of the same library in my file system, where I'd need only one! They say, you're wasting my precious disk space...</strong></p>
+<p><strong>Waaiiiiit! I do not believe you: what about when the AppImage runs? It does need to be expanded then, for sure!</strong></p>
+<p><strong>Sorry to have interrupted -- but I needed this clarification. What was your second point again?</strong></p>
+<p><strong>But isn't a typical RPM or DEB package also compressed when it is downloaded and installed? Isn't the AppImage advantage here purely ficticious?</strong></p>
+<p><strong>Can you give me an example? One which a lot of Linux people would be using? How much space does that translate to for, say, LibreOffice?</strong></p>
+<p><strong>So I can put any AppImage somewhere into my $HOME directory and run it from there?</strong></p>
+<p><strong>AppImages are only for individual users then? And each one has to get her/his own copy of an AppImage if they want to use it?</strong></p>
+<p><strong>Sounds good so far... But aren't you a bit too much obsessed by your project? Hasn't your &quot;one app = one file&quot; principle now become a little dogma? Won't you ever make a compromise about this? Say, I wanted to integrate my collected AppImages into my desktop...</strong></p>
+<p><strong>What does it do?</strong></p>
+<p><strong>But, but... isn't that act of extracting the .desktop and Icon files a sort of &quot;installation&quot;??</strong></p>
+<p><strong>How do I remove the new menu entries, .desktop and icon files from the start menu again? (Now we have a case of clutter, I knew it!)</strong></p>
+<p><strong>Where can I get this magic daemon? Sure now I need to find a package from my distro! What do I do if they don't have it?</strong></p>
+<p><strong>In the end, you do not look as dogmatic as I thought...</strong></p>
+<p><strong>Why is there such an inconsistent naming convention with your tools? Some go with all lowercase, some with CamelCase spelling?</strong></p>
+<p><strong>Is there an AppImage AppStore?</strong></p>
+<p><strong>Why don't you provide your own collection of AppImages? Why don't you run your own AppImage AppStore?</strong></p>
+<p><strong>An example Linux distro which embraces AppImages?</strong></p>
+<p><strong>History</strong></p>
+<p><strong>What are you currently working on? What are you planning for future work?</strong></p>
+<p><strong>Does AppImage have a formal specification?</strong></p>
+<p><strong>Where is your Code?</strong></p>
+<p><strong>Where can I get in touch with you guys online?</strong></p>
+<p><strong>Do you have a Wiki?</strong></p>
+<p><strong>Is there a centrally maintained list of available AppImages?</strong></p>
+<p><strong>Do you have a Homepage?</strong></p>
+<p><strong>Do you have &quot;job openings&quot;? Which areas are you in need of helping hands mostly?</strong></p>
+<dl>
+<dt><strong>Are there man pages about your stuff?</strong></dt>
+<dd><p>Soon. Look for</p>
+<p>AppImage-AppDir(7), AppImage-AppImage(1), AppImage-AppImageKit(7), AppImage-AppImageUpdate(1), AppImage-AppRun(7), AppImage-FAQ(7), AppImage-Overview(7), AppImage-appimaged(1), AppImage-appimagetool(1), AppImage-linuxdeployqt(1), AppImage-payload(7) AppImage-pkg2appimage(1), AppImage-runtime(7), AppImage-validate(1), AppImage-zsync2(1), AppImage-zsyncmake2(1)</p>
+<p>and ask your favorite distro to make a package of manpages :-)</p>
+</dd>
+<dt><strong>Developers</strong></dt>
+<dd><p>AppImage is developed by Simon Peter and a growing team of contributors. Simon is also the one who formulated and then pursued the packaging principle of <em>&quot;One App = One File&quot;</em> since over 13 years already. And he's not looking like he's ever willing to make any compromises on THIS one...</p>
+</dd>
+</dl>
+</body>
+</html>

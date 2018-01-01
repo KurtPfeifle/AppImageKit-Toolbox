@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="" />
+  <meta name="date" content="2017-11-21" />
+  <title>APPIMAGEKIT(1) | AppImage ... Manual for Version 2017/11</title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<div id="header">
+<h1 class="title">APPIMAGEKIT(1) | AppImage ... Manual for Version 2017/11</h1>
+<h2 class="author"></h2>
+<h3 class="date">2017-11-21</h3>
+</div>
+<!-- Generate man, HTML or PDF output like so:
+
+    pandoc AppImage-linuxdeployqt-manpage.md -o AppImage-linuxdeployqt-manpage.man  -s -f markdown -t man   -V footer:"Manual Page Version 0.0.1"
+    pandoc AppImage-linuxdeployqt-manpage.md -o AppImage-linuxdeployqt-manpage.html -s -f markdown -t html
+    pandoc AppImage-linuxdeployqt-manpage.md -o AppImage-linuxdeployqt-manpage.pdf  -s -f markdown -t latex -V footer:"Manual Page Version 0.0.1" -V geometry:"margin=1.5cm, paperwidth=595pt, paperheight=297mm"
+
+-->
+<!-- 
+ linuxdeployqt (which despite its Qt focus is useful as a general purpose library gatherer / bundler,
+-->
+<h1 id="name">Name</h1>
+<p><code>linuxdeployqt</code> -- take an application as input and make it self-contained by copying in the Qt libraries and plugins which the application uses.</p>
+<h1 id="synopsis">Synopsis</h1>
+<p><code>linuxdeployqt</code> <em><app-binary|desktop file></em> <em><a href="#options">options</a></em></p>
+<h1 id="options">Options</h1>
+<dl>
+<dt><code>-verbose=&lt;0-3&gt;</code></dt>
+<dd><p>0 = no output,</p>
+<p>1 = error/warning (default),</p>
+<p>2 = normal,</p>
+<p>3 = debug</p>
+</dd>
+<dt><code>-no-plugins</code></dt>
+<dd>Skip plugin deployment
+</dd>
+<dt><code>-appimage</code></dt>
+<dd>Create an AppImage (implies <code>-bundle-non-qt-libs</code>)
+</dd>
+<dt><code>-no-strip</code></dt>
+<dd>Don't run 'strip' on the binaries
+</dd>
+<dt><code>-bundle-non-qt-libs</code></dt>
+<dd>Also bundle non-core, non-Qt libraries
+</dd>
+<dt><code>-executable=&lt;path&gt;</code></dt>
+<dd>Let the given executable use the deployed libraries too
+</dd>
+<dt><code>-qmldir=&lt;path&gt;</code></dt>
+<dd>Scan for QML imports in the given path
+</dd>
+<dt><code>-always-overwrite</code></dt>
+<dd>Copy files even if the target file exists
+</dd>
+<dt><code>-qmake=&lt;path&gt;</code></dt>
+<dd>The qmake executable to use
+</dd>
+<dt><code>-no-translations</code></dt>
+<dd>Skip deployment of translations.
+</dd>
+</dl>
+<h2 id="differences-to-macdeployqt">Differences to <code>macdeployqt</code></h2>
+<p><code>linuxdeployqt</code> is conceptually based on Qt's <a href="http://doc.qt.io/qt-5/osx-deployment.html">Mac Deployment Tool</a>, <code>macdeployqt</code>. <code>macdeployqt</code> lives in the tools applications of the Qt Toolkit. <code>linuxdeployqt</code> however has been changed to a slightly different logic and to other tools needed for Linux.</p>
+<ul>
+<li>Instead of an <code>.app</code> bundle for macOS, this produces an <a href="http://rox.sourceforge.net/desktop/AppDirs.html">AppDir</a> for Linux (see also <code>man AppImage-AppDir.man</code>).</li>
+<li>Instead of a <code>.dmg</code> disk image for macOS, this produces an <a href="http://appimage.org/">AppImage</a> for Linux. An AppImage is quite similar to a .dmg but it directly executes the contained application rather than just opening a window on the desktop from where the application can be launched with an extra action.</li>
+</ul>
+<h1 id="main-features">Main Features</h1>
+<p>By default <code>linuxdeployqt</code> deploys the same Qt instance which qmake on the <code>$PATH</code> points to. The '-qmake' option can be used to point to the qmake executable to be used instead.</p>
+<p>Plugins related to a Qt library are copied in with the library.</p>
+<p>See the &quot;Deploying Applications on Linux&quot; topic in the AppImageKit Wiki documentation for more information about deployment on Linux.</p>
+<h1 id="installation">Installation</h1>
+<ol style="list-style-type: decimal">
+<li>Download <strong>linuxdeployqt-x86_64.AppImage</strong> from the <a href="https://github.com/probonopd/linuxdeployqt/releases">Releases</a> page.</li>
+<li><code>chmod a+x</code> it.</li>
+</ol>
+<p>If you would like to build <code>linuxdeployqt</code> from source instead, see <a href="https://github.com/probonopd/linuxdeployqt/blob/master/BUILDING.md">BUILDING.md</a>.</p>
+<h1 id="benefits-for-developers">Benefits for Developers</h1>
+<h1 id="benefits-for-end-users">Benefits for End Users</h1>
+<h1 id="scope">Scope</h1>
+<h1 id="description-of-tools">Description of Tools</h1>
+<h1 id="examples">Examples</h1>
+<h1 id="history">History</h1>
+<h1 id="current-and-future-work">Current and Future Work</h1>
+<h1 id="specification">Specification</h1>
+<h1 id="code">Code</h1>
+<h1 id="irc">IRC</h1>
+<p>The AppImage developers can be met online in IRC at Freenode in channel #AppImage.</p>
+<h2 id="known-issues">Known issues</h2>
+<p><strong>This may not be fully working yet.</strong> See <a href="https://github.com/probonopd/linuxdeployqt/issues">GitHub Issues</a> for known issues. Use with care, run with maximum verbosity, submit issues and pull requests. Help is appreciated.</p>
+<h1 id="bug-tracker">Bug Tracker</h1>
+<p>Submit bugs, improvement suggestions, feature requests and PRs at <a href="https://github.com/probonopd/linuxdeployqt/issues">GitHub Issues</a>.</p>
+<h1 id="wiki">Wiki</h1>
+<!--
+https://github.com/probonopd/linuxdeployqt
+-->
+<h1 id="list-of-available-appimage-d-software">List of available AppImage-d Software</h1>
+<h1 id="homepage">Homepage</h1>
+<h1 id="see-also">See Also</h1>
+<p>AppImage-AppDir(7), AppImage-AppImage(1), AppImage-AppImageKit(7), AppImage-AppImageUpdate(1), AppImage-AppRun(7), AppImage-FAQ(7), AppImage-appimaged(1), AppImage-appimagetool(1), <!-- AppImage-linuxdeployqt(1), --> AppImage-payload(7) AppImage-pkg2appimage(1), AppImage-runtime(7), AppImage-validate(1), AppImage-zsync2(1), AppImage-zsyncmake2(1).</p>
+<h1 id="developers">Developers</h1>
+<p>linuxdeployqt is developed by Simon Peter (<a href="mailto:probono@puredarwin.org">probono@puredarwin.org</a>) and others.</p>
+<h1 id="author">Author</h1>
+<p>This manual page was written by Kurt Pfeifle (<a href="mailto:kurt.pfeifle@gmail.com">kurt.pfeifle@gmail.com</a>) for the AppImage Project.</p>
+</body>
+</html>
