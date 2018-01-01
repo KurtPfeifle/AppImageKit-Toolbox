@@ -15,16 +15,12 @@
 	</description>
 	<screenshots>
 		<screenshot type="default">
-			<caption>AppImageKit Toolbox Help Page 2018</caption>
-			<image height="1191" width="992">https://raw.githubusercontent.com/adeveloper/env-oneapplication/master/doc/img/env_interface-2018.png</image>
+			<caption>AppImageKit Toolbox: Help Page 2018</caption>
+                        <image height="1564" width="1228">https://i.stack.imgur.com/sPIBL.jpg</image>
 		</screenshot>
 		<screenshot>
-			<caption>xxxxxxxxxxxx</caption>
-			<image height="783" width="248">https://raw.githubusercontent.com/adeveloper/env-oneapplication/master/doc/img/env_data.png</image>
-		</screenshot>
-		<screenshot>
-			<caption>yyyyyyyyyyyyyyy</caption>
-			<image height="669" width="486">https://raw.githubusercontent.com/adeveloper/env-oneapplication/master/doc/img/env_advanced.png</image>
+			<caption>AppImageKit Toolbox: Available Sub-Commands</caption>
+                        <image height="374" width="1354">https://i.stack.imgur.com/B8XoV.jpg</image>
 		</screenshot>
 	</screenshots>
 	<provides>
