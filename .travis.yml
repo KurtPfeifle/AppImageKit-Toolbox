@@ -28,8 +28,8 @@ script:
 
     # TODO: Add the AppImageKit manpages too
 
-    # Add README to the toolbox
-  - cp -a ./appimage/README ./appdir/
+    # Add README.md to the toolbox
+  - cp -a ./appimage/README.md ./appdir/
 
     # Add AppImageKit binaries (as AppImages!) to toolbox and rename them at the same time:
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64"                                     -O ./appdir/usr/bin/AppRun
@@ -99,6 +99,9 @@ script:
 
     # Check how many AppImages we have (if named with suffix .AppImage):
   - find . -name "*.AppImage" -ls
+
+    # Debugging: find all files recursively from where we are:
+  - find . -ls
 
 after_success:
     # Check if we have binaries which link to libraries outside of the AppImage:
