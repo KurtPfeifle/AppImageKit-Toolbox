@@ -13,7 +13,8 @@ script:
     # Populate the AppDir with custom AppRun, icon, .desktop file and AppStream metadata:
   - cp -a ./appimage/AppRun                              ./appdir/AppRun
   - cp -a ./appimage/appimagekit-toolbox.png             ./appdir/usr/share/icons/hicolor/512x512/apps/
-  - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/usr/share/applications/
+  - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/usr/share/applications/   # linuxdeployqt wants it here.
+  - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/                          # appimagetool wants it here!
   - cp -a ./appimage/org.toolbox.appimagekit.appdata.xml ./appdir/usr/share/metainfo/
 
     # Copy the (stub) `appimagekit-toolbox` script to its location:
