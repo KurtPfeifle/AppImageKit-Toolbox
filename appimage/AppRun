@@ -1,0 +1,238 @@
+#!/bin/bash
+
+# (c) 2017 Kurt Pfeifle
+# License: MIT
+#
+# The purpose of this custom AppRun script is to enable symlinking the AppImage and invoking the corresponding
+# binary depending on which symlink name was used to invoke the AppImage.
+#
+# Moreover, it supports calling the corresponding binary not via a symlink (which would have to be created in
+# an additional step by the user), but as a "sub command" to the main binary, as may be known from the "busybox"
+# suite of tools
+#
+# It also provides some additional help parameters in order to allow faster familiarization with functionality
+# embedded in this AppImage.
+#
+
+HERE="$(dirname "$(readlink -f "${0}")")"
+
+
+#env
+
+if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
+    echo ""
+    echo " --------------------------------------------------------------------------------------------"
+    echo "       The Complete Suite of Tools Provided by the AppImage Project to Build AppImages"
+    echo "                          -- Shipping as a Single AppImage!"
+    echo " --------------------------------------------------------------------------------------------"
+    echo ""
+    echo "  This package uses the AppImage software packaging technology for Linux"
+    echo "  ['One App == One File'] to make easily available all tools provided by"
+    echo "  the AppImage developers -- all tools inside an AppImage which works on"
+    echo "  most distros..."
+    echo ""
+    echo ""
+    echo " Usage:"
+    echo " ------"
+    echo ""
+    echo "   $ARGV0 help"
+    echo "                 # This message"
+    echo ""
+    echo "   $ARGV0 appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun"
+    echo "                 # Run the named sub-command"
+    echo ""
+    echo "   $ARGV0 listman"
+    echo "                 # List available, embedded manual pages"
+    echo ""
+    echo "   $ARGV0 man appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun"
+    echo "                 # Display embedded manual page(s)"
+    echo ""
+    echo "   $ARGV0 listhtml"
+    echo "                 # List as HTML embedded manual page(s)"
+    echo ""
+    echo "   $ARGV0 html appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun"
+    echo "                 # Use browser to display embedded manual page(s)"
+    echo ""
+    echo "   $ARGV0 listfile"
+    echo "                 # List all files embedded in AppImage"
+    echo ""
+    echo "   $ARGV0 listexe"
+    echo "                 # List all executables embedded in AppImage"
+    echo ""
+    echo "   $ARGV0 listreadme"
+    echo "                 # List all READMEs embedded in AppImage"
+    echo ""
+    echo "   $ARGV0 readme <path/to/readme>"
+    echo "                 # Show content of README embedded in AppImage (for path see \"$ARGV0 listreadme\")"
+    echo ""
+    echo "   $ARGV0 listdir"
+    echo "                 # List all directories embedded in AppImage"
+    echo ""
+    echo "   $ARGV0 dir <path/to/dir>"
+    echo "                 # Show content of directory embedded in AppImage (for path see \"$ARGV0 listdir\")"
+    echo ""
+    echo "   $ARGV0 --appimage-help"
+    echo "                 # Show available AppImage options"
+    echo ""
+    echo " ---------------------------------------------------------------------------------------------"
+    echo " NOTE: The execution of this AppImage is controlled by a custom AppRun script. The state of"
+    echo " this script is experimental and preliminary. Hence it may not work as expected, or miss some"
+    echo " functionality. You can hack on this script by unpacking this AppImage into a local sub"
+    echo " directory [currently named 'squashfs-root'] with this command:"
+    echo ""
+    echo "       $ARGV0 --appimage-extract"
+    echo ""
+    echo " After you're done with your hacks, repackage the AppImage again with this command:"
+    echo ""
+    echo "       appimagetool [/path/to/]squashfs-root [/path/to/]appimagekit-toolbox.AppImage"
+    echo ""
+    echo " Latest versions of tools provided by AppImageKit are always available from"
+    echo "   * https://github.com/AppImage/AppImageKit/releases/     and"
+    echo "   * https://github.com/AppImage/AppImageUpdate/releases/  and"
+    echo "   * https://github.com/probonopd/linuxdeployqt/releases/  and"
+    echo "   * https://github.com/AppImage/zsync2/releases"
+    echo " ---------------------------------------------------------------------------------------------"
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xlistman" -o x"$1" == "x--listman" ] ; then
+    cd "$HERE"
+    echo ""
+    find usr/share/man* -type f | sed 's#^# man #'
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xman"  -o  x"$1" == "x--man" ] ; then
+    export MANPATH="$HERE/usr/share/man:$MANPATH"
+    shift
+    exec man "$@"
+fi
+
+
+if [ x"$1" == "xdir" -o x"$1" == "x--dir" ] ; then
+    cd "$HERE"
+    shift
+    echo ""
+    if [ x"$1" == "x" ] ; then
+        echo " You must give a path to the directory you want to open."
+        echo "   For available directories run \"$ARGV0 listdir\"."
+    else
+        xdg-open $HERE/$1
+        sleep 3
+    fi
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xlistdir" -o x"$1" == "x--listdir" ] ; then
+    cd "$HERE"
+    echo ""
+    find . -type d | sed 's#^./#  dir #'
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xlistexe" -o x"$1" == "x--listexe" ] ; then
+    cd "$HERE"
+    echo ""
+    find . -type f -o -type l -o -type s -o -type p | grep '/bin/' | sed 's#./usr/bin/#  #' | sort -V
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xlistfile" -o x"$1" == "x--listfile" ] ; then
+    cd "$HERE"
+    echo ""
+    find . -type f -o -type l -o -type s -o -type p | sed 's#^./#  file #'
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xlistreadme" -o x"$1" == "x--listreadme" ] ; then
+    cd "$HERE"
+    echo ""
+    find . -type f -name "*README*" -o -name "*readme*" -o -name "*.txt" -o -name "*.md" | sed 's#^./#  readme #'
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xreadme" -o x"$1" == "x--readme" ] ; then
+    cd "$HERE"
+    shift
+    echo ""
+    if [ x"$1" == "x" ] ; then
+        echo " You must give a path to the README you want to open."
+        echo "   For available READMEs run \"$ARGV0 listreadme\"."
+    else
+        readmefile=$( find . -type f -name "*README*" -o -name "*readme*" -o -name "*.txt" -o -name "*.md" | grep "${1}" | sort -rV | head -n 1 )
+        cat $readmefile
+        sleep 0
+    fi
+    echo ""
+   exit $?
+fi
+
+
+if [ x"$1" == "xlisthtml" -o x"$1" == "x--listhtml" ] ; then
+    cd "$HERE"
+    echo ""
+    find . -type f -name "*.html" | sed 's#^./#  html #'
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xhtml" -o x"$1" == "x--html" ] ; then
+    cd "$HERE"
+    shift
+    echo ""
+    if [ x"$1" == "x" ] ; then
+        echo " You must give a path to the HTML file you want to open."
+        echo "   For available HTML documents run \"$ARGV0 listhtml\"."
+    else
+        htmlfile=$( find . -type f -name "*.html" | grep ${1/.html/}.html | sort -rV | head -n 1 )
+        xdg-open $htmlfile
+        sleep 5
+    fi
+    echo ""
+    exit $?
+fi
+
+
+#set -x
+if [ ! -z $APPIMAGE ] ; then
+    BINARY_NAME=$(basename "$ARGV0")    # For this AppImage, BINARY_NAME will always be 'appimagekit-toolbox', which does not really exist.
+                                        # Only names currently supported are appimaged, appimagetool, appimageupdatetool, runtime, zsync2, zsyncmake2, AppImageUpdate and AppRun
+    #echo BINARY_NAME=$BINARY_NAME
+    #echo APPIMAGE=$APPIMAGE
+    #echo ARGV0=$ARGV0
+    #echo dollar0=$0
+    #echo dollar1=$1
+    #echo dollar_at="$@"
+    if [ x"$1" == "x" ] ; then
+            exec "$HERE/usr/bin/appimagekit-toolbox"
+    fi
+    if [ -e "$HERE/usr/bin/$BINARY_NAME" ] ; then
+        exec "$HERE/usr/bin/$BINARY_NAME" "$@"
+    else
+        if [ -e "$HERE/usr/bin/$1" ] ; then
+            BINARY_NAME=$1
+            shift
+            exec "$HERE/usr/bin/$BINARY_NAME" "$@"
+        else
+            exec "$HERE/usr/bin/appimagekit-toolbox" "$@"
+        fi
+    fi
+else
+      shift
+      exec "$HERE/usr/bin/appimagekit-toolbox" "$@"
+fi

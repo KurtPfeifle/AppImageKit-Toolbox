@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=appimagekit-toolbox
+GenericName=AppImageKit Toolbox
+Comment=The Complete Suite of Tools Provided by the AppImage Project to Build AppImages
+Exec=appimagekit-toolbox
+Icon=appimagekit-toolbox
+Terminal=true
+Type=Application
+Categories=Development;

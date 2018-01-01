@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo ""
+echo " Usage: $ARGV0 <sub-command>"
+echo ""
+echo " Available sub-commands are:"
+echo "    AppImageUpdate"
+echo "    AppRun"
+echo "    appimaged"
+echo "    appimagetool"
+echo "    appimageupdatetool"
+echo "    linuxdeployqt"
+echo "    linuxdeployqt"
+echo "    runtime"
+echo "    zsync2"
+echo "    zsyncmake2"
+echo ""
+

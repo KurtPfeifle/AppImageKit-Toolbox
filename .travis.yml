@@ -1,0 +1,128 @@
+language: cpp
+compiler: gcc
+sudo: require
+dist: trusty
+
+install:
+  - sudo apt-get -y install coreutils busybox
+
+script:
+    # Create an empty AppDir structure:
+  - mkdir -p ./appdir/usr/{bin,share/{applications,metainfo,man/man1,icons/hicolor/512x512/apps}}
+
+    # Populate the AppDir with icon, .desktop file and AppStream metadata:
+  - cp -a ./appimage/appimagekit-toolbox.png            ./appdir/usr/share/icons/hicolor/512x512/apps/
+  - cp -a ./appimage/org.oneapplication.foo.desktop     ./appdir/usr/share/applications/
+  - cp -a ./appimage/org.oneapplication.foo.appdata.xml ./appdir/usr/share/metainfo/
+
+    # Copy the (stub) `appimagekit-toolbox` script to its location:
+  - cp -a ./appimage/appimagekit-toolbox                ./appdir/usr/bin/
+
+    # Add debugging tools to toolbox:
+  - cp -a /usr/bin/env                                  ./appdir/usr/bin/
+  - cp -a /bin/busybox                                  ./appdir/usr/bin/
+
+    # Add man pages to toolbox:
+  - cp /usr/share/man/man1/busybox.1*                ./appdir/usr/share/man/man1/
+  - cp /usr/share/man/man1/env.1*                    ./appdir/usr/share/man/man1/
+
+    # TODO: Add the AppImageKit manpages too
+
+    # Add README to the toolbox
+  - cp -a ./appimage/README ./appdir/
+
+    # Add AppImageKit binaries (as AppImages!) to toolbox and rename them at the same time:
+  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64"                                     -O ./appdir/usr/bin/AppRun
+  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-x86_64.AppImage"                         -O ./appdir/usr/bin/appimaged
+  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"                      -O ./appdir/usr/bin/appimagetool
+  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64"                                    -O ./appdir/usr/bin/runtime
+  - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/AppImageUpdate-183-236e0c5-x86_64.AppImage"     -O ./appdir/usr/bin/AppImageUpdate
+  - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/appimageupdatetool-183-236e0c5-x86_64.AppImage" -O ./appdir/usr/bin/appimageupdatetool
+  - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsync2-105-7fd1caa-x86_64.AppImage"                     -O ./appdir/usr/bin/zsync2
+  - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsyncmake2-105-7fd1caa-x86_64.AppImage"                 -O ./appdir/usr/bin/zsyncmake2
+  - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"       -O ./appdir/usr/bin/linuxdeployqt
+
+    # Make AppImages executable:
+  - chmod a+x ./appdir/usr/bin/*
+
+    # Check a few things (to be seen in Travis' build log):
+  - ./appdir/usr/bin/AppImageUpdate     --appimage-version
+  - ./appdir/usr/bin/appimaged          --appimage-version
+  - ./appdir/usr/bin/appimagetool       --appimage-version
+  - ./appdir/usr/bin/appimageupdatetool --appimage-version
+  - ./appdir/usr/bin/linuxdeployqt      --appimage-version
+  - ./appdir/usr/bin/zsync2             --appimage-version
+  - ./appdir/usr/bin/zsyncmake2         --appimage-version
+  - ./appdir/usr/bin/AppImageUpdate     --appimage-offset
+  - ./appdir/usr/bin/appimaged          --appimage-offset
+  - ./appdir/usr/bin/appimagetool       --appimage-offset
+  - ./appdir/usr/bin/appimageupdatetool --appimage-offset
+  - ./appdir/usr/bin/linuxdeployqt      --appimage-offset
+  - ./appdir/usr/bin/zsync2             --appimage-offset
+  - ./appdir/usr/bin/zsyncmake2         --appimage-offset
+  - ./appdir/usr/bin/AppImageUpdate     --appimage-updateinfo
+  - ./appdir/usr/bin/appimaged          --appimage-updateinfo
+  - ./appdir/usr/bin/appimagetool       --appimage-updateinfo
+  - ./appdir/usr/bin/appimageupdatetool --appimage-updateinfo
+  - ./appdir/usr/bin/linuxdeployqt      --appimage-updateinfo
+  - ./appdir/usr/bin/zsync2             --appimage-updateinfo
+  - ./appdir/usr/bin/zsyncmake2         --appimage-updateinfo
+
+    # Let `linuxdeployqt` check if libs need to be bundled with the AppDir and do it if needed:
+  - ./appdir/usr/bin/linuxdeployqt ./appdir/usr/bin/busybox                  -bundle-non-qt-libs -verbose=2
+  - ./appdir/usr/bin/linuxdeployqt ./appdir/usr/bin/env                      -bundle-non-qt-libs -verbose=2
+
+    # Let `linuxdeployqt` create the first AppImage:
+  - ./appdir/usr/bin/linuxdeployqt ./appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -verbose=2 -appimage
+
+    # Set up a VERSION string to be used for the toolbox AppImage name:
+  - VERSION=$(git rev-parse --short HEAD)
+
+    # Rename the generated AppImage with the VERSION string included:
+  - mv appimagekit-toolbox*.AppImage                                                       ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
+
+    # Let `appimagetool` create the second AppImage:
+  - PATH=./squashfs-root/usr/bin:$PATH ./squashfs-root/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
+
+    # See what we got (just for Travis' build log):
+  - find . -name "*.AppImage" -ls
+
+    # Check a few things (to be seen in Travis' build log):
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-version
+  - ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-version
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-offset
+  - ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-offset
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
+  - ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-updateinfo
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
+  - ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
+
+    # Check how many AppImages we have (if named with suffix .AppImage):
+  - find . -name "*.AppImage" -ls
+
+after_success:
+    # Check if we have binaries which link to libraries outside of the AppImage:
+  - find ./appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
+
+    # Rename the appdir
+  - mv appdir appimagekit-toolbox-appdir
+
+    # Upload AppImages to `transfer.sh`:
+  - curl --upload-file ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage  https://transfer.sh/appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
+  - curl --upload-file ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage  https://transfer.sh/appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
+
+    # Upload the renamed appdir to `transfer.sh`:
+  - curl --upload-file ./appimagekit-toolbox-appdir.tar.gz                                        https://transfer.sh/appimagekit-toolbox-appdir.tar.gz
+
+    # Get probono's upload tool/script:
+  - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+
+    # Upload AppImages to GitHub's release page:
+    #- bash ./upload.sh ./foo-made-by-linuxdeployqt-continuous-git.$VERSION-x86_64.AppImage
+    #- bash ./upload.sh ./foo-made-by-appimagetool-continuous-git.$VERSION-x86_64.AppImage
+    #- bash ./upload.sh ./Minimal-foo-AppDir.tar.gz
+
+branches:
+  only:
+    master
+
