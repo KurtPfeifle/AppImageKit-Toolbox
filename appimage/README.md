@@ -35,3 +35,8 @@ You can also access the embedded AppImageKit manual pages. For example, to view 
 TODO: complete this README with a view more topics
 
 
+## Screenshots
+
+![appimagekit-toolbox: available sub-commands](https://i.stack.imgur.com/B8XoV.jpg "appimagekit-toolbox: available sub-commands")
+
+![appimagekit-toolbox: help screen](https://i.stack.imgur.com/sPIBL.jpg "appimagekit-toolbox: help screen")
