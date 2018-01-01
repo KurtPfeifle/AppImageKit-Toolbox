@@ -20,7 +20,7 @@ script:
   - cp -a ./appimage/AppRun                              ./appdir/AppRun
   - cp -a ./appimage/appimagekit-toolbox.png             ./appdir/usr/share/icons/hicolor/512x512/apps/ # linuxdeployqt wants it here...
   - cp -a ./appimage/appimagekit-toolbox.png             ./appdir/                                      # appimagetool wants it here!
-  - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/usr/share/applications/               # linuxdeployqt wants it here...
+  - cp -a ./appimage/org.toolbox.appimag-usage.sshop     ./appdir/usr/share/applications/               # linuxdeployqt wants it here...
   - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/                                      # appimagetool wants it here!
   - cp -a ./appimage/org.toolbox.appimagekit.appdata.xml ./appdir/usr/share/metainfo/
 
@@ -127,6 +127,11 @@ script:
 
     # Debugging: find all files recursively from where we are:
   - find . -ls
+  - file ./appdir/AppRun ./appimage/AppRun
+
+    # Remove the symlinked AppRun and copy custom AppRun in place (dunno why line 20 didn't prevail):
+  - rm -rf ./appdir/AppRun
+  - cp -a ./appimage/AppRun ./appdir/
 
     #after_success:
     # Check if we have binaries which link to libraries outside of the AppImage:
@@ -134,7 +139,7 @@ script:
 
     # Rename the appdir
   - mv appdir appimagekit-toolbox-appdir
-  
+
     # Create a tarball from renamed appdir:
   - tar cvzf ./appimagekit-toolbox-appdir.tar.gz ./appimagekit-toolbox-appdir
 

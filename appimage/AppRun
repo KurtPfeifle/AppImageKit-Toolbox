@@ -220,7 +220,7 @@ if [ ! -z $APPIMAGE ] ; then
     #echo dollar1=$1
     #echo dollar_at="$@"
     if [ x"$1" == "x" ] ; then
-            exec "$HERE/usr/bin/appimagekit-toolbox"
+            exec "$HERE/usr/bin/appimagekit-toolbox-usage.sh"
     fi
     if [ -e "$HERE/usr/bin/$BINARY_NAME" ] ; then
         exec "$HERE/usr/bin/$BINARY_NAME" "$@"
@@ -230,10 +230,10 @@ if [ ! -z $APPIMAGE ] ; then
             shift
             exec "$HERE/usr/bin/$BINARY_NAME" "$@"
         else
-            exec "$HERE/usr/bin/appimagekit-toolbox" "$@"
+            exec "$HERE/usr/bin/appimagekit-toolbox-usage.sh" "$@"
         fi
     fi
 else
       shift
-      exec "$HERE/usr/bin/appimagekit-toolbox" "$@"
+      exec "$HERE/usr/bin/appimagekit-toolbox-usage.sh" "$@"
 fi
