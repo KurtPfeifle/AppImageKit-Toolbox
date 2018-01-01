@@ -4,6 +4,8 @@ sudo: require
 dist: trusty
 
 before_install:
+  - sudo add-apt-repository ppa:ximion/packagekit
+  - sudo apt-get update
 
 install:
   - sudo apt-get -y install coreutils busybox appstream
