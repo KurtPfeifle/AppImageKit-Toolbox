@@ -86,6 +86,12 @@ available options:
      --listhtml                   # List all embedded HTML pages
      --html <path/to/htmlfile>    # Open (in default browser) the embedded HTML page specified
                                     (keeps AppImage mounted)
+     --listpdf                    # List all embedded PDF documents
+     --pdf <path/to/pdffile>      # Open (in default browser) the embedded PDF doc specified
+                                    (keeps AppImage mounted)
+     --listepub                   # List all embedded HTML pages
+     --epub <path/to/epubfile>    # Open (in default app) the embedded EPUB doc specified
+                                    (keeps AppImage mounted)
      --listreadme                 # Enumerate all READMEs embedded in AppImage
      --readme <path/to/readme>    # Show embedded README specified
                                     (keeps AppImage mounted)
@@ -113,15 +119,15 @@ the "mother" AppImage).
 
      $>  ls -l ./squashfs-root/usr/bin
 
-        -rwxrwxr-x 1 kp kp   271792 Jan  1 18:03 appimaged
-        -rwxrwxr-x 1 kp kp   468400 Jan  1 18:03 appimagetool
-        -rwxrwxr-x 1 kp kp 10253744 Jan  1 18:03 AppImageUpdate
-        -rwxrwxr-x 1 kp kp  8754608 Jan  1 18:03 appimageupdatetool
-        -rwxrwxr-x 1 kp kp    10872 Jan  1 18:03 AppRun
-        -rwxrwxr-x 1 kp kp 14546352 Jan  1 18:03 linuxdeployqt
-        -rwxrwxr-x 1 kp kp   116144 Jan  1 18:03 runtime
-        -rwxrwxr-x 1 kp kp  2381496 Jan  1 18:03 zsync2
-        -rwxrwxr-x 1 kp kp  2389688 Jan  1 18:03 zsyncmake2
+        -rwxrwxr-x 1 kp kp   271792 Jan  1 00:00 appimaged
+        -rwxrwxr-x 1 kp kp   468400 Jan  1 00:00 appimagetool
+        -rwxrwxr-x 1 kp kp 10253744 Jan  1 00:00 AppImageUpdate
+        -rwxrwxr-x 1 kp kp  8754608 Jan  1 00:00 appimageupdatetool
+        -rwxrwxr-x 1 kp kp    10872 Jan  1 00:00 AppRun
+        -rwxrwxr-x 1 kp kp 14546352 Jan  1 00:00 linuxdeployqt
+        -rwxrwxr-x 1 kp kp   116144 Jan  1 00:00 runtime
+        -rwxrwxr-x 1 kp kp  2381496 Jan  1 00:00 zsync2
+        -rwxrwxr-x 1 kp kp  2389688 Jan  1 00:00 zsyncmake2
 
 ### Extract Individual Tools (or other files) from AppImage
 

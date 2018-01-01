@@ -16,8 +16,9 @@ script:
     # Create an empty AppDir structure:
   - mkdir -p ./appdir/usr/{bin,share/{applications,metainfo,man/man{1,7},icons/hicolor/512x512/apps}}
 
-    # Populate the AppDir with custom AppRun, icon, .desktop file and AppStream metadata:
+    # Populate the AppDir with custom AppRun, icon, .desktop file, README.md and AppStream metadata:
   - cp -a ./appimage/AppRun                              ./appdir/AppRun
+  - cp -a ./appimage/README.{md,epub,html,pdf}           ./appdir/
   - cp -a ./appimage/appimagekit-toolbox.png             ./appdir/usr/share/icons/hicolor/512x512/apps/ # linuxdeployqt wants it here...
   - cp -a ./appimage/appimagekit-toolbox.png             ./appdir/                                      # appimagetool wants it here!
   - cp -a ./appimage/org.toolbox.appimagekit.desktop     ./appdir/usr/share/applications/               # linuxdeployqt wants it here...
@@ -41,10 +42,6 @@ script:
   - cp -a /usr/share/man/man1/env.1*                     ./appdir/usr/share/man/man1/
   - find ./appdir/usr/share/man -type f
   - find ./appdir/usr/share/doc -type f
-
-
-    # Add README.md to the toolbox
-  - cp -a ./appimage/README.md ./appdir/
 
     # Add AppImageKit binaries (as AppImages!) to toolbox and rename them at the same time:
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64"                                     -O ./appdir/usr/bin/AppRun
