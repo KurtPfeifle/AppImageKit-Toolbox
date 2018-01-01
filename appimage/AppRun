@@ -208,6 +208,7 @@ if [ x"$1" == "xhtml" -o x"$1" == "x--html" ] ; then
 fi
 
 
+#env | grep -E '(APPIMAGE|APPDIR|APP|ARGV0)'
 #set -x
 if [ ! -z $APPIMAGE ] ; then
     BINARY_NAME=$(basename "$ARGV0")    # For this AppImage, BINARY_NAME will always be 'appimagekit-toolbox', which does not really exist.
