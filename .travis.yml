@@ -58,7 +58,7 @@ script:
   - chmod a+x ./appdir/usr/bin/*
 
     # Prepare for tests following later:
-  - sudo mkdir ./appdir/usr/local/bin
+  - sudo mkdir -p ./appdir/usr/local/bin
   - cd ./appdir/usr/local/bin ; ln -s ../../bin/* . ; ls -l ; cd -
 
     # Check a few things (to be seen in Travis' build log):
