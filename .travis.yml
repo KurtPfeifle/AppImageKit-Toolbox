@@ -275,7 +275,7 @@ after_script:
   - ls -l "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
   
     # Check what appimaged discovered
-  - cat ./appimaged.stderr
+  - grep -A 46 -B 3 Registering ./appimaged.stderr
 
 before_cache:
 
