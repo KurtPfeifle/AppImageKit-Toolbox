@@ -270,10 +270,10 @@ script:
     #- bash ./upload.sh ./Minimal-foo-AppDir.tar.gz
 
   - pwd
-  - find ./appdir
-  - for i in ./appdir/usr/bin/* ; do ./aiktb_a appimageupdatetool --describe $i 2>stderr 2>&1 | tee -a update.descriptions ; done
+  - find ./appimagekit-toolbox-appdir
+  - for i in ./appimagekit-toolbox-appdir/usr/bin/* ; do ./aiktb_a appimageupdatetool --describe $i 2>stderr 2>&1 | tee -a update.descriptions ; done
   - cat update.descriptions
-  - for i in ./appdir/usr/bin/* ; do $i --appimage-updateinfo 2>&1 | tee -a update.info ; done
+  - for i in ./appimagekit-toolbox-appdir/usr/bin/* ; do $i --appimage-updateinfo 2>&1 | tee -a update.info ; done
   - cat update.info
 
 
