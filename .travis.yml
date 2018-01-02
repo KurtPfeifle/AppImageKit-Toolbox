@@ -216,14 +216,14 @@ script:
   - ./aiktb_a                                                                   appimaged --version
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimaged --appimage-help
   - ./aiktb_a                                                                   appimaged --appimage-help
-  
+
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsync2 --help
   - ./aiktb_a                                                                   zsync2 --help
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsync2 --version
   - ./aiktb_a                                                                   zsync2 --version
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsync2 --appimage-help
   - ./aiktb_a                                                                   zsync2 --appimage-help
-  
+
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsyncmake2 --help
   - ./aiktb_a                                                                   zsyncmake2 --help
     #- ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsyncmake2 --version   # Not supported option!
@@ -273,7 +273,7 @@ after_script:
   - TRAVIS_TEST_RESULT=$TRAVIS_TEST_RESULT
   - touch -t 201801010000.01 "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
   - ls -l "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
-  
+
     # Check what appimaged discovered
   - cat ./appimaged.stderr
 
