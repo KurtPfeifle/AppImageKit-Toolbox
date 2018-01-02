@@ -44,15 +44,52 @@ script:
   - find ./appdir/usr/share/doc -type f
 
     # Add AppImageKit binaries (as AppImages!) to toolbox and rename them at the same time:
-  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64"                                     -O ./appdir/usr/bin/AppRun
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-x86_64.AppImage"                         -O ./appdir/usr/bin/appimaged
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"                      -O ./appdir/usr/bin/appimagetool
-  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64"                                    -O ./appdir/usr/bin/runtime
   - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/AppImageUpdate-183-236e0c5-x86_64.AppImage"     -O ./appdir/usr/bin/AppImageUpdate
   - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/appimageupdatetool-183-236e0c5-x86_64.AppImage" -O ./appdir/usr/bin/appimageupdatetool
   - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsync2-105-7fd1caa-x86_64.AppImage"                     -O ./appdir/usr/bin/zsync2
   - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsyncmake2-105-7fd1caa-x86_64.AppImage"                 -O ./appdir/usr/bin/zsyncmake2
   - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"       -O ./appdir/usr/bin/linuxdeployqt
+
+    # Add other binaries (default 'AppRun' and 'runtime' for x86_64):
+  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64"                                    -O ./appdir/usr/bin/runtime
+  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64"                                     -O ./appdir/usr/bin/AppRun
+  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-i686"                                      -O ./appdir/usr/bin/runtime-i686
+  - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-i686"                                       -O ./appdir/usr/bin/AppRun-i686
+
+    # Add some useful shell scripts too:
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImageKit/appimagetool/master/testappimage"                                -O ./appdir/usr/bin/testappimage.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImageKit/appimagetool/master/test-appimagetool.sh"                        -O ./appdir/usr/bin/test-appimagetool.sh
+  - wget -c "https://raw.githubusercontent.com/probonopd/uploadtool/master/upload.sh"                                                -O ./appdir/usr/bin/upload.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/pkg2appimage"                                               -O ./appdir/usr/bin/pkg2appimage.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/functions.sh"                                               -O ./appdir/usr/bin/functions.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/appdir-lint.sh"                                             -O ./appdir/usr/bin/appdir-lint.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/bintray-tidy.sh"                                            -O ./appdir/usr/bin/bintray-tidy.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/bintray.sh"                                                 -O ./appdir/usr/bin/bintray.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/set-up-ppas.sh"                                             -O ./appdir/usr/bin/set-up-ppas.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/test.sh"                                                    -O ./appdir/usr/bin/test-appimage-on-many-live-isos.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/travis.sh"                                                  -O ./appdir/usr/bin/travisbuild-with-without-docker.sh
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/trigger.sh"                                                 -O ./appdir/usr/bin/travistriggerbuilds.sh
+
+    # Download READMEs, MDs and other texts:
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/excludedeblist"                                             -O ./appdir/excludedeblist.txt
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/excludesuselist"                                            -O ./appdir/excludesuselist.txt
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/excludelist"                                                -O ./appdir/excludelist.txt
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/YML.md"                                                     -O ./appdir/YML.md
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImageKit/appimagetool/master/README.md"                                   -O ./appdir/README.appimagetool
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImageUpdate/rewrite/README.md"                                            -O ./appdir/README.appimageupdate
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/README.md"                                                  -O ./appdir/README.appimages
+  - wget -c "https://raw.githubusercontent.com/probonopd/uploadtool/master/README.md"                                                -O ./appdir/README.uploadtool
+  - wget -c "https://raw.githubusercontent.com/AppImage/zsync2/master/README.md"                                                     -O ./appdir/README.zsync2
+
+    # Download license info texts:
+  - wget -c "https://raw.githubusercontent.com/probonopd/uploadtool/master/LICENSE"                                                  -O ./appdir/LICENSE.MIT.uploadtool
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImageKit/appimagetool/master/LICENSE"                                     -O ./appdir/LICENSE.MIT.appimagekit
+  - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/LICENSE"                                                    -O ./appdir/LICENSE.MIT.appimages
+
+    # In the interest of complete transparency, download the .travis.yml file which built this AppImage :-)  :
+  - wget -c "https://raw.githubusercontent.com/KurtPfeifle/AppImageKit-Toolbox/master/.travis.yml"                                   -O ./appdir/YML-README.travis-yml
 
     # Make AppImages executable:
   - chmod a+x ./appdir/usr/bin/*
