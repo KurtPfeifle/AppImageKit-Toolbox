@@ -145,7 +145,7 @@ script:
     ##############################################################
 
     # Let appimaged run in background and check later what it found
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimaged --no-install 2>appimaged.stderr &
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimaged -verbose --no-install 2>appimaged.stderr &
 
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
   - ./aiktb_a
