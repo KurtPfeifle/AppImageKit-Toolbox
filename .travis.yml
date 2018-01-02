@@ -58,11 +58,11 @@ script:
   - chmod a+x ./appdir/usr/bin/*
 
     # Prepare for tests following later:
-  - sudo mkdir -p ./appdir/usr/local/bin
-  - cd ./appdir/usr/local/bin     # change dir
-  - sudo ln -s ../../bin/* .      # create symlinks
-  - ls -l                         # show symlinks
-  - cd -                          # change dir back
+  - sudo mkdir -p $HOME/.local/bin
+  - cd $HOME/.local/bin                                                         # change dir
+  - sudo ln -s $OLDPWD/appdir/usr/bin/{AppImage,zsync,appimage,linuxdeploy}* .  # create symlinks
+  - ls -l                                                                       # show symlinks
+  - cd -                                                                        # change dir back
 
     # Check a few things (to be seen in Travis' build log):
   - ./appdir/usr/bin/AppImageUpdate     --appimage-version
