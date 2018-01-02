@@ -226,8 +226,8 @@ script:
   
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsyncmake2 --help
   - ./aiktb_a                                                                   zsyncmake2 --help
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsyncmake2 --version
-  - ./aiktb_a                                                                   zsyncmake2 --version
+    #- ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsyncmake2 --version   # Not supported option!
+    #- ./aiktb_a                                                                   zsyncmake2 --version   # Not supported option!
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsyncmake2 --appimage-help
   - ./aiktb_a                                                                   zsyncmake2 --appimage-help
 
