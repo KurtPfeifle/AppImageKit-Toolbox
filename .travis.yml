@@ -279,7 +279,7 @@ after_script:
   
   - for i in ./appdir/usr/bin/* ; do ./aiktb_a appimageupdatetool --describe $i 2>stderr 1>> update.descriptions 2>&1 ; echo "" >> update.descriptions ; done
   - cat update.descriptions
-  - for i in ./appdir/usr/bin/* ; do echo -n "$(basename $i)  :   " >> update.info ; $i --appimage-updateinfo 2>stderr 1>> update.info 2>&1 ; echo "" >> update.info ; done
+  - for i in ./appdir/usr/bin/* ; do $i --appimage-updateinfo | tee -a update.info 2>&1 ; done
   - cat update.info
 
 
