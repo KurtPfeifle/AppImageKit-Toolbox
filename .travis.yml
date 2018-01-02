@@ -143,6 +143,10 @@ script:
     ##############################################################
     #  Run a few sanity tests (to be seen in Travis' build log):
     ##############################################################
+
+    # Let appimaged run in background and check later what it found
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimaged --no-install 2>appimaged.stderr &
+
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
   - ./aiktb_a
     #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
@@ -212,8 +216,6 @@ script:
   - ./aiktb_a                                                                   appimaged --version
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimaged --appimage-help
   - ./aiktb_a                                                                   appimaged --appimage-help
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimaged --verbose --no-install
-  - ./aiktb_a                                                                   appimaged --verbose --no-install
   
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   zsync2 --help
   - ./aiktb_a                                                                   zsync2 --help
@@ -271,6 +273,9 @@ after_script:
   - TRAVIS_TEST_RESULT=$TRAVIS_TEST_RESULT
   - touch -t 201801010000.01 "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
   - ls -l "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
+  
+    # Check what appimaged discovered
+  - cat ./appimaged.stderr
 
 before_cache:
 
