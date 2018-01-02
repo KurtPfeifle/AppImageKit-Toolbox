@@ -88,13 +88,13 @@ script:
   - ./appdir/usr/bin/zsyncmake2         --appimage-updateinfo
 
     # Let `linuxdeployqt` check if libs need to be bundled with the AppDir and do it if needed:
-  - ./appdir/usr/bin/linuxdeployqt ./appdir/usr/bin/busybox                  -bundle-non-qt-libs -verbose=2
+    #- ./appdir/usr/bin/linuxdeployqt ./appdir/usr/bin/busybox                  -bundle-non-qt-libs -verbose=2  # Don't check busybox_static!
   - ./appdir/usr/bin/linuxdeployqt ./appdir/usr/bin/env                      -bundle-non-qt-libs -verbose=2
 
     # Let `linuxdeployqt` create the first AppImage:
     #- ./appdir/usr/bin/linuxdeployqt ./appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -verbose=2 -appimage    # Creation of AppImage does not work. Why? Fails, because appimagekit-toolbox "not an ELF executable"?!?
     #- ./appdir/usr/bin/linuxdeployqt ./appdir/usr/share/applications/*.desktop -bundle-non-qt-libs -verbose=2
-    #- ./appdir/usr/bin/linuxdeployqt ./appdir/usr/bin/appimagekit-toolbox                          -verbose=2 -appimage    # Does creation of AppImage work this way? No. Same-same...
+    #- ./appdir/usr/bin/linuxdeployqt ./appdir/usr/bin/appimagekit-toolbox-usage-sh                 -verbose=2 -appimage    # Does creation of AppImage work this way? No. Same-same...
 
     # Set up a VERSION string to be used for the toolbox AppImage name:
   - VERSION=$(git rev-parse --short HEAD)
