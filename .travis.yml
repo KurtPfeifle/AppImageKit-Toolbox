@@ -59,7 +59,10 @@ script:
 
     # Prepare for tests following later:
   - sudo mkdir -p ./appdir/usr/local/bin
-  - cd ./appdir/usr/local/bin ; ln -s ../../bin/* . ; ls -l ; cd -
+  - cd ./appdir/usr/local/bin     # change dir
+  - sudo ln -s ../../bin/* .      # create symlinks
+  - ls -l                         # show symlinks
+  - cd -                          # change dir back
 
     # Check a few things (to be seen in Travis' build log):
   - ./appdir/usr/bin/AppImageUpdate     --appimage-version
