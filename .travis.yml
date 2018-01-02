@@ -191,20 +191,20 @@ script:
   - ./aiktb_a                                                                   appimageupdatetool --appimage-help
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe ./aiktb_a
   - ./aiktb_a                                                                   appimageupdatetool --describe ./aiktb_a
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe ./appdir/usr/local/bin/linuxdeployqt
-  - ./aiktb_a                                                                   appimageupdatetool --describe ./appdir/usr/local/bin/linuxdeployqt
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe ./appdir/usr/local/bin/appimagetool
-  - ./aiktb_a                                                                   appimageupdatetool --describe ./appdir/usr/local/bin/appimagetool
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe ./appdir/usr/local/bin/appimageupdatetool
-  - ./aiktb_a                                                                   appimageupdatetool --describe ./appdir/usr/local/bin/appimageupdatetool
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe ./appdir/usr/local/bin/AppImageUpdate
-  - ./aiktb_a                                                                   appimageupdatetool --describe ./appdir/usr/local/bin/AppImageUpdate
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe ./appdir/usr/local/bin/zsync2
-  - ./aiktb_a                                                                   appimageupdatetool --describe ./appdir/usr/local/bin/zsync2
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe ./appdir/usr/local/bin/zsyncmake2
-  - ./aiktb_a                                                                   appimageupdatetool --describe ./appdir/usr/local/bin/zsyncmake2
-  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe ./appdir/usr/local/bin/appimaged
-  - ./aiktb_a                                                                   appimageupdatetool --describe ./appdir/usr/local/bin/appimaged
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/linuxdeployqt
+  - ./aiktb_a                                                                   appimageupdatetool --describe $HOME/.local/bin/linuxdeployqt
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/appimagetool
+  - ./aiktb_a                                                                   appimageupdatetool --describe $HOME/.local/bin/appimagetool
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/appimageupdatetool
+  - ./aiktb_a                                                                   appimageupdatetool --describe $HOME/.local/bin/appimageupdatetool
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/AppImageUpdate
+  - ./aiktb_a                                                                   appimageupdatetool --describe $HOME/.local/bin/AppImageUpdate
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/zsync2
+  - ./aiktb_a                                                                   appimageupdatetool --describe $HOME/.local/bin/zsync2
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/zsyncmake2
+  - ./aiktb_a                                                                   appimageupdatetool --describe $HOME/.local/bin/zsyncmake2
+  - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/appimaged
+  - ./aiktb_a                                                                   appimageupdatetool --describe $HOME/.local/bin/appimaged
 
   - ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage   appimaged --help
   - ./aiktb_a                                                                   appimaged --help
