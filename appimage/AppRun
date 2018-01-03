@@ -84,7 +84,7 @@ if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
     echo "                 # List all LICENSE files embedded in AppImage"
     echo ""
     echo "   $ARGV0  --license <name-of-license>"
-    echo "                 # Show content of LICENSE file embedded in AppImage"
+    echo "                 # Show content of LICENSE file embedded in AppImage (piped thru 'less -N')"
     echo ""
     echo "   $ARGV0  --listfile"
     echo "                 # List all files embedded in AppImage"
@@ -96,7 +96,7 @@ if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
     echo "                 # List all shell scripts embedded in AppImage"
     echo ""
     echo "   $ARGV0  --scriptshow <name-of-script>"
-    echo "                 # Show content of shell script embedded in AppImage"
+    echo "                 # Show content of shell script embedded in AppImage (piped thru 'less -N')"
     echo ""
     echo "   $ARGV0  --scriptrun <name-of-script>"
     echo "                 # Execute shell script embedded in AppImage (Ensure environment is set as needed!)"
@@ -303,7 +303,7 @@ if [ x"$1" == "xreadme" -o x"$1" == "x--readme" ] ; then
                 echo ""
              ;;
             text/*)
-                cat $readmefile
+                cat $readmefile | less -N
              ;;
         esac
         sleep 0
@@ -365,7 +365,7 @@ if [ x"$1" == "xscriptshow" -o x"$1" == "x--scriptshow" -o x"$1" == "x--script" 
                 echo ""
              ;;
             text/x-*)
-                cat $scriptfile
+                cat $scriptfile | less -N
              ;;
         esac
         sleep 0
@@ -396,7 +396,7 @@ if [ x"$1" == "xlicense" -o x"$1" == "x--license" ] ; then
                 echo ""
              ;;
             text/*)
-                cat $licensefile
+                cat $licensefile | less -N
              ;;
         esac
         sleep 0
