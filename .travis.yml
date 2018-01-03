@@ -162,7 +162,7 @@ script:
   - cp -a ./appimage/AppRun ./appdir/
 
     # Let `appimagetool` downloaded into ./appdir/usr/bin  create the second AppImage:
-  - PATH=./appdir/usr/bin:./squashfs-root/usr/bin:$PATH ./appdir/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
+  - PATH=./appdir/usr/bin:./squashfs-root/usr/bin:$PATH ARCH=x86_64 ./appdir/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
   - touch -t "201801010000.01" ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
 
     # See what we got (just for Travis' build log):
