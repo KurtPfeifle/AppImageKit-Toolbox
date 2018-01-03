@@ -8,7 +8,7 @@ before_install:
   - sudo apt-get -y update
 
 install:
-  - sudo apt-get -y install coreutils busybox-static appstream
+  - sudo apt-get -y install coreutils less busybox-static appstream
 
 before_script:
 
@@ -31,6 +31,7 @@ script:
     # Add debugging tools to toolbox:
   - cp -a /usr/bin/env                                   ./appdir/usr/bin/
   - cp -a /bin/busybox                                   ./appdir/usr/bin/
+  - cp -a /bin/less                                      ./appdir/usr/bin/
 
     # Add man pages to toolbox:
   - find ./usr/share/man -type f
