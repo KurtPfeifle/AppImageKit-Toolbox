@@ -247,9 +247,9 @@ if [ x"$1" == "xlistscript" -o x"$1" == "x--listscript" -o x"$1" == "xlist-scrip
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments:"
     echo ""
-    find . -type f -o -type l -o -type s -o -type p | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  #' | sort -V | sed 's#^./#  --scriptrun #'
+    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --scriptrun #g'  | sort -V
     echo "or:"
-    find . -type f -o -type l -o -type s -o -type p | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  #' | sort -V | sed 's#^./#  --scriptshow #'
+    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --scriptshow #g' | sort -V
     echo ""
     exit $?
 fi
