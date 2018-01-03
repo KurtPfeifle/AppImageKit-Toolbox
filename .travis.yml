@@ -82,6 +82,7 @@ script:
   - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/README.md"                                                  -O ./appdir/README.appimages
   - wget -c "https://raw.githubusercontent.com/probonopd/uploadtool/master/README.md"                                                -O ./appdir/README.uploadtool
   - wget -c "https://raw.githubusercontent.com/AppImage/zsync2/master/README.md"                                                     -O ./appdir/README.zsync2
+  - wget -c "http://portablelinuxapps.org/docs/1.0/AppImageKit.pdf"                                                                  -O ./appDir/README-historical-WhitePaper-AppImageKit---outdated.pdf
 
     # Download license info texts:
   - wget -c "https://raw.githubusercontent.com/probonopd/uploadtool/master/LICENSE"                                                  -O ./appdir/LICENSE.MIT.uploadtool
@@ -91,8 +92,9 @@ script:
     # In the interest of complete transparency, download the .travis.yml file which built this AppImage :-)  :
   - wget -c "https://raw.githubusercontent.com/KurtPfeifle/AppImageKit-Toolbox/master/.travis.yml"                                   -O ./appdir/YML-README.travis-yml
 
-    # Make AppImages executable:
+    # Make AppImages, binaries and scripts executable:
   - chmod a+x ./appdir/usr/bin/*
+  - chmod a-x ./appdir/usr/bin/functions.sh
 
     # Prepare for tests following later:
   - sudo mkdir -p $HOME/.local/bin
