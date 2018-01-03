@@ -1,30 +1,45 @@
 #!/bin/bash
 
-# (c) 2017 Kurt Pfeifle
+# Copyright (c) 2017-2018 Kurt Pfeifle
 # License: MIT
 #
-# The purpose of this custom AppRun script is to enable symlinking the AppImage and invoking the corresponding
-# binary depending on which symlink name was used to invoke the AppImage.
+# The purpose of this custom AppRun script initially was to enable symlinking the AppImage and invoking the
+# corresponding binary depending on which symlink name was used to invoke the AppImage.
 #
-# Moreover, it supports calling the corresponding binary not via a symlink (which would have to be created in
-# an additional step by the user), but as a "sub command" to the main binary, as may be known from the "busybox"
-# suite of tools
+# Moreover, it supported calling the corresponding binary not only via a symlink (which would have to be created
+# in an additional step by the user), but as a "sub command" to the main binary, as may be known from the
+# "busybox" suite of tools.
 #
-# It also provides some additional help parameters in order to allow faster familiarization with functionality
+# It also provided additional help parameters in order to allow faster familiarization with all functionality
 # embedded in this AppImage.
 #
+# While all the above is still true, over the course of the last week of 2017 this quickly morphed into a rather
+# large showcase of the AppImageKit suite of tools. It now includes all the important utilities created by the
+# AppImage developers.   --   Have a lot of fun in exploring this beast!
+
+if [ x$SET_BASH_X_FOR_APPRUN = xYeSS ] ; then
+   set -x
+else
+   set +x
+fi
+
+if [ "x$SET_SHOW_ENV_FOR_APPRUN" == "xYeSS" ] ; then
+    env | less
+fi
+
+if [ "x$SET_SHOW_ENV_FOR_APPIMAGE" == "xYeSS" ] ; then
+    env | grep --color -E '(APPIMAGE|APPDIR|APP|ARGV0)'
+fi
+
 
 HERE="$(dirname "$(readlink -f "${0}")")"
 
-
-#env
-
 if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
     echo ""
-    echo " --------------------------------------------------------------------------------------------"
+    echo " ---------------------------------------------------------------------------------------------------"
     echo "       The Complete Suite of Tools Provided by the AppImage Project to Build AppImages"
     echo "                          -- Shipping as a Single AppImage!"
-    echo " --------------------------------------------------------------------------------------------"
+    echo " ---------------------------------------------------------------------------------------------------"
     echo ""
     echo "  This package uses the AppImage software packaging technology for Linux"
     echo "  ['One App == One File'] to make easily available all tools provided by"
@@ -63,18 +78,33 @@ if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
     echo "                 # List as EPUB embedded manual page(s)"
     echo ""
     echo "   $ARGV0  --epub appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun"
-    echo "                 # Use browser to display embedded manual page(s)"
+    echo "                 # Use default EPUB program to read embedded EPUB document"
+    echo ""
+    echo "   $ARGV0  --listlicense"
+    echo "                 # List all LICENSE files embedded in AppImage"
+    echo ""
+    echo "   $ARGV0  --license <name-of-license>"
+    echo "                 # Show content of LICENSE file embedded in AppImage"
     echo ""
     echo "   $ARGV0  --listfile"
     echo "                 # List all files embedded in AppImage"
     echo ""
     echo "   $ARGV0  --listexe"
-    echo "                 # List all executables embedded in AppImage"
+    echo "                 # List all executables embedded in AppImage; these can be run as 'sub-commands'"
+    echo ""
+    echo "   $ARGV0  --listscript"
+    echo "                 # List all shell scripts embedded in AppImage"
+    echo ""
+    echo "   $ARGV0  --scriptshow <name-of-script>"
+    echo "                 # Show content of shell script embedded in AppImage"
+    echo ""
+    echo "   $ARGV0  --scriptrun <name-of-script>"
+    echo "                 # Execute shell script embedded in AppImage (Ensure environment is set as needed!)"
     echo ""
     echo "   $ARGV0  --listreadme"
     echo "                 # List all READMEs embedded in AppImage"
     echo ""
-    echo "   $ARGV0  --readme <path/to/readme>"
+    echo "   $ARGV0  --readme <name-of-readme>"
     echo "                 # Show content of README embedded in AppImage (for path see \"$ARGV0 listreadme\")"
     echo ""
     echo "   $ARGV0  --listdir"
@@ -86,7 +116,10 @@ if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
     echo "   $ARGV0  --appimage-help"
     echo "                 # Show available AppImage options"
     echo ""
-    echo " ---------------------------------------------------------------------------------------------"
+    echo "   $ARGV0  --show-apprun|--self-show|--selfshow"
+    echo "                 # Show 'AppRun' invoked by 'less -N'; type '-N' to toogle line number display"
+    echo ""
+    echo " ---------------------------------------------------------------------------------------------------"
     echo " NOTE: The execution of this AppImage is controlled by a custom AppRun script. The state of"
     echo " this script is experimental and preliminary. Hence it may not work as expected, or miss some"
     echo " functionality. You can hack on this script by unpacking this AppImage into a local sub"
@@ -109,6 +142,59 @@ if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
 fi
 
 
+if [ x"$1" == "xgivehint" -o x"$1" == "x--givehint" -o x"$1" == "xgive-hint" -o x"$1" == "x--give-hint" ] ; then
+    cd "$HERE"
+    echo ""
+    echo " Three environment variables help debug and understand this AppRun if set to a weird value."
+    echo " Deliberately not documented in '--help' output:"
+    echo ""
+    echo "    *  SET_SHOW_ENV_FOR_APPRUN=YeSS     # Calls 'env' to print environment seen by AppRun; piped thru 'less'"
+    echo "    *  SET_SHOW_ENV_FOR_APPIMAGE=YeSS   # Prints AppImage-specific environment variables with highlighting"
+    echo "    *  SET_BASH_X_FOR_APPRUN=YeSS       # Uses 'set -x' at beginning of AppRun to print debugging output"
+    echo ""
+    exit $?
+fi
+
+
+function mimetype() {
+case "$#" in
+    1)
+        # 'file --mime-type some-foo-file.ext' usually returns: 'some-foo-file.ext: major/minor', on stderr...
+        # However, we want to get back only 'major/minor', on stdout!
+        file --mime-type "$1" 2>&1 | sed 's#'"$1"':##;s# ##'
+        ;;
+    0)
+        echo ""                                                                     1>&2
+        echo " #  This is a Bash function, named \"$FUNCNAME\"."                    1>&2
+        echo " #  You cannot run it without an argument. If you run it with a"      1>&2
+        echo " #  [path to a] file as a single argument, it simply returns the"     1>&2
+        echo " #  'major/minor' MIME type. If you add multiple [paths to] files"    1>&2
+        echo " #  as arguments, it returns a list of 'major/minor' MIME types with" 1>&2
+        echo " #  the respective file names prepended. Example usage:"
+        echo " #"
+        echo " #         $> $FUNCNAME /path/to/a.pdf"
+        echo " #"
+        echo " #         $> $FUNCNAME /path/to/a.txt ./myscript.sh ../some.txt"
+        echo " #"
+        echo " #  This Bash function's source code is this:"  1>&2
+        echo ""                                                                     1>&2
+        typeset -f "${FUNCNAME}"                                                    1>&2
+        echo ""                                                                     1>&2
+        ;;
+    *)
+        file --mime-type "$@"
+        ;;
+esac
+}
+
+
+if [ x"$1" == "xshow-apprun" -o x"$1" == "x--show-apprun" -o x"$1" == "xselfshow" -o x"$1" == "x--selfshow"  -o x"$1" == "xself-show" -o x"$1" == "x--self-show" ] ; then
+    cd "$HERE"
+    less -N AppRun
+    exit $?
+fi
+
+
 if [ x"$1" == "xlistman" -o x"$1" == "x--listman" ] ; then
     cd "$HERE"
     echo ""
@@ -122,6 +208,7 @@ if [ x"$1" == "xman"  -o  x"$1" == "x--man" ] ; then
     export MANPATH="$HERE/usr/share/man:$MANPATH"
     shift
     exec man "$@"
+    exit $?
 fi
 
 
@@ -150,6 +237,15 @@ if [ x"$1" == "xlistdir" -o x"$1" == "x--listdir" ] ; then
 fi
 
 
+if [ x"$1" == "xlistscript" -o x"$1" == "x--listscript" ] ; then
+    cd "$HERE"
+    echo ""
+    find . -type f -o -type l -o -type s -o -type p | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  #' | sort -V | sed 's#^./#  script #'
+    echo ""
+    exit $?
+fi
+
+
 if [ x"$1" == "xlistexe" -o x"$1" == "x--listexe" ] ; then
     cd "$HERE"
     echo ""
@@ -163,6 +259,15 @@ if [ x"$1" == "xlistfile" -o x"$1" == "x--listfile" ] ; then
     cd "$HERE"
     echo ""
     find . -type f -o -type l -o -type s -o -type p | sed 's#^./#  file #'
+    echo ""
+    exit $?
+fi
+
+
+if [ x"$1" == "xlistlicense" -o x"$1" == "x--listlicense" ] ; then
+    cd "$HERE"
+    echo ""
+    find . -type f -name "*LICENSE*" -o -name "*license*" | sed 's#^./#  license #'
     echo ""
     exit $?
 fi
@@ -186,7 +291,114 @@ if [ x"$1" == "xreadme" -o x"$1" == "x--readme" ] ; then
         echo "   For available READMEs run \"$ARGV0 --listreadme\"."
     else
         readmefile=$( find . -type f -name "*README*" -o -name "*readme*" -o -name "*.txt" -o -name "*.md" | grep "${1}" | sort -rV | head -n 1 )
-        cat $readmefile
+        MIME=$(mimetype $readmefile)
+        case $MIME in
+            text/html|application/pdf|application/epub*)
+                xdg-open "$readmefile"
+                sleep 3;
+             ;;
+            inode/x-empty)
+                echo ""
+                echo " Sorry, this file, \"$readmefile\", is empty and has no content."
+                echo ""
+             ;;
+            text/*)
+                cat $readmefile
+             ;;
+        esac
+        sleep 0
+    fi
+    echo ""
+   exit $?
+fi
+
+if [ x"$1" == "xscriptrun" -o x"$1" == "x--scriptrun" ] ; then
+    cd "$HERE"
+    shift
+    echo ""
+    if [ x"$1" == "x" ] ; then
+        echo " You must give a path to the shell script you want to open."
+        echo "   For available shell scripts run \"$ARGV0 --listscript\"."
+    else
+        scriptfile=$( find . -type f -name "*.sh" | grep "${1}" | sort -rV | head -n 1 )
+        #if PDF or EPUB or HTML ; then xdg-open $scriptfile ; else
+        MIME=$(mimetype $scriptfile)
+        case $MIME in
+            text/html|application/pdf|application/epub*)
+                xdg-open "$scriptfile"
+             ;;
+            inode/x-empty)
+                echo ""
+                echo " Sorry, this file, \"$scriptfile\", is empty and has no content."
+                echo ""
+             ;;
+            text/x-*)
+                exec $scriptfile
+                exit $?
+             ;;
+        esac
+        sleep 0
+    fi
+    echo ""
+   exit $?
+fi
+
+
+if [ x"$1" == "xscriptshow" -o x"$1" == "x--scriptshow" -o x"$1" == "x--script" -o x"$1" == "xscript" ] ; then
+    cd "$HERE"
+    shift
+    echo ""
+    if [ x"$1" == "x" ] ; then
+        echo " You must give a path to the shell script you want to open."
+        echo "   For available shell scripts run \"$ARGV0 --listscript\"."
+    else
+        scriptfile=$( find . -type f -name "*.sh" | grep "${1}" | sort -rV | head -n 1 )
+        #if PDF or EPUB or HTML ; then xdg-open $scriptfile ; else
+        MIME=$(mimetype $scriptfile)
+        case $MIME in
+            text/html|application/pdf|application/epub*)
+                xdg-open "$scriptfile"
+             ;;
+            inode/x-empty)
+                echo ""
+                echo " Sorry, this file, \"$scriptfile\", is empty and has no content."
+                echo ""
+             ;;
+            text/x-*)
+                cat $scriptfile
+             ;;
+        esac
+        sleep 0
+    fi
+    echo ""
+   exit $?
+fi
+
+
+if [ x"$1" == "xlicense" -o x"$1" == "x--license" ] ; then
+    cd "$HERE"
+    shift
+    echo ""
+    if [ x"$1" == "x" ] ; then
+        echo " You must give a path to the LICENSE you want to open."
+        echo "   For available LICENSE run \"$ARGV0 --listlicense\"."
+    else
+        licensefile=$( find . -type f -name "*LICENSE*" -o -name "*license*" | grep "${1}" | sort -rV | head -n 1 )
+        #if PDF or EPUB or HTML ; then xdg-open $licensefile ; else
+        MIME=$(mimetype $licensefile)
+        case $MIME in
+            text/html|application/pdf|application/epub*)
+                xdg-open "$licensefile"
+             ;;
+            inode/x-empty)
+                echo ""
+                echo " Sorry, this file, \"$licensefile\", is empty and has no content."
+                echo ""
+             ;;
+            text/*)
+                cat $licensefile
+             ;;
+        esac
         sleep 0
     fi
     echo ""
@@ -272,20 +484,23 @@ if [ x"$1" == "xepub" -o x"$1" == "x--epub" ] ; then
 fi
 
 
-#env | grep -E '(APPIMAGE|APPDIR|APP|ARGV0)'
-#set -x
+### Main stuff happens from here:
 if [ ! -z $APPIMAGE ] ; then
     BINARY_NAME=$(basename "$ARGV0")    # For this AppImage, BINARY_NAME will always be 'appimagekit-toolbox', which does not really exist.
                                         # Only names currently supported are appimaged, appimagetool, appimageupdatetool, runtime, zsync2, zsyncmake2, AppImageUpdate and AppRun
-    #echo BINARY_NAME=$BINARY_NAME
-    #echo APPIMAGE=$APPIMAGE
-    #echo ARGV0=$ARGV0
-    #echo dollar0=$0
-    #echo dollar1=$1
-    #echo dollar_at="$@"
+    if [ "x$SET_SHOW_ENV_FOR_APPRUN" == "xYeSS" ] ; then
+        echo BINARY_NAME=$BINARY_NAME
+        echo APPIMAGE=$APPIMAGE
+        echo ARGV0=$ARGV0
+        echo dollar0=$0
+        echo dollar1=$1
+        echo dollar_at="$@"
+    fi
+
     if [ x"$1" == "x" ] ; then
             exec "$HERE/usr/bin/appimagekit-toolbox-usage.sh"
     fi
+
     if [ -e "$HERE/usr/bin/$BINARY_NAME" ] ; then
         exec "$HERE/usr/bin/$BINARY_NAME" "$@"
     else
@@ -297,7 +512,10 @@ if [ ! -z $APPIMAGE ] ; then
             exec "$HERE/usr/bin/appimagekit-toolbox-usage.sh" "$@"
         fi
     fi
+
 else
+
       shift
       exec "$HERE/usr/bin/appimagekit-toolbox-usage.sh" "$@"
+
 fi
