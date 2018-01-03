@@ -83,7 +83,7 @@ script:
   - wget -c "https://raw.githubusercontent.com/AppImage/AppImages/master/README.md"                                                  -O ./appdir/README.appimages
   - wget -c "https://raw.githubusercontent.com/probonopd/uploadtool/master/README.md"                                                -O ./appdir/README.uploadtool
   - wget -c "https://raw.githubusercontent.com/AppImage/zsync2/master/README.md"                                                     -O ./appdir/README.zsync2
-  - wget -c "http://portablelinuxapps.org/docs/1.0/AppImageKit.pdf"                                                                  -O ./appDir/README-historical-WhitePaper-AppImageKit---outdated.pdf
+  - wget -c "http://portablelinuxapps.org/docs/1.0/AppImageKit.pdf"                                                                  -O ./appdir/README-historical-WhitePaper-AppImageKit---outdated.pdf
 
     # Download license info texts:
   - wget -c "https://raw.githubusercontent.com/probonopd/uploadtool/master/LICENSE"                                                  -O ./appdir/LICENSE.MIT.uploadtool
