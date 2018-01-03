@@ -198,6 +198,8 @@ fi
 if [ x"$1" == "xlistman" -o x"$1" == "x--listman" -o x"$1" == "xlist-man" -o x"$1" == "x--list-man" ] ; then
     cd "$HERE"
     echo ""
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
+    echo ""
     find usr/share/man* -type f | sed 's#^# man #'
     echo ""
     exit $?
@@ -231,7 +233,9 @@ fi
 if [ x"$1" == "xlistdir" -o x"$1" == "x--listdir" -o x"$1" == "xlist-dir" -o x"$1" == "x--list-dir" ] ; then
     cd "$HERE"
     echo ""
-    find . -type d | sed 's#^./#  dir #'
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
+    echo ""
+    find . -type d | sed 's#^./#  --dir #'
     echo ""
     exit $?
 fi
@@ -240,7 +244,9 @@ fi
 if [ x"$1" == "xlistscript" -o x"$1" == "x--listscript" -o x"$1" == "xlist-script" -o x"$1" == "x--list-script" ] ; then
     cd "$HERE"
     echo ""
-    find . -type f -o -type l -o -type s -o -type p | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  #' | sort -V | sed 's#^./#  script #'
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
+    echo ""
+    find . -type f -o -type l -o -type s -o -type p | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  #' | sort -V | sed 's#^./#  --script #'
     echo ""
     exit $?
 fi
@@ -248,6 +254,8 @@ fi
 
 if [ x"$1" == "xlistexe" -o x"$1" == "x--listexe" -o x"$1" == "xlist-exe" -o x"$1" == "x--list-exe" ] ; then
     cd "$HERE"
+    echo ""
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
     echo ""
     find . -type f -o -type l -o -type s -o -type p | grep '/bin/' | sed 's#./usr/bin/#  #' | sort -V
     echo ""
@@ -258,7 +266,9 @@ fi
 if [ x"$1" == "xlistfile" -o x"$1" == "x--listfile" -o x"$1" == "xlist-file" -o x"$1" == "x--list-file" ] ; then
     cd "$HERE"
     echo ""
-    find . -type f -o -type l -o -type s -o -type p | sed 's#^./#  file #'
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
+    echo ""
+    find . -type f -o -type l -o -type s -o -type p | sed 's#^./#  --file #'
     echo ""
     exit $?
 fi
@@ -267,7 +277,9 @@ fi
 if [ x"$1" == "xlistlicense" -o x"$1" == "x--listlicense" -o  x"$1" == "xlist-license" -o x"$1" == "x--list-license" ] ; then
     cd "$HERE"
     echo ""
-    find . -type f -name "*LICENSE*" -o -name "*license*" | sed 's#^./#  license #'
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
+    echo ""
+    find . -type f -name "*LICENSE*" -o -name "*license*" | sed 's#^./#  --license #'
     echo ""
     exit $?
 fi
@@ -276,7 +288,9 @@ fi
 if [ x"$1" == "xlistreadme" -o x"$1" == "x--listreadme" -o x"$1" == "xlist-readme" -o x"$1" == "x--list-readme" ] ; then
     cd "$HERE"
     echo ""
-    find . -type f -name "*README*" -o -name "*readme*" -o -name "*.txt" -o -name "*.md" | sed 's#^./#  readme #'
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
+    echo ""
+    find . -type f -name "*README*" -o -name "*readme*" -o -name "*.txt" -o -name "*.md" | sed 's#^./#  --readme #'
     echo ""
     exit $?
 fi
@@ -409,7 +423,9 @@ fi
 if [ x"$1" == "xlisthtml" -o x"$1" == "x--listhtml" -o  x"$1" == "xlist-html" -o x"$1" == "x--list-html" ] ; then
     cd "$HERE"
     echo ""
-    find . -type f -name "*.html" | sed 's#^./#  html #'
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
+    echo ""
+    find . -type f -name "*.html" | sed 's#^./#  --html #'
     echo ""
     exit $?
 fi
@@ -435,7 +451,9 @@ fi
 if [ x"$1" == "xlistpdf" -o x"$1" == "x--listpdf" -o x"$1" == "xlist-pdf" -o x"$1" == "x--list-pdf" ] ; then
     cd "$HERE"
     echo ""
-    find . -type f -name "*.pdf" | sed 's#^./#  pdf #'
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
+    echo ""
+    find . -type f -name "*.pdf" | sed 's#^./#  --pdf #'
     echo ""
     exit $?
 fi
@@ -461,7 +479,9 @@ fi
 if [ x"$1" == "xlistepub" -o x"$1" == "x--listepub" -o x"$1" == "xlist-epub" -o x"$1" == "x--list-epub" ] ; then
     cd "$HERE"
     echo ""
-    find . -type f -name "*.epub" | sed 's#^./#  epub #'
+    echo "You may run \"ARGV0\" with one of the following additional arguments:"
+    echo ""
+    find . -type f -name "*.epub" | sed 's#^./#  --epub #'
     echo ""
     exit $?
 fi
