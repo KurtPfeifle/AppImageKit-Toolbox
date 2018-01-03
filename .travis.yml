@@ -97,7 +97,8 @@ script:
 
     # Make AppImages, binaries and scripts executable:
   - chmod a+x ./appdir/usr/bin/*
-  - chmod a-x ./appdir/usr/bin/functions.sh
+  - chmod a-x ./appdir/usr/bin/*-i686        # We don't want these to be executable in x86_64 environment!
+  - chmod a-x ./appdir/usr/bin/functions.sh  # ...and neither this.
 
     # Prepare for tests following later:
   - sudo mkdir -p $HOME/.local/bin
