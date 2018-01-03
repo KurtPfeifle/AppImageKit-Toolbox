@@ -295,14 +295,14 @@ script:
   - mv appdir appimagekit-toolbox-appdir
 
     # Create a tarball from renamed appdir:
-  - tar cvzf ./appimagekit-toolbox-appdir.tar.gz ./appimagekit-toolbox-appdir
+  - tar cvzf ./appimagekit-toolbox-appdir-$VERSION.tar.gz ./appimagekit-toolbox-appdir
 
     # Upload AppImages to `transfer.sh`:
     # - curl --upload-file ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage  https://transfer.sh/appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage
   - curl --upload-file ./appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage  https://transfer.sh/appimagekit-toolbox-made-by-ait-continuous-git.$VERSION-x86_64.AppImage
 
     # Upload the renamed appdir to `transfer.sh`:
-  - curl --upload-file ./appimagekit-toolbox-appdir.tar.gz                                        https://transfer.sh/appimagekit-toolbox-appdir.tar.gz
+  - curl --upload-file ./appimagekit-toolbox-appdir-$VERSION.tar.gz                                        https://transfer.sh/appimagekit-toolbox-appdir-$VERSION.tar.gz
 
     # Get probono's upload tool/script:
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
@@ -312,21 +312,21 @@ script:
     #- bash ./upload.sh ./foo-made-by-appimagetool-continuous-git.$VERSION-x86_64.AppImage
     #- bash ./upload.sh ./Minimal-foo-AppDir.tar.gz
 
-  - pwd
-  - find ./appimagekit-toolbox-appdir
-  - for i in ./appimagekit-toolbox-appdir/usr/bin/* ; do ./aiktb_a appimageupdatetool --describe $i 2>stderr 2>&1 | tee -a update.descriptions ; done
-  - cat update.descriptions
-  - for i in ./appimagekit-toolbox-appdir/usr/bin/* ; do $i --appimage-updateinfo 2>&1 | tee -a update.info ; done
-  - cat update.info
+    #- pwd
+    #- find ./appimagekit-toolbox-appdir
+    #- for i in ./appimagekit-toolbox-appdir/usr/bin/* ; do ./aiktb_a appimageupdatetool --describe $i 2>stderr 2>&1 | tee -a update.descriptions ; done
+    #- cat update.descriptions
+    #- for i in ./appimagekit-toolbox-appdir/usr/bin/* ; do $i --appimage-updateinfo 2>&1 | tee -a update.info ; done
+    #- cat update.info
 
 
 after_script:
-  - TRAVIS_TEST_RESULT=$TRAVIS_TEST_RESULT
-  - touch -t 201801010000.01 "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
-  - ls -l "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
+    #- TRAVIS_TEST_RESULT=$TRAVIS_TEST_RESULT
+    #- touch -t 201801010000.01 "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
+    #- ls -l "TRAVIS_TEST_RESULT-$TRAVIS_TEST_RESULT"
 
     # Check what appimaged discovered
-  - grep -A 46 -B 3 Registering ./appimaged.stderr
+    #- grep -A 46 -B 3 Registering ./appimaged.stderr
 
 
 before_cache:
