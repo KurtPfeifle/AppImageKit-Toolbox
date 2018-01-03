@@ -170,13 +170,13 @@ case "$#" in
         echo " #  [path to a] file as a single argument, it simply returns the"     1>&2
         echo " #  'major/minor' MIME type. If you add multiple [paths to] files"    1>&2
         echo " #  as arguments, it returns a list of 'major/minor' MIME types with" 1>&2
-        echo " #  the respective file names prepended. Example usage:"
-        echo " #"
-        echo " #         $> $FUNCNAME /path/to/a.pdf"
-        echo " #"
-        echo " #         $> $FUNCNAME /path/to/a.txt ./myscript.sh ../some.txt"
-        echo " #"
-        echo " #  This Bash function's source code is this:"  1>&2
+        echo " #  the respective file names prepended. Example usage:"              1>&2
+        echo " #"                                                                   1>&2
+        echo " #         $> $FUNCNAME /path/to/a.pdf"                               1>&2
+        echo " #"                                                                   1>&2
+        echo " #         $> $FUNCNAME /path/to/a.txt ./myscript.sh ../some.txt"     1>&2
+        echo " #"                                                                   1>&2
+        echo " #  This Bash function's source code is this:"                        1>&2
         echo ""                                                                     1>&2
         typeset -f "${FUNCNAME}"                                                    1>&2
         echo ""                                                                     1>&2
