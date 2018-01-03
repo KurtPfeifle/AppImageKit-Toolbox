@@ -188,7 +188,7 @@ esac
 }
 
 
-if [ x"$1" == "xshow-apprun" -o x"$1" == "x--show-apprun" -o x"$1" == "xselfshow" -o x"$1" == "x--selfshow"  -o x"$1" == "xself-show" -o x"$1" == "x--self-show" ] ; then
+if [ x"$1" == "xshow-apprun" -o x"$1" == "x--show-apprun" -o x"$1" == "xselfshow" -o x"$1" == "x--selfshow"  -o x"$1" == "xself-show" -o x"$1" == "x--self-show" -o x"$1" == "x--show-self" -o x"$1" == "x--showself" -o x"$1" == "xshow-self"    -o x"$1" == "xshowself" ] ; then
     cd "$HERE"
     less -N AppRun
     exit $?
