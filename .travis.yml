@@ -5,7 +5,8 @@ dist: trusty
 
 before_install:
   - sudo add-apt-repository -y ppa:ximion/packagekit
-  - sudo apt-get -y update
+  - sudo apt-key update -y -q
+  - sudo apt-get update -y -q
 
 install:
   - sudo apt-get -y install coreutils less busybox-static appstream
