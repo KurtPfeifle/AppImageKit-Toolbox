@@ -7,7 +7,7 @@ for ai in appimaged AppImageUpdate appimageupdatetool appimagetool zsync2 zsyncm
     aiorig=$ai
     if [ x$ai == x ] ; then ai=appimagekit-toolbox ; fi
     printf "%28s" "$ai :  "
-    ./AppRun $aiorig --appimage-updateinfo 2>&1
+    ./AppRun $aiorig --appimage-updateinfo 2>&1 | sed 's#\x0##g'
     printf "\n"
 done
 sleep 3
