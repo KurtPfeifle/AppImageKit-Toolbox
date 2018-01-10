@@ -1,0 +1,4 @@
+
+# To be run by Travis during build time
+echo "appimagekit-toolbox, version 1-alpha (commit $(git describe --tags --always --abbrev=7)), build $TRAVIS_BUILD_NUMBER on $(date -u)" > ./versionfile
+

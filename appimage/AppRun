@@ -591,6 +591,12 @@ if [ x"$1" == "xepub" -o x"$1" == "x--epub" ] ; then
 fi
 
 
+if [ x"$1" == "xV" -o x"$1" == "x--version"  -o x"$1" == "x-version" -o x"$1" == "xversion" ] ; then
+    cd "$HERE"
+    cat ./versionfile
+fi
+
+
 ### Main stuff happens from here:
 if [ ! -z $APPIMAGE ] ; then
     BINARY_NAME=$(basename "$ARGV0")    # For this AppImage, BINARY_NAME will always be 'appimagekit-toolbox', which does not really exist.

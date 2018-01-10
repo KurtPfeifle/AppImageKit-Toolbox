@@ -29,6 +29,10 @@ script:
     # Copy the (stub) `appimagekit-toolbox` script to its location:
   - cp -a ./appimage/appimagekit-toolbox-usage.sh        ./appdir/usr/bin/
 
+    # Create and deploy internal version message:
+  - bash ./appimage/mkversionfile ; cp ./versionfile     ./appdir/versionfile
+  - cat ./versionfile
+
     # Add debugging tools to toolbox:
   - cp -a /usr/bin/env                                   ./appdir/usr/bin/
   - cp -a /bin/busybox                                   ./appdir/usr/bin/
