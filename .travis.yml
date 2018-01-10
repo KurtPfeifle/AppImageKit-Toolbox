@@ -49,6 +49,10 @@ script:
   - find ./appdir/usr/share/man -type f
   - find ./appdir/usr/share/doc -type f
 
+    # Add selftest.sh and sub-tests:
+  - cp -a ./tests                                        ./appdir/usr/share/
+  - cp -a ./appimage/selftests.sh                        ./appdir/usr/bin/
+
     # Add AppImageKit binaries (as AppImages!) to toolbox and rename them at the same time:
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-x86_64.AppImage"                         -O ./appdir/usr/bin/appimaged
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"                      -O ./appdir/usr/bin/appimagetool

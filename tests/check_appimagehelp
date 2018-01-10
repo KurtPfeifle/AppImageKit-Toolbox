@@ -1,0 +1,15 @@
+
+printf "\n"
+printf "================================\n"
+printf "    Running $(basename $0):\n"
+printf "================================\n"
+for ai in "" appimaged AppImageUpdate appimageupdatetool appimagetool zsync2 zsyncmake2 ; do
+    aiorig=$ai
+    if [ x$ai == x ] ; then ai=appimagekit-toolbox ; fi
+    printf "%26s\n" "$ai :"
+    printf "%26s\n" "*********************************"
+    ./AppRun $aiorig --appimage-help 2>&1
+    printf "\n"
+done
+sleep 1
+printf "\n"
