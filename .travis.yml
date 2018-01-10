@@ -50,13 +50,17 @@ script:
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"                      -O ./appdir/usr/bin/appimagetool
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-i686.AppImage"                           -O ./appdir/usr/bin/appimaged-i686
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-i686.AppImage"                        -O ./appdir/usr/bin/appimagetool-i686
-    #- wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/AppImageUpdate-185-1c72f3b-x86_64.AppImage"    -O ./appdir/usr/bin/AppImageUpdate
-  - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/AppImageUpdate*-x86_64.AppImage"                -O ./appdir/usr/bin/AppImageUpdate
-    #- wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/appimageupdatetool-185-1c72f3b-x86_64.AppImage" -O ./appdir/usr/bin/appimageupdatetool
-  - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/appimageupdatetool*-x86_64.AppImage"            -O ./appdir/usr/bin/appimageupdatetool
   - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsync2-106-817978a-x86_64.AppImage"                     -O ./appdir/usr/bin/zsync2
   - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsyncmake2-106-817978a-x86_64.AppImage"                 -O ./appdir/usr/bin/zsyncmake2
   - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"       -O ./appdir/usr/bin/linuxdeployqt
+
+    # AppImageUpdate and appimageupdatetool don't follow a "neutral" naming convention and are in a separate repo:
+  - aiut=$(curl https://github.com/AppImage/AppImageUpdate/releases/ | grep href= |grep -E "appimageupdatetool-" | grep "x86_64.AppImage" | head -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
+  -  AIU=$(curl https://github.com/AppImage/AppImageUpdate/releases/ | grep href= |grep -E "AppImageUpdate-"     | grep "x86_64.AppImage" | head -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
+  - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/$AIU"                                           -O ./appdir/usr/bin/AppImageUpdate
+  - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/$aiut"                                          -O ./appdir/usr/bin/appimageupdatetool
+    #- wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/AppImageUpdate-185-1c72f3b-x86_64.AppImage"    -O ./appdir/usr/bin/AppImageUpdate
+    #- wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/appimageupdatetool-185-1c72f3b-x86_64.AppImage" -O ./appdir/usr/bin/appimageupdatetool
 
     # Add other binaries (default 'AppRun' and 'runtime' for x86_64):
   - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64"                                    -O ./appdir/usr/bin/runtime
