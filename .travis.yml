@@ -158,7 +158,7 @@ script:
   - ./appdir/usr/bin/appimagetool        --version
 
     # Let `appimagetool` from extracted linuxdeployqt create the second AppImage:
-    #- PATH=./squashfs-root/usr/bin:$PATH           ./squashfs-root/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage
+    #- PATH=./squashfs-root/usr/bin:$PATH           ./squashfs-root/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage
 
     # Check what we have:
   - ls -l ./appdir/AppRun ./squashfs-root/AppRun
@@ -168,22 +168,22 @@ script:
   - cp -a ./appimage/AppRun ./appdir/
 
     # Let `appimagetool` downloaded into ./appdir/usr/bin  create the second AppImage:
-  - PATH=./appdir/usr/bin:./squashfs-root/usr/bin:$PATH ARCH=x86_64 ./appdir/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage
-  - touch -t "201801010000.01" ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage
+  - PATH=./appdir/usr/bin:./squashfs-root/usr/bin:$PATH ARCH=x86_64 ./appdir/usr/bin/appimagetool -g -v ./appdir ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage
+  - touch -t "201801010000.01" ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage
 
     # See what we got (just for Travis' build log):
   - find . -name "*.AppImage" -ls
 
     # Check a few things (to be seen in Travis' build log):
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage --appimage-version
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage --appimage-version
     #- ./appimagekit-toolbox-made-by-ldq-continuous-git.$VERSION-x86_64.AppImage --appimage-version
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage --appimage-offset
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage --appimage-offset
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage --appimage-offset
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage --appimage-updateinfo
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage --appimage-updateinfo
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage --appimage-updateinfo
 
     # Create symlinks to the AppImage(s)
-  - ln -s ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage aiktb_a
+  - ln -s ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage aiktb
     #- ln -s ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage aiktb_q
 
     ##############################################################
@@ -191,91 +191,91 @@ script:
     ##############################################################
 
     # Let appimaged run in background and check later what it found
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimaged --verbose --no-install 2>appimaged.stderr &
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimaged --verbose --no-install 2>appimaged.stderr &
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage
-  - ./aiktb_a
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage
+  - ./aiktb
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage
     #- ./aiktb_q
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage    --help
-  - ./aiktb_a                                                                --help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage    --help
+  - ./aiktb                                                                --help
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage    --help
     #- ./aiktb_q                                                                --help
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   --listexe
-  - ./aiktb_a                                                               --listexe
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   --listexe
+  - ./aiktb                                                               --listexe
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage   --listexe
     #- ./aiktb_q                                                                --listexe
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   --listepub
-  - ./aiktb_a                                                               --listepub
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   --listepub
+  - ./aiktb                                                               --listepub
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage   --listepub
     #- ./aiktb_q                                                               --listepub
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   --listhtml
-  - ./aiktb_a                                                               --listhtml
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   --listhtml
+  - ./aiktb                                                               --listhtml
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage   --listhtml
     #- ./aiktb_q                                                                --listhtml
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   --listpdf
-  - ./aiktb_a                                                               --listpdf
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   --listpdf
+  - ./aiktb                                                               --listpdf
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage   --listpdf
     #- ./aiktb_q                                                               --listpdf
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   --listreadme
-  - ./aiktb_a                                                               --listreadme
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   --listreadme
+  - ./aiktb                                                               --listreadme
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage   --listreadme
     #- ./aiktb_q                                                               --listreadme
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimagetool --help
-  - ./aiktb_a                                                               appimagetool --help
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimagetool --appimage-help
-  - ./aiktb_a                                                               appimagetool --appimage-help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimagetool --help
+  - ./aiktb                                                               appimagetool --help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimagetool --appimage-help
+  - ./aiktb                                                               appimagetool --appimage-help
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --help
-  - ./aiktb_a                                                               appimageupdatetool --help
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --version
-  - ./aiktb_a                                                               appimageupdatetool --version
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --appimage-help
-  - ./aiktb_a                                                               appimageupdatetool --appimage-help
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe ./aiktb_a
-  - ./aiktb_a                                                               appimageupdatetool --describe ./aiktb_a
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/linuxdeployqt
-  - ./aiktb_a                                                               appimageupdatetool --describe $HOME/.local/bin/linuxdeployqt
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/appimagetool
-  - ./aiktb_a                                                                   appimageupdatetool --describe $HOME/.local/bin/appimagetool
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/appimageupdatetool
-  - ./aiktb_a                                                               appimageupdatetool --describe $HOME/.local/bin/appimageupdatetool
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/AppImageUpdate
-  - ./aiktb_a                                                               appimageupdatetool --describe $HOME/.local/bin/AppImageUpdate
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/zsync2
-  - ./aiktb_a                                                               appimageupdatetool --describe $HOME/.local/bin/zsync2
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/zsyncmake2
-  - ./aiktb_a                                                               appimageupdatetool --describe $HOME/.local/bin/zsyncmake2
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/appimaged
-  - ./aiktb_a                                                               appimageupdatetool --describe $HOME/.local/bin/appimaged
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --help
+  - ./aiktb                                                               appimageupdatetool --help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --version
+  - ./aiktb                                                               appimageupdatetool --version
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --appimage-help
+  - ./aiktb                                                               appimageupdatetool --appimage-help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe ./aiktb
+  - ./aiktb                                                               appimageupdatetool --describe ./aiktb
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/linuxdeployqt
+  - ./aiktb                                                               appimageupdatetool --describe $HOME/.local/bin/linuxdeployqt
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/appimagetool
+  - ./aiktb                                                                   appimageupdatetool --describe $HOME/.local/bin/appimagetool
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/appimageupdatetool
+  - ./aiktb                                                               appimageupdatetool --describe $HOME/.local/bin/appimageupdatetool
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/AppImageUpdate
+  - ./aiktb                                                               appimageupdatetool --describe $HOME/.local/bin/AppImageUpdate
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/zsync2
+  - ./aiktb                                                               appimageupdatetool --describe $HOME/.local/bin/zsync2
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/zsyncmake2
+  - ./aiktb                                                               appimageupdatetool --describe $HOME/.local/bin/zsyncmake2
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimageupdatetool --describe $HOME/.local/bin/appimaged
+  - ./aiktb                                                               appimageupdatetool --describe $HOME/.local/bin/appimaged
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimaged --help
-  - ./aiktb_a                                                               appimaged --help
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimaged --version
-  - ./aiktb_a                                                               appimaged --version
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   appimaged --appimage-help
-  - ./aiktb_a                                                               appimaged --appimage-help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimaged --help
+  - ./aiktb                                                               appimaged --help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimaged --version
+  - ./aiktb                                                               appimaged --version
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   appimaged --appimage-help
+  - ./aiktb                                                               appimaged --appimage-help
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   zsync2 --help
-  - ./aiktb_a                                                               zsync2 --help
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   zsync2 --version
-  - ./aiktb_a                                                               zsync2 --version
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   zsync2 --appimage-help
-  - ./aiktb_a                                                               zsync2 --appimage-help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   zsync2 --help
+  - ./aiktb                                                               zsync2 --help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   zsync2 --version
+  - ./aiktb                                                               zsync2 --version
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   zsync2 --appimage-help
+  - ./aiktb                                                               zsync2 --appimage-help
 
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   zsyncmake2 --help
-  - ./aiktb_a                                                               zsyncmake2 --help
-    #- ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   zsyncmake2 --version   # Not supported option!
-    #- ./aiktb_a                                                               zsyncmake2 --version   # Not supported option!
-  - ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage   zsyncmake2 --appimage-help
-  - ./aiktb_a                                                               zsyncmake2 --appimage-help
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   zsyncmake2 --help
+  - ./aiktb                                                               zsyncmake2 --help
+    #- ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   zsyncmake2 --version   # Not supported option!
+    #- ./aiktb                                                               zsyncmake2 --version   # Not supported option!
+  - ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage   zsyncmake2 --appimage-help
+  - ./aiktb                                                               zsyncmake2 --appimage-help
 
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage   appimagetool --help
     #- ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage   appimagetool --appimage-help
@@ -301,15 +301,15 @@ script:
   - tar cvzf ./appimagekit-toolbox-appdir-$VERSION.tar.gz ./appimagekit-toolbox-appdir
 
     # Make a copy of the AppImage with a standard name
-  - cp ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage ./appimagekit-toolbox-continuous-x86_64.AppImage
+  - cp ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage ./appimagekit-toolbox-continuous-x86_64.AppImage
 
     # Upload AppImages to `transfer.sh`:
     # - curl --upload-file ./appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage  https://transfer.sh/appimagekit-toolbox-made-by-ldq-continuous-$VERSION-x86_64.AppImage
-  - curl --upload-file ./appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage  https://transfer.sh/appimagekit-toolbox-made-by-ait-continuous-$VERSION-x86_64.AppImage
+  - curl --upload-file ./appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage  https://transfer.sh/appimagekit-toolbox-continuous-$VERSION-x86_64.AppImage
   - curl --upload-file ./appimagekit-toolbox-continuous-x86_64.AppImage                       https://transfer.sh/appimagekit-toolbox-continuous-x86_64.AppImage
 
     # Upload the renamed appdir to `transfer.sh`:
-  - curl --upload-file ./appimagekit-toolbox-appdir-$VERSION.tar.gz                                        https://transfer.sh/appimagekit-toolbox-appdir-$VERSION.tar.gz
+  - curl --upload-file ./appimagekit-toolbox-appdir-$VERSION.tar.gz                           https://transfer.sh/appimagekit-toolbox-appdir-$VERSION.tar.gz
 
     # Get probono's upload tool/script:
   - wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
@@ -321,7 +321,7 @@ script:
 
     #- pwd
     #- find ./appimagekit-toolbox-appdir
-    #- for i in ./appimagekit-toolbox-appdir/usr/bin/* ; do ./aiktb_a appimageupdatetool --describe $i 2>stderr 2>&1 | tee -a update.descriptions ; done
+    #- for i in ./appimagekit-toolbox-appdir/usr/bin/* ; do ./aiktb appimageupdatetool --describe $i 2>stderr 2>&1 | tee -a update.descriptions ; done
     #- cat update.descriptions
     #- for i in ./appimagekit-toolbox-appdir/usr/bin/* ; do $i --appimage-updateinfo 2>&1 | tee -a update.info ; done
     #- cat update.info
