@@ -8,7 +8,7 @@ echo " AppImages, and are meant to be used interactively by users. Others (like 
 echo " embedded inside to-be-created AppImages in order to make the AppImage work as it should. For good measure, some"
 echo " essential shell scripts are included as well, not to forget the most important READMEs of the project..."
 echo ""
-echo " Usage:   $ARGV0  --help"
+echo " Usage:   $ARGV0  --help     # NOT this message!"
 echo "          $ARGV0  <sub-command>"
 echo ""
 echo "   Available sub-commands:"
