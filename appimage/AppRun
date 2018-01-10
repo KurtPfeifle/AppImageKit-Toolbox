@@ -594,6 +594,7 @@ fi
 if [ x"$1" == "xV" -o x"$1" == "x--version"  -o x"$1" == "x-version" -o x"$1" == "xversion" ] ; then
     cd "$HERE"
     cat ./versionfile
+    exit $?
 fi
 
 
