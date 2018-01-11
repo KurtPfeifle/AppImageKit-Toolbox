@@ -3,12 +3,15 @@ printf "\n"
 printf " ================================\n"
 printf "    Running $(basename $0):\n"
 printf " ================================\n"
-for ai in appimaged AppImageUpdate appimageupdatetool appimagetool zsync2 zsyncmake2 ; do
+for ai in appimaged AppImageUpdate appimageupdatetool appimagetool linuxdeployqt zsync2 zsyncmake2 ; do
     aiorig=$ai
     if [ x$ai == x ] ; then ai=appimagekit-toolbox ; fi
     printf "%26s" "$ai :  "
-    ./AppRun $ai --appimage-updateinfo 2>&1 | sed 's#\x0##g'
+    ./AppRun $aiorig --appimage-updateinfo 2>&1 | sed 's#\x0##g'
 done
-sleep 3
+sleep 1
 printf "\n"
+
+### TODO #####
+# Check, if we can modify this test to run against the container AppImage ("appimagekit-toolbox") itself, by adding "" to the loop !
 

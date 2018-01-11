@@ -4,7 +4,6 @@ printf " ================================\n"
 printf "    Running $(basename $0):\n"
 printf " ================================\n"
 for l in dir man epub html license pdf readme exe script ; do
-    aiorig=$ai
     printf "%46s\n" "******************************************************************"
     printf "%46s\n" "$ARGV0 --list-$l :   "
     printf "%46s\n" "******************************************************************"
