@@ -341,7 +341,9 @@ if [ x"$1" == "xlistexe" -o x"$1" == "x--listexe" -o x"$1" == "xlist-exe" -o x"$
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
     echo "This would run the respective exe as a 'sub-command':"
     echo ""
-    find . \( \( -type f -o -type l -o -type s -o -type p \) -a -executable \) | grep '/bin/' | sed 's#./usr/bin/#  #;s#./usr/local/bin/#   ./usr/local/bin/#' | sort -V | grep -vE '(-686|AppRun|runtime|functions.sh)'
+    find . \( \( -type f -o -type l -o -type s -o -type p \) -a -executable \) | grep '/bin/' | sed 's#./usr/bin/#  #;s#./usr/local/bin/#   ./usr/local/bin/#' | sort -V | grep -vE '(-686|AppRun|runtime|functions.sh)' | grep -v ".sh$"
+    echo ""
+    find . \( \( -type f -o -type l -o -type s -o -type p \) -a -executable \) | grep '/bin/' | sed 's#./usr/bin/#  #;s#./usr/local/bin/#   ./usr/local/bin/#' | sort -V | grep -vE '(-686|AppRun|runtime|functions.sh)' | grep    ".sh$"
     echo ""
     exit $?
 fi
