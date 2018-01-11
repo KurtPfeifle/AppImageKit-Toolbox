@@ -24,7 +24,7 @@ else
 fi
 
 if [ "x$SET_SHOW_ENV_FOR_APPRUN" == "xYeSS" ] ; then
-    env | less
+    env | ./usr/bin/less
 fi
 
 if [ "x$SET_SHOW_ENV_FOR_APPIMAGE" == "xYeSS" ] ; then
@@ -209,13 +209,13 @@ echo "
 
 
 if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
-    help | less
+    help | ./usr/bin/less
     exit $?
 fi
 
 
 if [ "x$1" == "xhelp2" -o "x$1" == "x--help2" ] ; then
-    help2 | less
+    help2 | ./usr/bin/less
     exit $?
 fi
 
@@ -268,7 +268,7 @@ esac
 
 if [ x"$1" == "xshow-apprun" -o x"$1" == "x--show-apprun" -o x"$1" == "xselfshow" -o x"$1" == "x--selfshow"  -o x"$1" == "xself-show" -o x"$1" == "x--self-show" -o x"$1" == "x--show-self" -o x"$1" == "x--showself" -o x"$1" == "xshow-self"    -o x"$1" == "xshowself" ] ; then
     cd "$HERE"
-    less -N AppRun
+    ./usr/bin/less -N AppRun
     exit $?
 fi
 
@@ -403,7 +403,7 @@ if [ x"$1" == "xreadme" -o x"$1" == "x--readme" ] ; then
                 echo ""
              ;;
             text/*)
-                less -N $readmefile
+                ./usr/bin/less -N $readmefile
              ;;
         esac
         sleep 0
@@ -470,7 +470,7 @@ if [ x"$1" == "xscriptshow" -o x"$1" == "x--scriptshow" -o x"$1" == "xscript-sho
                 echo ""
              ;;
             text/x-*|text/plain)
-                less -N $scriptfile
+                ./usr/bin/less -N $scriptfile
              ;;
         esac
         sleep 0
@@ -501,7 +501,7 @@ if [ x"$1" == "xlicense" -o x"$1" == "x--license" ] ; then
                 echo ""
              ;;
             text/*)
-                less -N $licensefile
+                ./usr/bin/less -N $licensefile
              ;;
         esac
         sleep 0
