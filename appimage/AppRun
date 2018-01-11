@@ -462,7 +462,7 @@ if [ x"$1" == "xscriptshow" -o x"$1" == "x--scriptshow" -o x"$1" == "xscript-sho
                 echo " Sorry, this file, \"$scriptfile\", is empty and has no content."
                 echo ""
              ;;
-            text/x-*)
+            text/x-*|text/plain)
                 less -N $scriptfile
              ;;
         esac
