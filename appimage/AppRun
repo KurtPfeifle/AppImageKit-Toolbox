@@ -429,13 +429,14 @@ if [ x"$1" == "xscriptrun" -o x"$1" == "x--scriptrun" -o x"$1" == "xscript-run" 
                 echo ""
                 echo " Sorry, this file, \"$scriptfile\", is empty and has no content."
                 echo ""
+                exit $?
              ;;
             text/x-*)
                 exec $scriptfile
                 exit $?
              ;;
             text/plain)
-                exec source $scriptfile
+                source $scriptfile
                 exit $?
              ;;
         esac
