@@ -434,6 +434,10 @@ if [ x"$1" == "xscriptrun" -o x"$1" == "x--scriptrun" -o x"$1" == "xscript-run" 
                 exec $scriptfile
                 exit $?
              ;;
+            text/plain)
+                exec source $scriptfile
+                exit $?
+             ;;
         esac
         sleep 0
     fi
