@@ -17,7 +17,9 @@
 # large showcase of the AppImageKit suite of tools. It now includes all the important utilities created by the
 # AppImage developers.   --   Have a lot of fun in exploring this beast!
 
-if [ x$SET_BASH_X_FOR_APPRUN = xYeSS ] ; then
+HERE="$(dirname "$(readlink -f "${0}")")"
+
+if [ x$SET_BASH_X_FOR_APPRUN == xYeSS ] ; then
    set -x
 else
    set +x
@@ -28,11 +30,9 @@ if [ "x$SET_SHOW_ENV_FOR_APPRUN" == "xYeSS" ] ; then
 fi
 
 if [ "x$SET_SHOW_ENV_FOR_APPIMAGE" == "xYeSS" ] ; then
-    env | grep --color -E '(APPIMAGE|APPDIR|APP|ARGV0)'
+    env | grep --color -E '(APPIMAGE|APPDIR|APP|ARGV0|HERE)'
 fi
 
-
-HERE="$(dirname "$(readlink -f "${0}")")"
 
 function help2() {
 echo "
