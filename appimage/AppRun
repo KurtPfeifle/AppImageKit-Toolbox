@@ -17,6 +17,9 @@
 # large showcase of the AppImageKit suite of tools. It now includes all the important utilities created by the
 # AppImage developers.   --   Have a lot of fun in exploring this beast!
 
+
+HERE="$(dirname "$(readlink -f "${0}")")"
+
 if [ x$SET_BASH_X_FOR_APPRUN = xYeSS ] ; then
    set -x
 else
@@ -24,15 +27,13 @@ else
 fi
 
 if [ "x$SET_SHOW_ENV_FOR_APPRUN" == "xYeSS" ] ; then
-    env | ./usr/bin/less
+    env | $HERE/usr/bin/less
 fi
 
 if [ "x$SET_SHOW_ENV_FOR_APPIMAGE" == "xYeSS" ] ; then
     env | grep --color -E '(APPIMAGE|APPDIR|APP|ARGV0)'
 fi
 
-
-HERE="$(dirname "$(readlink -f "${0}")")"
 
 function help2() {
 echo "
@@ -209,13 +210,13 @@ echo "
 
 
 if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
-    help | ./usr/bin/less
+    help | $HERE/usr/bin/less
     exit $?
 fi
 
 
 if [ "x$1" == "xhelp2" -o "x$1" == "x--help2" ] ; then
-    help2 | ./usr/bin/less
+    help2 | $HERE/usr/bin/less
     exit $?
 fi
 
@@ -268,7 +269,7 @@ esac
 
 if [ x"$1" == "xshow-apprun" -o x"$1" == "x--show-apprun" -o x"$1" == "xselfshow" -o x"$1" == "x--selfshow"  -o x"$1" == "xself-show" -o x"$1" == "x--self-show" -o x"$1" == "x--show-self" -o x"$1" == "x--showself" -o x"$1" == "xshow-self"    -o x"$1" == "xshowself" ] ; then
     cd "$HERE"
-    ./usr/bin/less -N AppRun
+    $HERE/usr/bin/less -N AppRun
     exit $?
 fi
 
@@ -403,7 +404,7 @@ if [ x"$1" == "xreadme" -o x"$1" == "x--readme" ] ; then
                 echo ""
              ;;
             text/*)
-                ./usr/bin/less -N $readmefile
+                $HERE/usr/bin/less -N $readmefile
              ;;
         esac
         sleep 0
@@ -470,7 +471,7 @@ if [ x"$1" == "xscriptshow" -o x"$1" == "x--scriptshow" -o x"$1" == "xscript-sho
                 echo ""
              ;;
             text/x-*|text/plain)
-                ./usr/bin/less -N $scriptfile
+                $HERE/usr/bin/less -N $scriptfile
              ;;
         esac
         sleep 0
@@ -501,7 +502,7 @@ if [ x"$1" == "xlicense" -o x"$1" == "x--license" ] ; then
                 echo ""
              ;;
             text/*)
-                ./usr/bin/less -N $licensefile
+                $HERE/usr/bin/less -N $licensefile
              ;;
         esac
         sleep 0
