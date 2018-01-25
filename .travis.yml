@@ -56,8 +56,8 @@ script:
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"                      -O ./appdir/usr/bin/appimagetool
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-i686.AppImage"                           -O ./appdir/usr/bin/appimaged-i686
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-i686.AppImage"                        -O ./appdir/usr/bin/appimagetool-i686
-    - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsync2-106-817978a-x86_64.AppImage"                     -O ./appdir/usr/bin/zsync2
-    - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsyncmake2-106-817978a-x86_64.AppImage"                 -O ./appdir/usr/bin/zsyncmake2
+    - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsync2-108-fb06578-x86_64.AppImage"                     -O ./appdir/usr/bin/zsync2
+    - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/zsyncmake2-108-fb06578-x86_64.AppImage"                 -O ./appdir/usr/bin/zsyncmake2
     - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"       -O ./appdir/usr/bin/linuxdeployqt
 
       # AppImageUpdate and appimageupdatetool don't follow a "neutral" naming convention and are in a separate repo:
