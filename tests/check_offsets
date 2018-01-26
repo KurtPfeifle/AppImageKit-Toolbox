@@ -3,12 +3,17 @@ printf "\n"
 printf " ================================\n"
 printf "    Running $(basename $0):\n"
 printf " ================================\n"
-for ai in appimaged AppImageUpdate appimageupdatetool appimagetool linuxdeployqt zsync2 zsyncmake2 ; do
+for ai in appimaged AppImageUpdate appimageupdatetool appimagetool linuxdeployqt zsync2 zsyncmake2 "" ; do
     sleep 1
     aiorig=$ai
-    if [ x$ai == x ] ; then ai=appimagekit-toolbox ; fi
-    printf "%26s" "$ai :  "
-    ./AppRun $aiorig --appimage-offset 2>&1
+    if [ x$ai == x ] ; then
+        aiorig=appimagekit-toolbox
+        printf "%26s" "$aiorig :  "
+        $APPIMAGE $aiorig --appimage-offset 2>&1
+    else
+        printf "%26s" "$aiorig :  "
+        ./AppRun $aiorig  --appimage-offset 2>&1
+    fi
 done
 sleep 1
 printf "\n"

@@ -3,11 +3,16 @@ printf "\n"
 printf " ================================\n"
 printf "    Running $(basename $0):\n"
 printf " ================================\n"
-for ai in appimaged AppImageUpdate appimageupdatetool appimagetool linuxdeployqt zsync2 zsyncmake2 ; do
+for ai in appimaged AppImageUpdate appimageupdatetool appimagetool linuxdeployqt zsync2 zsyncmake2 "" ; do
     aiorig=$ai
-    if [ x$ai == x ] ; then ai=appimagekit-toolbox ; fi
-    printf "%26s" "$ai :  "
-    ./AppRun $aiorig --appimage-updateinfo 2>&1 | sed 's#\x0##g'
+    if [ x$ai == x ] ; then
+        aiorig=appimagekit-toolbox
+        printf "%26s" "$aiorig :  "
+        $APPIMAGE    --appimage-updateinfo 2>&1 | sed 's#\x0##g'    # sed-pipe to filter away annoying nul-bytes
+    else
+        printf "%26s" "$aiorig :  "
+        ./AppRun $ai --appimage-updateinfo 2>&1 | sed 's#\x0##g'    # sed-pipe to filter away annoying nul-bytes
+    fi
 done
 sleep 1
 printf "\n"
