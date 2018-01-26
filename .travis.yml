@@ -92,7 +92,7 @@ script:
 
       # Run a few selftests (to be evaluated by reading Travis' log):
     - cd ./appdir/usr/bin
-    - for i *; do chmod +x ./$i ; done
+    - for i in *; do chmod +x ./$i ; done
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --version             ; done
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-version    ; done
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-offset     ; done
