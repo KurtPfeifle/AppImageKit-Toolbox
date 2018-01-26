@@ -72,10 +72,11 @@ script:
 
       # Run a few selftests (to be evaluated by reading Travis' log):
     - cd ./appdir/usr/bin
-    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --version             ; done
-    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-version    ; done
-    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-offset     ; done
-    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-updateinfo ; done
+      #- for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --version             ; done
+      #- for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-version    ; done
+      #- for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-offset     ; done
+      #- for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-updateinfo ; done
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ls -l ./$i                    ; done
     - cd -
 
       # Add other binaries (default 'AppRun' and 'runtime' for x86_64):
