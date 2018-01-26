@@ -208,13 +208,13 @@ echo "
 }
 
 
-if [ "x$1" == "xhelp" -o "x$1" == "x--help" ] ; then
+if [ "x$1" == "xhelp" -o "x$1" == "x--help" -o "x$1" == "x-h" ] ; then
     help | $HERE/usr/bin/less
     exit $?
 fi
 
 
-if [ "x$1" == "xhelp2" -o "x$1" == "x--help2" ] ; then
+if [ "x$1" == "xhelp2" -o "x$1" == "x--help2" -o "x$1" == "x-h2" ] ; then
     help2 | $HERE/usr/bin/less
     exit $?
 fi
