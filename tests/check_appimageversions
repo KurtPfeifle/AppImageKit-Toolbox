@@ -6,9 +6,14 @@ printf "    Running $(basename $0):\n"
 printf " ================================\n"
 for ai in appimaged AppImageUpdate appimageupdatetool appimagetool linuxdeployqt zsync2 zsyncmake2 "" ; do
     aiorig=$ai
-    if [ x$ai == x ] ; then aiorig=appimage-toolkit ; fi
-    printf "%26s" "$aiorig :  "
-    ./AppRun $aiorig --appimage-version 2>&1 | head -n 1             # Piped to 'head -n 1' because of appimageupdatetool bug #62
+    if [ x$ai == x ] ; then
+        aiorig=appimage-toolkit
+        printf "%26s" "$aiorig :  "
+        $APPIMAGE        --appimage-version 2>&1 | head -n 1
+    else
+        printf "%26s" "$aiorig :  "
+        ./AppRun $aiorig --appimage-version 2>&1 | head -n 1
+    fi
 done
 sleep 1
 printf "\n"
