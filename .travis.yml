@@ -70,6 +70,14 @@ script:
     - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/$zs2"                                                   -O ./appdir/usr/bin/zsync2
     - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/$zsm2"                                                  -O ./appdir/usr/bin/zsyncmake2
 
+      # Run a few selftests (to be evaluated by reading Travis' log):
+    - cd ./appdir/usr/bin
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --version             ; done
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-version    ; done
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-offset     ; done
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-updateinfo ; done
+    - cd -
+
       # Add other binaries (default 'AppRun' and 'runtime' for x86_64):
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64"                                    -O ./appdir/usr/bin/runtime
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64"                                     -O ./appdir/usr/bin/AppRun
