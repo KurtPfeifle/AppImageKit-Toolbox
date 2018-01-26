@@ -93,7 +93,9 @@ script:
       # Run a few selftests (to be evaluated by reading Travis' log):
     - cd ./appdir/usr/bin
     - for i in *; do chmod +x ./$i ; done
-    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --version             ; done
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate               zsync2 zsyncmake2 ; do ./$i --version             ; done
+      # linuxdeployqt doesn't support '--version' yet -- avoid an 'exited with 1' condition for Travis:
+    - for i in                                                          linuxdeployqt                   ; do ./$i --version || echo ""  ; done
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-version    ; done
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-offset     ; done
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-updateinfo ; done
