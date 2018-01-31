@@ -9,7 +9,7 @@ before_install:
     - sudo apt-get update -y -q
 
 install:
-    - sudo apt-get -y install coreutils less busybox-static appstream
+    - sudo apt-get -y install coreutils less busybox-static appstream man-db
 
 before_script:
 
@@ -37,15 +37,31 @@ script:
     - cp -a /usr/bin/env                                   ./appdir/usr/bin/
     - cp -a /bin/busybox                                   ./appdir/usr/bin/
     - cp -a /bin/less                                      ./appdir/usr/bin/
+    
+      # Add manpage tools to toolbox:
+    - cp -a /usr/bin/man                                   ./appdir/usr/bin/
+    - cp -a /usr/bin/whatis                                ./appdir/usr/bin/
+    - cp -a /usr/bin/apropos                               ./appdir/usr/bin/
 
       # Add man pages to toolbox:
     - cp -a ./usr/share/man/*                              ./appdir/usr/share/man/
     - cp -a ./usr/share/doc/*                              ./appdir/usr/share/doc/
-      # TODO: Write and add the other AppImageKit manpages and HTML/PDF/EPUB docs too
     - cp -a /usr/share/man/man1/busybox.1*                 ./appdir/usr/share/man/man1/
     - cp -a /usr/share/man/man1/env.1*                     ./appdir/usr/share/man/man1/
     - #find ./appdir/usr/share/man -type f
     - #find ./appdir/usr/share/doc -type f
+
+      # Download the AppImage manpage+docs tarball:
+    - wget -c "https://transfer.sh/fD0qI/AppImage-manpages-43-git.f16fea9-2018-01-31.tar.gz"
+
+      # Unpack the manpage+docs tarball:
+    - tar xvzf AppImage-manpages-43-git.f16fea9-2018-01-31.tar.gz
+
+      # Copy files from manpage+docs tarball into AppDir:
+    - cp -a AppImage-manpages/man/*  ./appdir/usr/share/man/
+    - cp -a AppImage-manpages/pdf    ./appdir/usr/share/doc/
+    - cp -a AppImage-manpages/epub   ./appdir/usr/share/doc/
+    - cp -a AppImage-manpages/html   ./appdir/usr/share/doc/
 
       # Add selftest.sh and sub-tests:
     - cp -a ./tests                                        ./appdir/usr/share/
