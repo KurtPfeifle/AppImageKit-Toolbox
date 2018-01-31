@@ -37,7 +37,7 @@ script:
     - cp -a /usr/bin/env                                   ./appdir/usr/bin/
     - cp -a /bin/busybox                                   ./appdir/usr/bin/
     - cp -a /bin/less                                      ./appdir/usr/bin/
-    
+
       # Add manpage tools to toolbox:
     - cp -a /usr/bin/man                                   ./appdir/usr/bin/
     - cp -a /usr/bin/whatis                                ./appdir/usr/bin/

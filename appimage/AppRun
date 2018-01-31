@@ -290,6 +290,7 @@ if [ x"$1" == "xman"  -o  x"$1" == "x--man" ] ; then
     export MANPATH="$HERE/usr/share/man:$MANPATH"
     shift
     cd "$HERE"
+    LD_LIBRARY_PATH=$HERE/usr/lib:$HERE/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
     $HERE/usr/bin/man "$@" || $HERE/usr/bin/man AppImage-$1
     exit $?
 fi
@@ -299,6 +300,7 @@ if [ x"$1" == "xapropos"  -o  x"$1" == "x--apropos" ] ; then
     export MANPATH="$HERE/usr/share/man:$MANPATH"
     shift
     cd "$HERE"
+    LD_LIBRARY_PATH=$HERE/usr/lib:$HERE/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
     $HERE/usr/bin/apropos -l "$@" || $HERE/usr/bin/apropos -l AppImage-$1
     exit $?
 fi
@@ -308,6 +310,7 @@ if [ x"$1" == "xwhatis"  -o  x"$1" == "x--whatis" ] ; then
     export MANPATH="$HERE/usr/share/man:$MANPATH"
     shift
     cd "$HERE"
+    LD_LIBRARY_PATH=$HERE/usr/lib:$HERE/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
     $HERE/usr/bin/whatis -l "$@" || $HERE/usr/bin/whatis -l AppImage-$1
     exit $?
 fi
