@@ -38,12 +38,13 @@ script:
     - cp -a /bin/busybox                                   ./appdir/usr/bin/
     - cp -a /bin/less                                      ./appdir/usr/bin/
     
-      # Add manpage tools to toolbox:
+      # Add manpage tools+libs to toolbox:
     - cp -a /usr/bin/man                                   ./appdir/usr/bin/
     - cp -a /usr/bin/whatis                                ./appdir/usr/bin/
     - cp -a /usr/bin/apropos                               ./appdir/usr/bin/
     - cp -a /usr/lib/man-db/libman*                        ./appdir/usr/lib/
-    - cp -a /usr/lib/x86_64-linux-gnu/libpipeline.so.1     ./appdir/usr/lib/x86_64-linux-gnu/
+    - cp -a /usr/lib/x86_64-linux-gnu/libpipeline*         ./appdir/usr/lib/x86_64-linux-gnu/
+    - cp -a /usr/lib/x86_64-linux-gnu/libgdbm*             ./appdir/usr/lib/x86_64-linux-gnu/
 
       # Add man pages to toolbox:
     - cp -a ./usr/share/man/*                              ./appdir/usr/share/man/
