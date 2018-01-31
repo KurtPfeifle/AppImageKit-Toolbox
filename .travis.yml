@@ -65,6 +65,7 @@ script:
     - cp -a AppImage-manpages/pdf    ./appdir/usr/share/doc/
     - cp -a AppImage-manpages/epub   ./appdir/usr/share/doc/
     - cp -a AppImage-manpages/html   ./appdir/usr/share/doc/
+    - rm -rf ./appdir/usr/share/man/cat*
 
       # Add selftest.sh and sub-tests:
     - cp -a ./tests                                        ./appdir/usr/share/
