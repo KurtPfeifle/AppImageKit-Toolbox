@@ -15,7 +15,7 @@ before_script:
 
 script:
       # Create an empty AppDir structure:
-    - mkdir -p ./appdir/usr/{bin,share/{doc,applications,metainfo,man/man{1,7},icons/hicolor/512x512/apps}}
+    - mkdir -p ./appdir/usr/{bin,lib{,/x86_64-linux-gnu},share/{doc,applications,metainfo,man/man{1,7},icons/hicolor/512x512/apps}}
 
       # Populate the AppDir with custom AppRun, icon, .desktop file, README.md and AppStream metadata:
     - cp -a ./appimage/AppRun                              ./appdir/AppRun
@@ -42,6 +42,8 @@ script:
     - cp -a /usr/bin/man                                   ./appdir/usr/bin/
     - cp -a /usr/bin/whatis                                ./appdir/usr/bin/
     - cp -a /usr/bin/apropos                               ./appdir/usr/bin/
+    - cp -a /usr/lib/man-db/libman*                        ./appdir/usr/lib/
+    - cp -a /usr/lib/x86_64-linux-gnu/libpipeline.so.1     ./appdir/usr/lib/x86_64-linux-gnu/
 
       # Add man pages to toolbox:
     - cp -a ./usr/share/man/*                              ./appdir/usr/share/man/
