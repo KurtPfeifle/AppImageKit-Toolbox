@@ -51,8 +51,8 @@ script:
     - cp -a ./usr/share/doc/*                              ./appdir/usr/share/doc/
     - cp -a /usr/share/man/man1/busybox.1*                 ./appdir/usr/share/man/man1/
     - cp -a /usr/share/man/man1/env.1*                     ./appdir/usr/share/man/man1/
-    - #find ./appdir/usr/share/man -type f
-    - #find ./appdir/usr/share/doc -type f
+      #- find ./appdir/usr/share/man -type f
+      #- find ./appdir/usr/share/doc -type f
 
       # Download the AppImage manpage+docs tarball:
     - wget -c "https://transfer.sh/fD0qI/AppImage-manpages-43-git.f16fea9-2018-01-31.tar.gz"
@@ -61,10 +61,10 @@ script:
     - tar xvzf AppImage-manpages-43-git.f16fea9-2018-01-31.tar.gz
 
       # Copy files from manpage+docs tarball into AppDir:
-    - cp -a AppImage-manpages/man/*  ./appdir/usr/share/man/
-    - cp -a AppImage-manpages/pdf    ./appdir/usr/share/doc/
-    - cp -a AppImage-manpages/epub   ./appdir/usr/share/doc/
-    - cp -a AppImage-manpages/html   ./appdir/usr/share/doc/
+    - cp -a ./AppImage-manpages/man/*  ./appdir/usr/share/man/
+    - cp -a ./AppImage-manpages/pdf    ./appdir/usr/share/doc/
+    - cp -a ./AppImage-manpages/epub   ./appdir/usr/share/doc/
+    - cp -a ./AppImage-manpages/html   ./appdir/usr/share/doc/
     - rm -rf ./appdir/usr/share/man/cat*
 
       # Add selftest.sh and sub-tests:
