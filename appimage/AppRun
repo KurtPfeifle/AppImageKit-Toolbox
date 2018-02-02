@@ -274,7 +274,7 @@ if [ x"$1" == "xshow-apprun" -o x"$1" == "x--show-apprun" -o x"$1" == "xselfshow
 fi
 
 
-if [ x"$1" == "xlistman" -o x"$1" == "x--listman" -o x"$1" == "xlist-man" -o x"$1" == "x--list-man" ] ; then
+if [ x"$1" == "xlistman" -o x"$1" == "x--listman" -o x"$1" == "xlist-man" -o x"$1" == "x--list-man" -o x"$1" == "x--manlist" -o x"$1" == "x--man-list" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -332,7 +332,7 @@ fi
 #fi
 
 
-if [ x"$1" == "xlistdir" -o x"$1" == "x--listdir" -o x"$1" == "xlist-dir" -o x"$1" == "x--list-dir" ] ; then
+if [ x"$1" == "xlistdir" -o x"$1" == "x--listdir" -o x"$1" == "xlist-dir" -o x"$1" == "x--list-dir" -o x"$1" == "x--dirlist" -o x"$1" == "x--dir-list" ] ; then
     cd "$HERE"
     echo ""
     #echo "You may invoke \"$ARGV0\" with one of the following additional arguments:"
@@ -344,7 +344,7 @@ if [ x"$1" == "xlistdir" -o x"$1" == "x--listdir" -o x"$1" == "xlist-dir" -o x"$
 fi
 
 
-if [ x"$1" == "xlistscript" -o x"$1" == "x--listscript" -o x"$1" == "xlist-script" -o x"$1" == "x--list-script" ] ; then
+if [ x"$1" == "xlistscript" -o x"$1" == "x--listscript" -o x"$1" == "xlist-script" -o x"$1" == "x--list-script" -o x"$1" == "x--scriptlist" -o x"$1" == "x--script-list" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -358,7 +358,7 @@ if [ x"$1" == "xlistscript" -o x"$1" == "x--listscript" -o x"$1" == "xlist-scrip
 fi
 
 
-if [ x"$1" == "xlistexe" -o x"$1" == "x--listexe" -o x"$1" == "xlist-exe" -o x"$1" == "x--list-exe" ] ; then
+if [ x"$1" == "xlistexe" -o x"$1" == "x--listexe" -o x"$1" == "xlist-exe" -o x"$1" == "x--list-exe" -o x"$1" == "x--exelist" -o x"$1" == "x--exe-list" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -372,7 +372,7 @@ if [ x"$1" == "xlistexe" -o x"$1" == "x--listexe" -o x"$1" == "xlist-exe" -o x"$
 fi
 
 
-if [ x"$1" == "xlistfile" -o x"$1" == "x--listfile" -o x"$1" == "xlist-file" -o x"$1" == "x--list-file" ] ; then
+if [ x"$1" == "xlistfile" -o x"$1" == "x--listfile" -o x"$1" == "xlist-file" -o x"$1" == "x--list-file"  -o x"$1" == "x--filelist"   -o x"$1" == "x--file-list" ] ; then
     cd "$HERE"
     echo ""
     find . -type f -o -type l -o -type s -o -type p | sed 's#^./# #'
@@ -381,7 +381,7 @@ if [ x"$1" == "xlistfile" -o x"$1" == "x--listfile" -o x"$1" == "xlist-file" -o 
 fi
 
 
-if [ x"$1" == "xlistlicense" -o x"$1" == "x--listlicense" -o  x"$1" == "xlist-license" -o x"$1" == "x--list-license" ] ; then
+if [ x"$1" == "xlistlicense" -o x"$1" == "x--listlicense" -o  x"$1" == "xlist-license" -o x"$1" == "x--list-license" -o x"$1" == "x--licenselist" -o x"$1" == "x--license-list" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -393,7 +393,7 @@ if [ x"$1" == "xlistlicense" -o x"$1" == "x--listlicense" -o  x"$1" == "xlist-li
 fi
 
 
-if [ x"$1" == "xlistreadme" -o x"$1" == "x--listreadme" -o x"$1" == "xlist-readme" -o x"$1" == "x--list-readme" ] ; then
+if [ x"$1" == "xlistreadme" -o x"$1" == "x--listreadme" -o x"$1" == "xlist-readme" -o x"$1" == "x--list-readme" -o x"$1" == "x--readmelist" -o x"$1" == "x--readme-list" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -534,7 +534,7 @@ if [ x"$1" == "xlicense" -o x"$1" == "x--license" ] ; then
 fi
 
 
-if [ x"$1" == "xlisthtml" -o x"$1" == "x--listhtml" -o  x"$1" == "xlist-html" -o x"$1" == "x--list-html" ] ; then
+if [ x"$1" == "xlisthtml" -o x"$1" == "x--listhtml" -o  x"$1" == "xlist-html" -o x"$1" == "x--list-html" -o x"$1" == "x--html-list" -o x"$1" == "x--htmllist" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -563,7 +563,7 @@ if [ x"$1" == "xhtml" -o x"$1" == "x--html" ] ; then
 fi
 
 
-if [ x"$1" == "xlistpdf" -o x"$1" == "x--listpdf" -o x"$1" == "xlist-pdf" -o x"$1" == "x--list-pdf" ] ; then
+if [ x"$1" == "xlistpdf" -o x"$1" == "x--listpdf" -o x"$1" == "xlist-pdf" -o x"$1" == "x--list-pdf" -o x"$1" == "x--pdf-list" -o x"$1" == "x--pdflist" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -592,7 +592,7 @@ if [ x"$1" == "xpdf" -o x"$1" == "x--pdf" ] ; then
 fi
 
 
-if [ x"$1" == "xlistepub" -o x"$1" == "x--listepub" -o x"$1" == "xlist-epub" -o x"$1" == "x--list-epub" ] ; then
+if [ x"$1" == "xlistepub" -o x"$1" == "x--listepub" -o x"$1" == "xlist-epub" -o x"$1" == "x--list-epub" -o x"$1" == "x--epublist" -o x"$1" == "x--epub-list" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
