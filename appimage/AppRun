@@ -21,8 +21,8 @@
 HERE=$(dirname $(readlink -f "${0}"))
 
 # Set APPDIR when running directly from the AppDir:
-if [ -z \$APPDIR ]; then
-    APPDIR=\$(readlink -f \$(dirname "\$0"))
+if [ -z $APPDIR ]; then
+    APPDIR=$(readlink -f $(dirname "$0"))
 fi
 
 
