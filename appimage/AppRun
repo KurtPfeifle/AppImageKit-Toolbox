@@ -442,7 +442,7 @@ if [ x"$1" == "xreadme" -o x"$1" == "x--readme" ] ; then
    exit $?
 fi
 
-if [ x"$1" == "xscriptrun" -o x"$1" == "x--scriptrun" -o x"$1" == "xscript-run" -o x"$1" == "x--script-run" ] ; then
+if [ x"$1" == "xscriptrun" -o x"$1" == "x--scriptrun" -o x"$1" == "xscript-run" -o x"$1" == "x--script-run" -o x"$1" == "x--runscript"  -o x"$1" == "x--run-script" ] ; then
     cd "$HERE"
     shift
     echo ""
