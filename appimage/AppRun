@@ -17,7 +17,8 @@
 # large showcase of the AppImageKit suite of tools. It now includes all the important utilities created by the
 # AppImage developers.   --   Have a lot of fun in exploring this beast!
 
-HERE="$(dirname "$(readlink -f "${0}")")"
+#HERE="$(dirname "$(readlink -f "${0}")")"
+HERE=$(dirname $(readlink -f "${0}"))
 
 if [ x$SET_BASH_X_FOR_APPRUN == xYeSS ] ; then
    set -x
@@ -534,7 +535,7 @@ if [ x"$1" == "xlicense" -o x"$1" == "x--license" ] ; then
 fi
 
 
-if [ x"$1" == "xlisthtml" -o x"$1" == "x--listhtml" -o  x"$1" == "xlist-html" -o x"$1" == "x--list-html" -o x"$1" == "x--html-list" -o x"$1" == "x--htmllist" ] ; then
+if [ x"$1" == "xlisthtml" -o x"$1" == "x--listhtml" -o  x"$1" == "xlist-html" -o x"$1" == "x--list-html" -o x"$1" == "x--htmllist" -o x"$1" == "x--html-list" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -563,7 +564,7 @@ if [ x"$1" == "xhtml" -o x"$1" == "x--html" ] ; then
 fi
 
 
-if [ x"$1" == "xlistpdf" -o x"$1" == "x--listpdf" -o x"$1" == "xlist-pdf" -o x"$1" == "x--list-pdf" -o x"$1" == "x--pdf-list" -o x"$1" == "x--pdflist" ] ; then
+if [ x"$1" == "xlistpdf" -o x"$1" == "x--listpdf" -o x"$1" == "xlist-pdf" -o x"$1" == "x--list-pdf" -o x"$1" == "x--pdflist" -o x"$1" == "x--pdf-list" ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
