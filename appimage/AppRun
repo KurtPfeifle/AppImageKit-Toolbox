@@ -20,6 +20,12 @@
 #HERE="$(dirname "$(readlink -f "${0}")")"
 HERE=$(dirname $(readlink -f "${0}"))
 
+# Set APPDIR when running directly from the AppDir:
+if [ -z \$APPDIR ]; then
+    APPDIR=\$(readlink -f \$(dirname "\$0"))
+fi
+
+
 if [ x$SET_BASH_X_FOR_APPRUN == xYeSS ] ; then
    set -x
 else
