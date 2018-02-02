@@ -3,7 +3,7 @@ printf "\n"
 printf " ================================\n"
 printf "    Running $(basename $0):\n"
 printf " ================================\n"
-for l in dir man epub html license pdf readme exe script ; do
+for l in dir file man epub html license pdf readme exe script ; do
     printf "%46s\n" "******************************************************************"
     printf "%46s\n" "$ARGV0 --list-$l :   "
     printf "%46s\n" "******************************************************************"
