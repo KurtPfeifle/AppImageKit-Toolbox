@@ -3,7 +3,7 @@ printf "\n"
 printf " ================================\n"
 printf "    Running $(basename $0):\n"
 printf " ================================\n"
-for ai in appimaged AppImageUpdate appimageupdatetool appimagetool linuxdeployqt zsync2 zsyncmake2 "" ; do
+for ai in appimaged AppImageUpdate AppImageUpdate-Qt appimageupdatetool appimagetool linuxdeployqt zsync2 zsyncmake2 "" ; do
     sleep 1
     aiorig=$ai
     if [ x$ai == x ] ; then
