@@ -81,13 +81,15 @@ script:
     - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"       -O ./appdir/usr/bin/linuxdeployqt
 
       # AppImageUpdate and appimageupdatetool don't follow a "neutral" naming convention and are in a separate repo:
-    - aiut=$(curl https://github.com/AppImage/AppImageUpdate/releases/ | grep href= | grep -E "appimageupdatetool-" | grep "x86_64.AppImage" | grep -v AppImage.zsync | sort | tail -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
-    -  AIU=$(curl https://github.com/AppImage/AppImageUpdate/releases/ | grep href= | grep -E "AppImageUpdate-"     | grep "x86_64.AppImage" | grep -v AppImage.zsync | sort | tail -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
+    -  aiut=$(curl https://github.com/AppImage/AppImageUpdate/releases/ | grep href= | grep -E "appimageupdatetool-" |              grep "x86_64.AppImage" | grep -v AppImage.zsync | sort | tail -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
+    - AIUQt=$(curl https://github.com/AppImage/AppImageUpdate/releases/ | grep href= | grep -E "AppImageUpdate-Qt-"  |              grep "x86_64.AppImage" | grep -v AppImage.zsync | sort | tail -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
+    -   AIU=$(curl https://github.com/AppImage/AppImageUpdate/releases/ | grep href= | grep -E "AppImageUpdate-"     | grep -v Qt | grep "x86_64.AppImage" | grep -v AppImage.zsync | sort | tail -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
       # zsync2 and zsyncmake2 don't follow a "neutral" naming convention:
     - zs2=$(curl https://github.com/AppImage/zsync2/releases/  | grep href= | grep -E "zsync2-"     | grep "x86_64.AppImage" | head -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
     - zsm2=$(curl https://github.com/AppImage/zsync2/releases/ | grep href= | grep -E "zsyncmake2-" | grep "x86_64.AppImage" | head -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
 
     - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/$AIU"                                           -O ./appdir/usr/bin/AppImageUpdate
+    - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/$AIUQt"                                         -O ./appdir/usr/bin/AppImageUpdate-Qt
     - wget -c "https://github.com/AppImage/AppImageUpdate/releases/download/continuous/$aiut"                                          -O ./appdir/usr/bin/appimageupdatetool
     - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/$zs2"                                                   -O ./appdir/usr/bin/zsync2
     - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/$zsm2"                                                  -O ./appdir/usr/bin/zsyncmake2
@@ -115,12 +117,12 @@ script:
       # Run a few selftests (to be evaluated by reading Travis' log):
     - cd ./appdir/usr/bin
     - for i in *; do chmod +x ./$i ; done
-    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2            ; do ./$i --version             ; done
-      # zsyncmake2 doesn't support '--version' yet -- avoid an 'exited with 1' condition for Travis:
-    - for i in                                                                               zsyncmake2 ; do ./$i --version || echo ""  ; done
-    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-version    ; done
-    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-offset     ; done
-    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-updateinfo ; done
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate AppImageUpdate-Qt linuxdeployqt zsync2            ; do ./$i --version             ; done
+      # zsyncmake2 doesn't support '--version' yet -- avoid an 'exited wAppImageUpdate-Qt ith 1' condition for Travis:
+    - for i in                                                                                                 zsyncmake2 ; do ./$i --version || echo ""  ; done
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate AppImageUpdate-Qt linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-version    ; done
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate AppImageUpdate-Qt linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-offset     ; done
+    - for i in appimaged appimagetool appimageupdatetool AppImageUpdate AppImageUpdate-Qt linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-updateinfo ; done
     - cd -
 
       # Download READMEs, MDs and other texts:
