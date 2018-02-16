@@ -116,7 +116,8 @@ script:
 
       # Run a few selftests (to be evaluated by reading Travis' log):
     - cd ./appdir/usr/bin
-    - for i in *; do chmod +x ./$i ; done
+    - for i in * ; do chmod +x ./$i ; done
+    - ls -l AppImageUpdate*         # Why is AppImageUpdate-Qt not executable?
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate AppImageUpdate-Qt linuxdeployqt zsync2            ; do ./$i --version             ; done
       # zsyncmake2 doesn't support '--version' yet -- avoid an 'exited wAppImageUpdate-Qt ith 1' condition for Travis:
     - for i in                                                                                                 zsyncmake2 ; do ./$i --version || echo ""  ; done
