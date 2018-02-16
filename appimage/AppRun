@@ -61,62 +61,62 @@ echo "
    $ARGV0 appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun
                  # Run the named sub-command
 
-   $ARGV0  --listman
+   $ARGV0  --list-man
                  # List available, embedded manual pages
 
    $ARGV0  --man appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun
                  # Display embedded manual page(s)
 
-   $ARGV0  --listhtml
+   $ARGV0  --list-html
                  # List as HTML embedded manual page(s)
 
    $ARGV0  --html appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun
                  # Use browser to display embedded manual page(s)
 
-   $ARGV0  --listpdf
+   $ARGV0  --list-pdf
                  # List as PDF embedded manual page(s)
 
    $ARGV0  --pdf appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun
                  # Use browser to display embedded manual page(s)
 
-   $ARGV0  --listepub
+   $ARGV0  --list-epub
                  # List as EPUB embedded manual page(s)
 
    $ARGV0  --epub appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun
                  # Use default EPUB program to read embedded EPUB document
 
-   $ARGV0  --listlicense
+   $ARGV0  --list-license
                  # List all LICENSE files embedded in AppImage
 
    $ARGV0  --license <name-of-license>
                  # Show content of LICENSE file embedded in AppImage (piped thru 'less -N')
 
-   $ARGV0  --listfile
+   $ARGV0  --list-file
                  # List all files embedded in AppImage
 
-   $ARGV0  --listexe
+   $ARGV0  --list-exe
                  # List all executables embedded in AppImage; these can be run as 'sub-commands'
 
-   $ARGV0  --listscript
+   $ARGV0  --list-script
                  # List all shell scripts embedded in AppImage
 
-   $ARGV0  --scriptshow <name-of-script>
+   $ARGV0  --script-show <name-of-script>
                  # Show content of shell script embedded in AppImage (piped thru 'less -N')
 
-   $ARGV0  --scriptrun <name-of-script>
+   $ARGV0  --script-run <name-of-script>
                  # Execute shell script embedded in AppImage (Ensure environment is set as needed!)
 
-   $ARGV0  --listreadme
+   $ARGV0  --list-readme
                  # List all READMEs embedded in AppImage
 
    $ARGV0  --readme <name-of-readme>
-                 # Show content of README embedded in AppImage (for path see \"$ARGV0 listreadme\")
+                 # Show content of README embedded in AppImage (for path see \"$ARGV0 list-readme\")
 
-   $ARGV0  --listdir
+   $ARGV0  --list-dir
                  # List all directories embedded in AppImage
 
    $ARGV0  --dir <path/to/dir>
-                 # Show content of directory embedded in AppImage (for path see \"$ARGV0 listdir\")
+                 # Show content of directory embedded in AppImage (for path see \"$ARGV0 list-dir\")
 
    $ARGV0  --appimage-help
                  # Show available AppImage options
@@ -170,9 +170,9 @@ echo "
                                       (these can be run as 'sub-commands')
    --list-script                    List all shellscripts embedded in AppImage
                                       (these can be run as 'sub-commands')
-   --scriptshow <name-of-script>    Show content of shell script embedded in AppImage
+   --script-show <name-of-script>   Show content of shell script embedded in AppImage
                                       (type '-N' to toogle line number display)
-   --scriptrun  <name-of-script>    Execute embedded script as 'sub-command'
+   --script-run  <name-of-script>   Execute embedded script as 'sub-command'
                                       (ensure environment is set as needed!)
    --list-dir                       List all directories embedded in AppImage
    --list-epub                      List all EPUB documents embedded in AppImage
@@ -191,7 +191,7 @@ echo "
    --license <name-of-license>      Show content of LICENSE file embedded in AppImage
                                       (type '-N' to toogle line number display)
    --appimage-help                  Show available AppImage options
-   --show-apprun | --self-show      Display 'AppRun' contents invoked by 'less -N'
+   --show-apprun | --apprun-show    Display 'AppRun' contents invoked by 'less -N'
                                       (type '-N' to toogle line number display)
 
  ---------------------------------------------------------------------------------------------------
@@ -274,7 +274,7 @@ esac
 }
 
 
-if [ x"$1" == "xshow-apprun" -o x"$1" == "x--show-apprun" -o x"$1" == "xselfshow" -o x"$1" == "x--selfshow"  -o x"$1" == "xself-show" -o x"$1" == "x--self-show" -o x"$1" == "x--show-self" -o x"$1" == "x--showself" -o x"$1" == "xshow-self"    -o x"$1" == "xshowself" ] ; then
+if [ x"$1" == "xshow-apprun" -o x"$1" == "x--show-apprun -o x"$1" == "x--apprunshow"" -o x"$1" == "x--apprun-show" -o x"$1" == "xselfshow" -o x"$1" == "x--selfshow"  -o x"$1" == "xself-show" -o x"$1" == "x--self-show" -o x"$1" == "x--show-self" -o x"$1" == "x--showself" -o x"$1" == "xshow-self"    -o x"$1" == "xshowself" ] ; then
     cd "$HERE"
     $HERE/usr/bin/less -N AppRun
     exit $?
@@ -355,11 +355,11 @@ if [ x"$1" == "xlistscript" -o x"$1" == "x--listscript" -o x"$1" == "xlist-scrip
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
-    echo "With '--scriptshow' you can view it, with '--scriptrun' you can run it:"
+    echo "With '--script-show' you can view it, with '--script-run' you can run it:"
     echo ""
-    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --scriptrun #g'  | sort -V
+    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --script-run #g'  | sort -V
     echo "or:"
-    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --scriptshow #g' | sort -V
+    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --script-show #g' | sort -V
     echo ""
     exit $?
 fi
@@ -448,7 +448,7 @@ if [ x"$1" == "xscriptrun" -o x"$1" == "x--scriptrun" -o x"$1" == "xscript-run" 
     echo ""
     if [ x"$1" == "x" ] ; then
         echo " You must give a path to the shell script you want to open."
-        echo "   For available shell scripts run \"$ARGV0 --listscript\"."
+        echo "   For available shell scripts run \"$ARGV0 --list-script\"."
     else
         scriptfile=$( find . -type f -name "*.sh" | grep "${1}" | sort -rV | head -n 1 )
         #if PDF or EPUB or HTML ; then xdg-open $scriptfile ; else
@@ -485,7 +485,7 @@ if [ x"$1" == "xscriptshow" -o x"$1" == "x--scriptshow" -o x"$1" == "xscript-sho
     echo ""
     if [ x"$1" == "x" ] ; then
         echo " You must give a path to the shell script you want to open."
-        echo "   For available shell scripts run \"$ARGV0 --listscript\"."
+        echo "   For available shell scripts run \"$ARGV0 --list-script\"."
     else
         scriptfile=$( find . -type f -name "*.sh" | grep "${1}" | sort -rV | head -n 1 )
         #if PDF or EPUB or HTML ; then xdg-open $scriptfile ; else
@@ -516,7 +516,7 @@ if [ x"$1" == "xlicense" -o x"$1" == "x--license" ] ; then
     echo ""
     if [ x"$1" == "x" ] ; then
         echo " You must give a path to the LICENSE you want to open."
-        echo "   For available LICENSE run \"$ARGV0 --listlicense\"."
+        echo "   For available LICENSE run \"$ARGV0 --list-license\"."
     else
         licensefile=$( find . -type f -name "*LICENSE*" -o -name "*license*" | grep "${1}" | sort -rV | head -n 1 )
         #if PDF or EPUB or HTML ; then xdg-open $licensefile ; else
@@ -559,7 +559,7 @@ if [ x"$1" == "xhtml" -o x"$1" == "x--html" ] ; then
     echo ""
     if [ x"$1" == "x" ] ; then
         echo " You must give a path to the HTML file you want to open."
-        echo "   For available HTML documents run \"$ARGV0 --listhtml\"."
+        echo "   For available HTML documents run \"$ARGV0 --list-html\"."
     else
         htmlfile=$( find . -type f -name "*.html" | grep ${1/.html/}.html | sort -rV | head -n 1 )
         xdg-open $htmlfile
@@ -588,7 +588,7 @@ if [ x"$1" == "xpdf" -o x"$1" == "x--pdf" ] ; then
     echo ""
     if [ x"$1" == "x" ] ; then
         echo " You must give a path to the PDF file you want to open."
-        echo "   For available PDF documents run \"$ARGV0 --listpdf\"."
+        echo "   For available PDF documents run \"$ARGV0 --list-pdf\"."
     else
         pdffile=$( find . -type f -name "*.pdf" | grep ${1/.pdf/}.pdf | sort -rV | head -n 1 )
         xdg-open $pdffile
@@ -617,7 +617,7 @@ if [ x"$1" == "xepub" -o x"$1" == "x--epub" ] ; then
     echo ""
     if [ x"$1" == "x" ] ; then
         echo " You must give a path to the EPUB file you want to open."
-        echo "   For available EPUB documents run \"$ARGV0 --listepub\"."
+        echo "   For available EPUB documents run \"$ARGV0 --list-epub\"."
     else
         epubfile=$( find . -type f -name "*.epub" | grep ${1/.epub/}.epub | sort -rV | head -n 1 )
         xdg-open $epubfile
