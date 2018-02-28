@@ -119,7 +119,7 @@ script:
     - for i in * ; do chmod +x ./$i ; done
     - ls -l AppImageUpdate*         # Why is AppImageUpdate-Qt not executable?
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate AppImageUpdate-Qt linuxdeployqt zsync2            ; do ./$i --version             ; done
-      # zsyncmake2 doesn't support '--version' yet -- avoid an 'exited wAppImageUpdate-Qt ith 1' condition for Travis:
+      # zsyncmake2 doesn't support '--version' yet -- avoid an 'exited AppImageUpdate-Qt with 1' condition for Travis:
     - for i in                                                                                                 zsyncmake2 ; do ./$i --version || echo ""  ; done
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate AppImageUpdate-Qt linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-version    ; done
     - for i in appimaged appimagetool appimageupdatetool AppImageUpdate AppImageUpdate-Qt linuxdeployqt zsync2 zsyncmake2 ; do ./$i --appimage-offset     ; done
