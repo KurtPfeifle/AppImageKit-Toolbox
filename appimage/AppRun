@@ -77,7 +77,7 @@ echo "
                  # List as PDF embedded manual page(s)
 
    $ARGV0  --pdf appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun
-                 # Use browser to display embedded manual page(s)
+                 # Use system default PDF viewer to display embedded manual page(s)
 
    $ARGV0  --list-epub
                  # List as EPUB embedded manual page(s)
@@ -121,8 +121,8 @@ echo "
    $ARGV0  --appimage-help
                  # Show available AppImage options
 
-   $ARGV0  --show-apprun|--self-show|--selfshow
-                 # Show 'AppRun' invoked by 'less -N'; type '-N' to toogle line number display
+   $ARGV0  --show-apprun
+                 # Show 'AppRun' piped through 'less -N'; type '-N' to toogle line number display
 
  ---------------------------------------------------------------------------------------------------
  NOTE: The execution of this AppImage is controlled by a custom AppRun script. The state of this
@@ -141,7 +141,7 @@ echo "
    * https://github.com/AppImage/AppImageUpdate/releases/  and
    * https://github.com/probonopd/linuxdeployqt/releases/  and
    * https://github.com/AppImage/zsync2/releases
- ---------------------------------------------------------------------------------------------
+ ---------------------------------------------------------------------------------------------------
 "
 }
 
@@ -166,32 +166,32 @@ echo "
 
  Available parameters:
 
-   --list-exe                       List all executables embedded in AppImage
+   --list-exe(s)                    List all executables embedded in AppImage
                                       (these can be run as 'sub-commands')
-   --list-script                    List all shellscripts embedded in AppImage
+   --list-script(s)                 List all shellscripts embedded in AppImage
                                       (these can be run as 'sub-commands')
-   --script-show <name-of-script>   Show content of shell script embedded in AppImage
+   --show-script <name-of-script>   Show content of shell script embedded in AppImage
                                       (type '-N' to toogle line number display)
-   --script-run  <name-of-script>   Execute embedded script as 'sub-command'
+   --run-script  <name-of-script>   Execute embedded script as 'sub-command'
                                       (ensure environment is set as needed!)
-   --list-dir                       List all directories embedded in AppImage
-   --list-epub                      List all EPUB documents embedded in AppImage
-   --list-file                      List all files embedded in AppImage
-   --list-html                      List all HTML documents embedded in AppImage
-   --list-license                   List all LICENSE files embedded in AppImage
-   --list-man                       List available, embedded manual pages
-   --list-pdf                       List all PDF docs embedded (mainly manual pages)
-   --list-readme                    List all READMEs embedded in AppImage
+   --list-dir(s)                    List all directories embedded in AppImage
+   --list-epub(s)                   List all EPUB documents embedded in AppImage
+   --list-file(s)                   List all files embedded in AppImage
+   --list-html(s)                   List all HTML documents embedded in AppImage
+   --list-licens(s)                 List all LICENSE files embedded in AppImage
+   --list-man(s)                    List available, embedded manual pages
+   --list-pdf(s)                    List all PDF docs embedded (mainly manual pages)
+   --list-readme(s)                 List all READMEs embedded in AppImage
    --html    <name-of-HTML-doc>     Use default browser to display embedded HTML document
    --pdf     <name-of-PDF-doc>      Use default PDF viewer to display embedded PDF doc
    --epub    <name-of-EPUB-file>    Use default EPUB viewer to read embedded EPUB
    --man     <name-of-manpage>      Display embedded manual pages
    --apropos|--whatis  <regex>      Display short info line about related manual pages
-   --readme  <name-of-readme>       Show content of README embedded in AppImage
-   --license <name-of-license>      Show content of LICENSE file embedded in AppImage
+   --readme(s) <name-of-readme>     Show content of README embedded in AppImage
+   --license(s) <name-of-license>   Show content of LICENSE file embedded in AppImage
                                       (type '-N' to toogle line number display)
    --appimage-help                  Show available AppImage options
-   --show-apprun | --apprun-show    Display 'AppRun' contents invoked by 'less -N'
+   --show-apprun                    Display 'AppRun' contents invoked by 'less -N'
                                       (type '-N' to toogle line number display)
 
  ---------------------------------------------------------------------------------------------------
@@ -216,19 +216,36 @@ echo "
 }
 
 
-if [ "x$1" == "xhelp" -o "x$1" == "x--help" -o "x$1" == "x-h" ] ; then
+if [ \
+    "x$1" == "xhelp" -o \
+    "x$1" == "x-help" -o \
+    "x$1" == "x--help" -o \
+    "x$1" == "x-h" \
+   \
+   ] ; then
     help | $HERE/usr/bin/less
     exit $?
 fi
 
 
-if [ "x$1" == "xhelp2" -o "x$1" == "x--help2" -o "x$1" == "x-h2" ] ; then
+if [ \
+    "x$1" == "xhelp2" -o \
+    "x$1" == "x--help2" -o \
+    "x$1" == "x-h2" \
+   \
+   ] ; then
     help2 | $HERE/usr/bin/less
     exit $?
 fi
 
 
-if [ x"$1" == "xgivehint" -o x"$1" == "x--givehint" -o x"$1" == "xgive-hint" -o x"$1" == "x--give-hint" ] ; then
+if [ \
+    x"$1" == "xgivehint" -o \
+    x"$1" == "xgive-hint" -o \
+    x"$1" == "x--givehint" -o \
+    x"$1" == "x--give-hint" \
+   \
+   ] ; then
     cd "$HERE"
     echo ""
     echo " Three environment variables help debug and understand this AppRun if set to a weird value."
@@ -274,14 +291,46 @@ esac
 }
 
 
-if [ x"$1" == "xshow-apprun" -o x"$1" == "x--show-apprun -o x"$1" == "x--apprunshow"" -o x"$1" == "x--apprun-show" -o x"$1" == "xselfshow" -o x"$1" == "x--selfshow"  -o x"$1" == "xself-show" -o x"$1" == "x--self-show" -o x"$1" == "x--show-self" -o x"$1" == "x--showself" -o x"$1" == "xshow-self"    -o x"$1" == "xshowself" ] ; then
+if [ \
+    x"$1" == "xapprunshow" -o \
+    x"$1" == "xapprun-show" -o \
+    x"$1" == "x--apprunshow" -o \
+    x"$1" == "x--apprun-show" -o \
+    x"$1" == "xshowapprun" -o \
+    x"$1" == "xshow-apprun" -o \
+    x"$1" == "x--showapprun" -o \
+    x"$1" == "x--show-apprun" -o \
+    x"$1" == "xselfshow" -o \
+    x"$1" == "xself-show" -o \
+    x"$1" == "x--selfshow" -o \
+    x"$1" == "x--self-show" -o \
+    x"$1" == "xshowself" -o \
+    x"$1" == "xshow-self" -o \
+    x"$1" == "x--showself" -o \
+    x"$1" == "x--show-self" \
+   \
+   ] ; then
     cd "$HERE"
     $HERE/usr/bin/less -N AppRun
     exit $?
 fi
 
 
-if [ x"$1" == "xlistman" -o x"$1" == "x--listman" -o x"$1" == "xlist-man" -o x"$1" == "x--list-man" -o x"$1" == "x--manlist" -o x"$1" == "x--man-list" ] ; then
+if [ \
+    x"$1" == "xlistmans" -o \
+    x"$1" == "xlist-mans" -o \
+    x"$1" == "x--listmans" -o \
+    x"$1" == "x--list-mans" -o \
+    x"$1" == "xlistman" -o \
+    x"$1" == "xlist-man" -o \
+    x"$1" == "x--listman" -o \
+    x"$1" == "x--list-man" -o \
+    x"$1" == "xmanlist" -o \
+    x"$1" == "xman-list" -o \
+    x"$1" == "x--manlist" -o \
+    x"$1" == "x--man-list" \
+   \
+   ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -293,7 +342,11 @@ if [ x"$1" == "xlistman" -o x"$1" == "x--listman" -o x"$1" == "xlist-man" -o x"$
 fi
 
 
-if [ x"$1" == "xman"  -o  x"$1" == "x--man" ] ; then
+if [ \
+    x"$1" == "xman" -o \
+    x"$1" == "x--man" \
+   \
+   ] ; then
     export MANPATH="$HERE/usr/share/man:$MANPATH"
     shift
     cd "$HERE"
@@ -303,7 +356,11 @@ if [ x"$1" == "xman"  -o  x"$1" == "x--man" ] ; then
 fi
 
 
-if [ x"$1" == "xapropos"  -o  x"$1" == "x--apropos" ] ; then
+if [ \
+    x"$1" == "xapropos" -o \
+    x"$1" == "x--apropos" \
+   \
+   ] ; then
     export MANPATH="$HERE/usr/share/man:$MANPATH"
     shift
     cd "$HERE"
@@ -313,7 +370,11 @@ if [ x"$1" == "xapropos"  -o  x"$1" == "x--apropos" ] ; then
 fi
 
 
-if [ x"$1" == "xwhatis"  -o  x"$1" == "x--whatis" ] ; then
+if [ \
+    x"$1" == "xwhatis" -o \
+    x"$1" == "x--whatis" \
+   \
+   ] ; then
     export MANPATH="$HERE/usr/share/man:$MANPATH"
     shift
     cd "$HERE"
@@ -339,7 +400,21 @@ fi
 #fi
 
 
-if [ x"$1" == "xlistdir" -o x"$1" == "x--listdir" -o x"$1" == "xlist-dir" -o x"$1" == "x--list-dir" -o x"$1" == "x--dirlist" -o x"$1" == "x--dir-list" ] ; then
+if [ \
+    x"$1" == "xlistdirs" -o \
+    x"$1" == "xlist-dirs" -o \
+    x"$1" == "x--listdirs" -o \
+    x"$1" == "x--list-dirs" -o \
+    x"$1" == "xlistdir" -o \
+    x"$1" == "xlist-dir" -o \
+    x"$1" == "x--listdir" -o \
+    x"$1" == "x--list-dir" -o \
+    x"$1" == "xdirlist" -o \
+    x"$1" == "xdir-list" -o \
+    x"$1" == "x--dirlist" -o \
+    x"$1" == "x--dir-list" \
+   \
+   ] ; then
     cd "$HERE"
     echo ""
     #echo "You may invoke \"$ARGV0\" with one of the following additional arguments:"
@@ -351,7 +426,21 @@ if [ x"$1" == "xlistdir" -o x"$1" == "x--listdir" -o x"$1" == "xlist-dir" -o x"$
 fi
 
 
-if [ x"$1" == "xlistscript" -o x"$1" == "x--listscript" -o x"$1" == "xlist-script" -o x"$1" == "x--list-script" -o x"$1" == "x--scriptlist" -o x"$1" == "x--script-list" ] ; then
+if [ \
+    x"$1" == "xscriptlists" -o \
+    x"$1" == "xscript-lists" -o \
+    x"$1" == "x--scriptlists" -o \
+    x"$1" == "x--script-lists" -o \
+    x"$1" == "xscriptlist" -o \
+    x"$1" == "xscript-list" -o \
+    x"$1" == "x--scriptlist" -o \
+    x"$1" == "x--script-list" \
+    x"$1" == "xlistscript" -o \
+    x"$1" == "xlist-script" -o \
+    x"$1" == "x--listscript" -o \
+    x"$1" == "x--list-script" \
+   \
+   ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -365,7 +454,21 @@ if [ x"$1" == "xlistscript" -o x"$1" == "x--listscript" -o x"$1" == "xlist-scrip
 fi
 
 
-if [ x"$1" == "xlistexe" -o x"$1" == "x--listexe" -o x"$1" == "xlist-exe" -o x"$1" == "x--list-exe" -o x"$1" == "x--exelist" -o x"$1" == "x--exe-list" ] ; then
+if [ \
+    x"$1" == "xlistexes" -o \
+    x"$1" == "xlist-exes" -o \
+    x"$1" == "x--listexes" -o \
+    x"$1" == "x--list-exes" -o \
+    x"$1" == "xlistexe" -o \
+    x"$1" == "xlist-exe" -o \
+    x"$1" == "x--listexe" -o \
+    x"$1" == "x--list-exe" -o \
+    x"$1" == "xexelist" -o \
+    x"$1" == "xexe-list" -o \
+    x"$1" == "x--exelist" -o \
+    x"$1" == "x--exe-list" \
+   \
+   ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -379,7 +482,21 @@ if [ x"$1" == "xlistexe" -o x"$1" == "x--listexe" -o x"$1" == "xlist-exe" -o x"$
 fi
 
 
-if [ x"$1" == "xlistfile" -o x"$1" == "x--listfile" -o x"$1" == "xlist-file" -o x"$1" == "x--list-file"  -o x"$1" == "x--filelist"   -o x"$1" == "x--file-list" ] ; then
+if [ \
+    x"$1" == "xlistfiles" -o \
+    x"$1" == "xlist-files" -o \
+    x"$1" == "x--listfiles" -o \
+    x"$1" == "x--list-files" -o \
+    x"$1" == "xlistfile" -o \
+    x"$1" == "xlist-file" -o \
+    x"$1" == "x--listfile" -o \
+    x"$1" == "x--list-file" -o \
+    x"$1" == "xfilelist" -o \
+    x"$1" == "xfile-list" -o \
+    x"$1" == "x--filelist" -o \
+    x"$1" == "x--file-list" \
+   \
+   ] ; then
     cd "$HERE"
     echo ""
     find . -type f -o -type l -o -type s -o -type p | sed 's#^./# #'
@@ -388,7 +505,21 @@ if [ x"$1" == "xlistfile" -o x"$1" == "x--listfile" -o x"$1" == "xlist-file" -o 
 fi
 
 
-if [ x"$1" == "xlistlicense" -o x"$1" == "x--listlicense" -o  x"$1" == "xlist-license" -o x"$1" == "x--list-license" -o x"$1" == "x--licenselist" -o x"$1" == "x--license-list" ] ; then
+if [ \
+    x"$1" == "xlistlicenses" -o \
+    x"$1" == "xlist-licenses" -o \
+    x"$1" == "x--listlicenses" -o \
+    x"$1" == "x--list-licenses" -o \
+    x"$1" == "xlistlicense" -o \
+    x"$1" == "xlist-license" -o \
+    x"$1" == "x--listlicense" -o \
+    x"$1" == "x--list-license" -o \
+    x"$1" == "xlicenselist" -o \
+    x"$1" == "xlicense-list" -o \
+    x"$1" == "x--licenselist" -o \
+    x"$1" == "x--license-list" \
+   \
+   ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -400,7 +531,21 @@ if [ x"$1" == "xlistlicense" -o x"$1" == "x--listlicense" -o  x"$1" == "xlist-li
 fi
 
 
-if [ x"$1" == "xlistreadme" -o x"$1" == "x--listreadme" -o x"$1" == "xlist-readme" -o x"$1" == "x--list-readme" -o x"$1" == "x--readmelist" -o x"$1" == "x--readme-list" ] ; then
+if [ \
+    x"$1" == "xlistreadmes" -o \
+    x"$1" == "xlist-readmes" -o \
+    x"$1" == "x--listreadmes" -o \
+    x"$1" == "x--list-readmes" -o \
+    x"$1" == "xlistreadme" -o \
+    x"$1" == "xlist-readme" -o \
+    x"$1" == "x--listreadme" -o \
+    x"$1" == "x--list-readme" -o \
+    x"$1" == "xreadmelist" -o \
+    x"$1" == "xreadme-list" -o \
+    x"$1" == "x--readmelist" -o \
+    x"$1" == "x--readme-list" \
+   \
+   ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -412,7 +557,11 @@ if [ x"$1" == "xlistreadme" -o x"$1" == "x--listreadme" -o x"$1" == "xlist-readm
 fi
 
 
-if [ x"$1" == "xreadme" -o x"$1" == "x--readme" ] ; then
+if [ \
+    x"$1" == "xreadme" -o \
+    x"$1" == "x--readme" \
+   \
+   ] ; then
     cd "$HERE"
     shift
     echo ""
@@ -442,7 +591,18 @@ if [ x"$1" == "xreadme" -o x"$1" == "x--readme" ] ; then
    exit $?
 fi
 
-if [ x"$1" == "xscriptrun" -o x"$1" == "x--scriptrun" -o x"$1" == "xscript-run" -o x"$1" == "x--script-run" -o x"$1" == "x--runscript"  -o x"$1" == "x--run-script" ] ; then
+
+if [ \
+    x"$1" == "xscriptrun" -o \
+    x"$1" == "xscript-run" -o \
+    x"$1" == "x--scriptrun" -o \
+    x"$1" == "x--script-run" -o \
+    x"$1" == "xrunscript" -o \
+    x"$1" == "xrun-script" -o \
+    x"$1" == "x--runscript" -o \
+    x"$1" == "x--run-script" \
+   \
+   ] ; then
     cd "$HERE"
     shift
     echo ""
@@ -479,7 +639,17 @@ if [ x"$1" == "xscriptrun" -o x"$1" == "x--scriptrun" -o x"$1" == "xscript-run" 
 fi
 
 
-if [ x"$1" == "xscriptshow" -o x"$1" == "x--scriptshow" -o x"$1" == "xscript-show" -o x"$1" == "x--script-show" -o x"$1" == "x--script" -o x"$1" == "xscript" ] ; then
+if [ \
+    x"$1" == "xscriptshow" -o \
+    x"$1" == "xscript-show" -o \
+    x"$1" == "x--scriptshow" -o \
+    x"$1" == "x--script-show" -o \
+    x"$1" == "xshowscript" -o \
+    x"$1" == "xshow-script" -o \
+    x"$1" == "x--showscript" -o \
+    x"$1" == "x--show-script" \
+  \
+  ] ; then
     cd "$HERE"
     shift
     echo ""
@@ -510,7 +680,11 @@ if [ x"$1" == "xscriptshow" -o x"$1" == "x--scriptshow" -o x"$1" == "xscript-sho
 fi
 
 
-if [ x"$1" == "xlicense" -o x"$1" == "x--license" ] ; then
+if [ \
+    x"$1" == "xlicense" -o \
+    x"$1" == "x--license"\
+  \
+  ] ; then
     cd "$HERE"
     shift
     echo ""
@@ -541,7 +715,21 @@ if [ x"$1" == "xlicense" -o x"$1" == "x--license" ] ; then
 fi
 
 
-if [ x"$1" == "xlisthtml" -o x"$1" == "x--listhtml" -o  x"$1" == "xlist-html" -o x"$1" == "x--list-html" -o x"$1" == "x--htmllist" -o x"$1" == "x--html-list" ] ; then
+if [ \
+    x"$1" == "xlisthtmls" -o \
+    x"$1" == "xlist-htmls" -o \
+    x"$1" == "x--listhtmls" -o \
+    x"$1" == "x--list-htmls" -o \
+    x"$1" == "xlisthtml" -o \
+    x"$1" == "xlist-html" -o \
+    x"$1" == "x--listhtml" -o \
+    x"$1" == "x--list-html" -o \
+    x"$1" == "xhtmllist" -o \
+    x"$1" == "xhtml-list" -o \
+    x"$1" == "x--htmllist" -o \
+    x"$1" == "x--html-list" \
+  \
+  ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -553,7 +741,11 @@ if [ x"$1" == "xlisthtml" -o x"$1" == "x--listhtml" -o  x"$1" == "xlist-html" -o
 fi
 
 
-if [ x"$1" == "xhtml" -o x"$1" == "x--html" ] ; then
+if [ \
+    x"$1" == "xhtml" -o \
+    x"$1" == "x--html" \
+  \
+  ] ; then
     cd "$HERE"
     shift
     echo ""
@@ -570,7 +762,21 @@ if [ x"$1" == "xhtml" -o x"$1" == "x--html" ] ; then
 fi
 
 
-if [ x"$1" == "xlistpdf" -o x"$1" == "x--listpdf" -o x"$1" == "xlist-pdf" -o x"$1" == "x--list-pdf" -o x"$1" == "x--pdflist" -o x"$1" == "x--pdf-list" ] ; then
+if [ \
+    x"$1" == "xlistpdfs" -o \
+    x"$1" == "xlist-pdfs" -o \
+    x"$1" == "x--listpdfs" -o \
+    x"$1" == "x--list-pdfs" -o \
+    x"$1" == "xlistpdf" -o \
+    x"$1" == "xlist-pdf" -o \
+    x"$1" == "x--listpdf" -o \
+    x"$1" == "x--list-pdf" -o \
+    x"$1" == "xpdflist" -o \
+    x"$1" == "xpdf-list" -o \
+    x"$1" == "x--pdflist" -o \
+    x"$1" == "x--pdf-list" \
+  \
+  ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -582,7 +788,11 @@ if [ x"$1" == "xlistpdf" -o x"$1" == "x--listpdf" -o x"$1" == "xlist-pdf" -o x"$
 fi
 
 
-if [ x"$1" == "xpdf" -o x"$1" == "x--pdf" ] ; then
+if [ \
+    x"$1" == "xpdf" -o \
+    x"$1" == "x--pdf" \
+  \
+  ] ; then
     cd "$HERE"
     shift
     echo ""
@@ -599,7 +809,21 @@ if [ x"$1" == "xpdf" -o x"$1" == "x--pdf" ] ; then
 fi
 
 
-if [ x"$1" == "xlistepub" -o x"$1" == "x--listepub" -o x"$1" == "xlist-epub" -o x"$1" == "x--list-epub" -o x"$1" == "x--epublist" -o x"$1" == "x--epub-list" ] ; then
+if [ \
+    x"$1" == "xlistepubs" -o \
+    x"$1" == "xlist-epubs" -o \
+    x"$1" == "x--listepubs" -o \
+    x"$1" == "x--list-epubs" -o \
+    x"$1" == "xlistepub" -o \
+    x"$1" == "xlist-epub" -o \
+    x"$1" == "x--listepub" -o \
+    x"$1" == "x--list-epub" -o \
+    x"$1" == "xepublist" -o \
+    x"$1" == "xepub-list" -o \
+    x"$1" == "x--epublist" -o \
+    x"$1" == "x--epub-list" \
+  \
+  ] ; then
     cd "$HERE"
     echo ""
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
@@ -611,7 +835,11 @@ if [ x"$1" == "xlistepub" -o x"$1" == "x--listepub" -o x"$1" == "xlist-epub" -o 
 fi
 
 
-if [ x"$1" == "xepub" -o x"$1" == "x--epub" ] ; then
+if [ \
+    x"$1" == "xepub" -o \
+    x"$1" == "x--epub"\
+  \
+  ] ; then
     cd "$HERE"
     shift
     echo ""
@@ -628,7 +856,13 @@ if [ x"$1" == "xepub" -o x"$1" == "x--epub" ] ; then
 fi
 
 
-if [ x"$1" == "x-V" -o x"$1" == "x--version"  -o x"$1" == "x-version" -o x"$1" == "xversion" ] ; then
+if [ \
+    x"$1" == "xversion" -o \
+    x"$1" == "x-version" -o \
+    x"$1" == "x--version" -o \
+    x"$1" == "x-V" \
+  \
+  ] ; then
     cd "$HERE"
     cat ./versionfile
     exit $?
