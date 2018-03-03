@@ -446,9 +446,9 @@ if [ \
     echo "You may invoke \"$ARGV0\" with one of the following additional arguments."
     echo "With '--script-show' you can view it, with '--script-run' you can run it:"
     echo ""
-    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --script-run #g'  | sort -V
+    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --run-script #g'  | sort -V
     echo "or:"
-    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --script-show #g' | sort -V
+    find . -type f -o -type l -o -type s -o -type p | grep -v 'usr/local/bin' | grep '/bin/' | grep ".sh$" | sed 's#./usr/bin/#  --show-script #g' | sort -V
     echo ""
     exit $?
 fi
