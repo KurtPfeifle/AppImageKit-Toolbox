@@ -74,11 +74,11 @@ script:
     - cp -a ./appimage/selftests*.sh                       ./appdir/usr/bin/
 
       # Add AppImageKit binaries (as AppImages!) to toolbox and rename them at the same time:
-    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-x86_64.AppImage"                         -O ./appdir/usr/bin/appimaged
-    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"                      -O ./appdir/usr/bin/appimagetool
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-i686.AppImage"                           -O ./appdir/usr/bin/appimaged-i686
+    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-x86_64.AppImage"                         -O ./appdir/usr/bin/appimaged-x86_64
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-i686.AppImage"                        -O ./appdir/usr/bin/appimagetool-i686
-    - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"       -O ./appdir/usr/bin/linuxdeployqt
+    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"                      -O ./appdir/usr/bin/appimagetool-x86_64
+    - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"       -O ./appdir/usr/bin/linuxdeployqt-x86_64
 
       # AppImageUpdate and appimageupdatetool don't follow a "neutral" naming convention and are in a separate repo:
     -  aiut=$(curl https://github.com/AppImage/AppImageUpdate/releases/ | grep href= | grep -E "appimageupdatetool-" |              grep "x86_64.AppImage" | grep -v AppImage.zsync | sort | tail -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
@@ -95,8 +95,8 @@ script:
     - wget -c "https://github.com/AppImage/zsync2/releases/download/continuous/$zsm2"                                                  -O ./appdir/usr/bin/zsyncmake2
 
       # Add other binaries (default 'AppRun' and 'runtime' for x86_64):
-    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64"                                    -O ./appdir/usr/bin/runtime
-    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64"                                     -O ./appdir/usr/bin/AppRun
+    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-x86_64"                                    -O ./appdir/usr/bin/runtime-x86_64
+    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-x86_64"                                     -O ./appdir/usr/bin/AppRun-x86_64
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/runtime-i686"                                      -O ./appdir/usr/bin/runtime-i686
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/AppRun-i686"                                       -O ./appdir/usr/bin/AppRun-i686
 
