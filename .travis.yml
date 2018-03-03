@@ -75,10 +75,10 @@ script:
 
       # Add AppImageKit binaries (as AppImages!) to toolbox and rename them at the same time:
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-i686.AppImage"                           -O ./appdir/usr/bin/appimaged-i686
-    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-x86_64.AppImage"                         -O ./appdir/usr/bin/appimaged-x86_64
+    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimaged-x86_64.AppImage"                         -O ./appdir/usr/bin/appimaged
     - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-i686.AppImage"                        -O ./appdir/usr/bin/appimagetool-i686
-    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"                      -O ./appdir/usr/bin/appimagetool-x86_64
-    - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"       -O ./appdir/usr/bin/linuxdeployqt-x86_64
+    - wget -c "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"                      -O ./appdir/usr/bin/appimagetool
+    - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"       -O ./appdir/usr/bin/linuxdeployqt
 
       # AppImageUpdate and appimageupdatetool don't follow a "neutral" naming convention and are in a separate repo:
     -  aiut=$(curl https://github.com/AppImage/AppImageUpdate/releases/ | grep href= | grep -E "appimageupdatetool-" |              grep "x86_64.AppImage" | grep -v AppImage.zsync | sort | tail -n 1 | awk -F'=' '{print $2}' | awk '{print $1}' | sed 's#"##g' | awk -F'/' '{print $7}')
