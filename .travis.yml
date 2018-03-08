@@ -56,8 +56,8 @@ script:
       #- find ./appdir/usr/share/doc -type f
 
       # Download the AppImage manpage+docs tarball:
-    - _tarball=AppImage-manpages-59-git.de8b259-2018-02-18.tar.gz      # This changes every now and then
-    - wget -c "https://transfer.sh/Y4e7G/$_tarball"                    # <== Same-same! ^^^^
+    - _tarball="AppImage-manpages-59-git.de8b259-2018-03-08.tar.gz"       # This changes every now and then
+    - wget -c "https://transfer.sh/14bjUq/$_tarball"                      # <== Same-same! ^^^^
 
       # Unpack the manpage+docs tarball:
     - tar xvzf $_tarball
