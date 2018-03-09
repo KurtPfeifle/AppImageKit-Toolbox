@@ -71,13 +71,13 @@ echo "
                  # List as HTML embedded manual page(s)
 
    $ARGV0  --html appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun
-                 # Use browser to display embedded manual page(s)
+                 # Use browser to display embedded HTML document
 
    $ARGV0  --list-pdf
                  # List as PDF embedded manual page(s)
 
    $ARGV0  --pdf appimaged|appimagetool|appimageupdatetool|runtime|zsync2|zsyncmake2|AppImageUpdate|AppRun
-                 # Use system default PDF viewer to display embedded manual page(s)
+                 # Use user default PDF viewer to display embedded PDF document
 
    $ARGV0  --list-epub
                  # List as EPUB embedded manual page(s)
@@ -438,7 +438,14 @@ if [ \
     x"$1" == "xlistscript"      -o \
     x"$1" == "xlist-script"     -o \
     x"$1" == "x--listscript"    -o \
-    x"$1" == "x--list-script" \
+    x"$1" == "xlistscript"      -o \
+    x"$1" == "xlist-script"     -o \
+    x"$1" == "x--listscript"    -o \
+    x"$1" == "x--list-script"   -o \
+    x"$1" == "xlistscripts"     -o \
+    x"$1" == "xlist-scripts"    -o \
+    x"$1" == "x--listscripts"   -o \
+    x"$1" == "x--list-scripts" \
    \
    ] ; then
     cd "$HERE"
@@ -615,7 +622,8 @@ if [ \
         MIME=$(mimetype $scriptfile)
         case $MIME in
             text/html|application/pdf|application/epub*)
-                xdg-open "$scriptfile"
+                shift 1
+                xdg-open "$scriptfile" "$@"
              ;;
             inode/x-empty)
                 echo ""
@@ -624,11 +632,13 @@ if [ \
                 exit $?
              ;;
             text/x-*)
-                exec $scriptfile
+                shift 1
+                exec $scriptfile "$@"
                 exit $?
              ;;
             text/plain)
-                source $scriptfile
+                shift 1
+                source $scriptfile "$@"
                 exit $?
              ;;
         esac
